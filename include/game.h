@@ -4,6 +4,7 @@
 #include "SDL2Window.h"
 #include "collison_engine.h"
 #include "dock.h"
+#include "grid.h"
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
 namely :
@@ -19,12 +20,12 @@ dropping down when bricks get destroyed can collide with the dock.
 Hence, a CollisionEngine is required to handle such behaviour.
 
 */
-
 class Game {
 private:
   SDL2Window window_;
   CollisionEngine collision_engine_;
   Dock player_;
+  Grid grid;
 };
 
 #endif

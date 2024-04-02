@@ -1,12 +1,20 @@
 #ifndef COLLISION_ENINE_H
 #define COLLISION_ENINE_H
 
+#include "ball.h"
+#include "grid.h"
 #include <vector>
-#include "object.h"
 
-class CollisionEngine{
-    std::vector<Object> objects_; // pointers ??
+class CollisionEngine {
+private:
+  Ball *ball;
+  Grid *grid;
 
+public:
+    CollisionEngine();
+    ~CollisionEngine();
+    
+    void resolveCollisions();
 };
 
 #endif
