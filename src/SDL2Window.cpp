@@ -1,9 +1,10 @@
 #include "../include/SDL2Window.h"
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
-#include <cstddef>
 #include <cstdlib>
 #include <iostream>
 
@@ -36,6 +37,8 @@ void SDL2Window::init() {
               << std::endl;
     exit(EXIT_FAILURE);
   }
+
+  this->loadTextures();
 }
 
 SDL2Window::~SDL2Window() {
@@ -46,5 +49,37 @@ SDL2Window::~SDL2Window() {
 
 void SDL2Window::update() { SDL_RenderPresent(renderer_); }
 
+SDL_Texture *SDL2Window::loadTexture(const char *path) {
+  SDL_Surface *surface = SDL_LoadBMP(path);
 
+  if (!surface) {
+    std::cerr << "unable to load image : " << path << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer_, surface);
+  SDL_FreeSurface(surface);
+
+  return texture;
+}
+
+void SDL2Window::loadTextures(void) {
+  textures_.insert(std::make_pair(
+      Color::blue, loadTexture("textures/element_blue_rectangle.bmp")));
+  textures_.insert(std::make_pair(
+      Color::green, loadTexture("textures/element_green_rectangle.bmp")));
+  textures_.insert(std::make_pair(
+      Color::grey, loadTexture("textures/element_grey_rectangle.bmp")));
+  textures_.insert(std::make_pair(
+      Color::purple, loadTexture("textures/element_purple_rectangle.bmp")));
+  textures_.insert(std::make_pair(
+      Color::red, loadTexture("textures/element_red_rectangle.bmp")));
+  textures_.insert(std::make_pair(
+      Color::yellow, loadTexture("textures/element_yellow_rectangle.bmp")));
+}
+
+void SDL2Window::foo() {
+  SDL_Rect destinationRect = {100, 100, 70, 10}; // x, y, width, height
+  SDL_RenderClear(renderer_);
+  SDL_RenderCopy(renderer_, textures_[Color::blue], NULL, &destinationRect);
+}

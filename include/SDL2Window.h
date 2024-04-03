@@ -1,9 +1,12 @@
 #ifndef SDL2WINDOW_H
 #define SDL2WINDOW_H
 
+#include "color.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
+#include <map>
+#include <string>
 
 class SDL2Window {
 private:
@@ -13,6 +16,8 @@ private:
 
   // We use a renderer instead of a surface because it is GPU-accelerated
   SDL_Renderer *renderer_;
+
+  std::map<Color, SDL_Texture *> textures_;
 
 public:
   SDL2Window();
@@ -29,6 +34,11 @@ public:
   void fillCircle(double centerX, double centerY, double radius);
 
   void loadTextures(void);
+
+  void foo(void);
+
+private:
+  SDL_Texture *loadTexture(const char *path);
 };
 
 #endif
