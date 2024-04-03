@@ -1,8 +1,6 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-class Color{
-
-};
+enum class Color{blue, green, grey, purple, red, yellow};
 
 #endif
