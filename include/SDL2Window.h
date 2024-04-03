@@ -10,6 +10,8 @@ private:
   const int screen_width_;
   const int screen_height_;
   SDL_Window *window_;
+
+  // We use a renderer instead of a surface because it is GPU-accelerated
   SDL_Renderer *renderer_;
 
 public:
@@ -25,6 +27,8 @@ public:
 public:
   void drawCirle(double centerX, double centerY, double radius);
   void fillCircle(double centerX, double centerY, double radius);
+
+  void loadTextures(void);
 };
 
 #endif
