@@ -24,6 +24,7 @@ public:
 
 public:
   void drawCirle(double centerX, double centerY, double radius);
+  void fillCircle(double centerX, double centerY, double radius);
 };
 
 #endif

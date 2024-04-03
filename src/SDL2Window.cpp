@@ -46,33 +46,5 @@ SDL2Window::~SDL2Window() {
 
 void SDL2Window::update() { SDL_RenderPresent(renderer_); }
 
-void SDL2Window::drawCirle(double centerX, double centerY, double radius) {
 
-  double x = radius - 1;
-  int y = 0;
-  int dx = 1;
-  int dy = 1;
-  int err = dx - (int(radius) << 1);
 
-  while (x >= y) {
-    SDL_RenderDrawPoint(renderer_, centerX + x, centerY + y);
-    SDL_RenderDrawPoint(renderer_, centerX + y, centerY + x);
-    SDL_RenderDrawPoint(renderer_, centerX - y, centerY + x);
-    SDL_RenderDrawPoint(renderer_, centerX - x, centerY + y);
-    SDL_RenderDrawPoint(renderer_, centerX - x, centerY - y);
-    SDL_RenderDrawPoint(renderer_, centerX - y, centerY - x);
-    SDL_RenderDrawPoint(renderer_, centerX + y, centerY - x);
-    SDL_RenderDrawPoint(renderer_, centerX + x, centerY - y);
-
-    if (err <= 0) {
-      y++;
-      err += dy;
-      dy += 2;
-    }
-    if (err > 0) {
-      x--;
-      dx += 2;
-      err += dx - (int(radius) << 1);
-    }
-  }
-}
