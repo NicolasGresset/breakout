@@ -2,7 +2,7 @@
 #define Object_H
 
 #include "color.h"
-#include "position.h"
+#include "vector2D.h"
 
 /*
 An Object is a class which represents anything present in the screen that can
@@ -13,7 +13,7 @@ It must have a Position, a Color
 This class is intended to be virtual and be specialized into Brick, Dock or Ball
 */
 class Object {
-  Position position_;
+  Vector2D position_;
   Color color_;
 };
 

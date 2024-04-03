@@ -5,11 +5,13 @@
 #include "collison_engine.h"
 #include "dock.h"
 #include "grid.h"
+#include "ball.h"
+
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
 namely :
 - Bricks to be destroyed by the player
-- The (potentially many) ball
+- The (potentially many) ball(s)
 - The dock controlled by the player
 - Bonuses
 
@@ -25,7 +27,13 @@ private:
   SDL2Window window_;
   CollisionEngine collision_engine_;
   Dock player_;
-  Grid grid;
+  Grid grid_;
+  std::vector<Ball> balls_;
+
+public:
+  Game();
+  void init(void) ;
+  
 };
 
 #endif
