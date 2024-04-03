@@ -3,8 +3,13 @@ project(Breakout)
 
 include_directories(include)
 
+
+# Dependencies
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
+
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
 # Liste de tous les fichiers sources
 file(GLOB SOURCES "src/*.cpp")
@@ -21,4 +26,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_executable(main ${SOURCES})
 
 # Lier les bibliothèques SDL2
-target_link_libraries(main ${SDL2_LIBRARIES})
+target_link_libraries(main ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
