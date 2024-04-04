@@ -5,16 +5,21 @@
 #include "grid.h"
 #include <vector>
 
-class CollisionEngine {
+/*
+Collision detection is intrisically linked to the shape of bricks composing the
+grid, thus a template class is required
+*/
+
+template <typename T> class CollisionEngine {
 private:
   Ball *ball;
-  Grid *grid;
+  Grid<T> *grid;
 
 public:
-    CollisionEngine();
-    ~CollisionEngine();
-    
-    void resolveCollisions();
+  CollisionEngine();
+  ~CollisionEngine();
+
+  void resolveCollisions();
 };
 
 #endif
