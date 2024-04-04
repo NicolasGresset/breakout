@@ -21,13 +21,17 @@ dropping down when bricks get destroyed can collide with the dock.
 
 Hence, a CollisionEngine is required to handle such behaviour.
 
+A game is parametrized by the type of bricks it is composed : either rectangles or hexagons
+
 */
+
+template<typename T>
 class Game {
 private:
   SDL2Window window_;
-  CollisionEngine collision_engine_;
+  CollisionEngine<T> collision_engine_;
   Dock player_;
-  Grid grid_;
+  Grid<T> grid_;
   std::vector<Ball> balls_;
 
 public:
