@@ -17,7 +17,8 @@ private:
   // We use a renderer instead of a surface because it is GPU-accelerated
   SDL_Renderer *renderer_;
 
-  std::map<Color, SDL_Texture *> textures_;
+  std::map<Color, SDL_Texture *> rectangles_textures_;
+  std::map<Color, SDL_Texture *> balls_textures_;
 
 public:
   SDL2Window();

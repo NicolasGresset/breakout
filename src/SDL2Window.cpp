@@ -7,6 +7,7 @@
 #include <SDL2/SDL_video.h>
 #include <cstdlib>
 #include <iostream>
+#include <utility>
 
 SDL2Window::SDL2Window()
     : window_{nullptr}, renderer_(nullptr), screen_width_{650},
@@ -64,22 +65,24 @@ SDL_Texture *SDL2Window::loadTexture(const char *path) {
 }
 
 void SDL2Window::loadTextures(void) {
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::blue, loadTexture("textures/element_blue_rectangle.bmp")));
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::green, loadTexture("textures/element_green_rectangle.bmp")));
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::grey, loadTexture("textures/element_grey_rectangle.bmp")));
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::purple, loadTexture("textures/element_purple_rectangle.bmp")));
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::red, loadTexture("textures/element_red_rectangle.bmp")));
-  textures_.insert(std::make_pair(
+  rectangles_textures_.insert(std::make_pair(
       Color::yellow, loadTexture("textures/element_yellow_rectangle.bmp")));
+
+  balls_textures_.insert(std::make_pair(Color::blue, loadTexture("textures/ball_blue.bmp")));
 }
 
 void SDL2Window::foo() {
-  SDL_Rect destinationRect = {100, 100, 70, 10}; // x, y, width, height
+  SDL_Rect destinationRect = {100, 100, 70, 70}; // x, y, width, height
   SDL_RenderClear(renderer_);
-  SDL_RenderCopy(renderer_, textures_[Color::blue], NULL, &destinationRect);
+  SDL_RenderCopy(renderer_, balls_textures_[Color::blue], NULL, &destinationRect);
 }
