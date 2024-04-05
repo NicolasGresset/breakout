@@ -13,8 +13,13 @@ It must have a Position, a Color
 This class is intended to be virtual and be specialized into Brick, Dock or Ball
 */
 class Object {
+  protected:
   Vector2D position_;
   Color color_;
+
+  public:
+    Object();
+    Object(Vector2D position, Color color);
 };
 
 #endif

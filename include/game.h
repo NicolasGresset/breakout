@@ -25,13 +25,13 @@ A game is parametrized by the type of bricks it is composed : either rectangles 
 
 */
 
-template<typename T>
+//template<typename T>
 class Game {
 private:
   SDL2Window window_;
-  CollisionEngine<T> collision_engine_;
+  CollisionEngine collision_engine_;
   Dock player_;
-  Grid<T> grid_;
+  Grid grid_;
   std::vector<Ball> balls_;
 
 public:
