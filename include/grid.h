@@ -9,15 +9,18 @@ A grid can either be composed of rectangles or hexagons, thus a template class
 is required
 */
 
-//template <typename T> 
-// on va essayer de faire une grille de rectangles pour l'instant
+// template <typename T>
+//  on va essayer de faire une grille de rectangles pour l'instant
 class Grid {
 private:
   std::vector<RectangleBrick> bricks_;
   const int height_;
   const int width_;
+  double window_height_;
+  double window_width_;
 
   void initializeGrid(void);
+  RectangleBrick initializeElement(const int i, const int j);
 
 public:
   Grid();
@@ -29,7 +32,8 @@ public:
   // for instance, for a 3*4 grid, call Grid(3, 4)
   // the convention is similar to matrixes
   */
-  Grid(const int height, const int width);
+  Grid(const int height, const int width, const double window_height,
+       const double window_width);
 };
 
 #endif

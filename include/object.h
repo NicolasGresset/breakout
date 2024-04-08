@@ -14,6 +14,7 @@ This class is intended to be virtual and be specialized into Brick, Dock or Ball
 */
 class Object {
   protected:
+  // The position of the center of the object --> any object MUST have a center unambiguously defined
   Vector2D position_;
   Color color_;
 

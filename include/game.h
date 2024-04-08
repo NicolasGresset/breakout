@@ -37,6 +37,7 @@ private:
 public:
   Game();
   void init(void) ;
+  void mainLoop(void);
   
 };
 
