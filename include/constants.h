@@ -9,4 +9,6 @@ constexpr int DOCK_WIDTH = 150;
 
 constexpr int PADDING = 20;
 
+constexpr double DOCK_SPEED_X = 5;
+
 #endif

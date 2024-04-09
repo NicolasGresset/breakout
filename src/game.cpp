@@ -1,5 +1,6 @@
 #include "../include/game.h"
 #include "color.h"
+#include <SDL_events.h>
 
 Game::Game() : is_window_closed_(false), grid_(&assets_){};
 
@@ -25,7 +26,10 @@ void Game::pollEvent() {
     case SDL_QUIT:
       is_window_closed_ = true;
       break;
+
     default:
+      if (!event.key.repeat)
+        player_.handleEvent(event);
       break;
     }
   }
@@ -41,12 +45,16 @@ void Game::foo() {
 
 void Game::mainLoop() {
   while (!is_window_closed_) {
+    window_.clearWindow();
 
     this->pollEvent();
     this->manageKeys();
+
+    player_.move();
+
     grid_.draw(renderer_);
     player_.draw(renderer_);
     window_.update();
-    window_.temporisation(100);
+    window_.temporisation(50);
   }
 }

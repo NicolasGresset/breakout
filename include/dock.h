@@ -4,6 +4,7 @@
 #include "SDL2Window.h"
 #include "object.h"
 #include "vector2D.h"
+#include <SDL_events.h>
 #include <SDL_render.h>
 
 /*
@@ -16,6 +17,8 @@ private:
   double width_;
   double height_;
 
+  Vector2D speed_;
+
 public:
   Dock(SDL_Texture *texture = nullptr);
   void draw(SDL_Renderer *renderer) const override;
@@ -24,6 +27,13 @@ public:
     return Vector2D(position_.getX() - width_ / 2,
                     position_.getY() - height_ / 2);
   }
+
+  void handleEvent(SDL_Event& event);
+
+  /*
+  Update Dock's position_ accordingly to its speed
+*/
+  void move() ;
 
 };
 
