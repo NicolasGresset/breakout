@@ -10,6 +10,8 @@ public:
   Vector2D(double x = 0, double y = 0);
   inline double getX(void) const { return x_; }
   inline double getY(void) const { return y_; }
+
+  void print(void) const;
 };
 
 #endif
