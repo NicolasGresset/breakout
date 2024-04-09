@@ -1,8 +1,11 @@
 #include "../include/game.h"
+#include "collison_engine.h"
 #include "color.h"
 #include <SDL_events.h>
 
-Game::Game() : is_window_closed_(false), grid_(&assets_) {
+Game::Game()
+    : is_window_closed_(false), grid_(&assets_),
+      collision_engine_(balls_, grid_, player_) {
   balls_.push_back(Ball());
 };
 

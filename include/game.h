@@ -34,7 +34,7 @@ private:
   SDL2Window window_;
   SDL_Renderer *renderer_; // shared_pointer to renderer to avoir getting it too
                            // often from Window member
-  // CollisionEngine collision_engine_;
+  CollisionEngine collision_engine_;
   Dock player_;
   Grid grid_;
   std::vector<Ball> balls_;

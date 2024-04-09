@@ -2,9 +2,11 @@
 #define COLLISION_ENINE_H
 
 #include "ball.h"
+#include "dock.h"
 #include "grid.h"
+#include "rectangle_brick.h"
+#include "vector2D.h"
 #include <vector>
-
 /*
 Collision detection is intrisically linked to the shape of bricks composing the
 grid, thus a template class is required
@@ -14,17 +16,26 @@ grid, thus a template class is required
 // l'instant
 class CollisionEngine {
 private:
-  Ball *ball;
-  Grid *grid;
+  std::vector<Ball> &balls_;
+  Grid &grid_;
+  Dock &player_;
 
 public:
   CollisionEngine();
-  CollisionEngine(Ball *ball, Grid *grid);
+  CollisionEngine(std::vector<Ball> &balls, Grid &grid, Dock &player);
   //~CollisionEngine();
 
   /* Starting from a state of the positions of the game, move them in a way
    * there are*/
   void resolveCollisions();
+
+
+private:
+
+
+  bool checkAABBCollision();
+  // returns 0 if there are no intersections or the point of collision otherwise
+  bool ballIntersectRectangle(Ball &ball, RectangleBrick &brick) const;
 };
 
 #endif
