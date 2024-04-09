@@ -12,7 +12,7 @@ Grid::Grid(Assets *assets)
       assets_(assets) {}
 
 void Grid::init() {
-  double element_height = window_height_ / height_;
+  double element_height = window_height_ / (2* height_);
   double element_width = window_width_ / width_;
   for (unsigned int i{0}; i < height_; i++) {
     for (unsigned int j{0}; j < width_; j++) {
