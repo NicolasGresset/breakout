@@ -21,7 +21,10 @@ public:
   Returns the 2DVector corresopnding to the coordinates of the upper left corner
   of the rectangle
   */
-  Vector2D toUpperLeftCoords() const;
+  inline Vector2D toUpperLeftCoords() const {
+    return Vector2D(position_.getX() - width_ / 2,
+                    position_.getY() - height_ / 2);
+  }
 
   void draw(SDL_Renderer *renderer) const override;
 };
