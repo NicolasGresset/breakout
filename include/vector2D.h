@@ -11,6 +11,9 @@ public:
   inline double getX(void) const { return x_; }
   inline double getY(void) const { return y_; }
 
+  inline void setX(double x) { x_ = x; }
+  inline void setY(double y) { y_ = y; }
+
   void print(void) const;
 };
 
