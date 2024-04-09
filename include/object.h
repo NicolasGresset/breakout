@@ -23,6 +23,9 @@ protected:
 public:
   Object();
   Object(Vector2D position, SDL_Texture * texture);
+  virtual void draw(SDL_Renderer* renderer) const = 0;
+
+  inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
 };
 
 #endif
