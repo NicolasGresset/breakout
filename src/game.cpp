@@ -1,4 +1,5 @@
 #include "../include/game.h"
+#include "color.h"
 
 Game::Game() : is_window_closed_(false), grid_(&assets_){};
 
@@ -7,6 +8,7 @@ void Game::init() {
   renderer_ = window_.getRenderer();
   assets_.loadTextures(renderer_);
   grid_.init();
+  player_.setTexture(assets_.getRectangleTexture(Color::blue));
 }
 
 void Game::manageKeys() {
