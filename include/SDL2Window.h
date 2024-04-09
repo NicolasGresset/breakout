@@ -1,7 +1,7 @@
 #ifndef SDL2WINDOW_H
 #define SDL2WINDOW_H
 
-#include "color.h"
+#include "assets.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
@@ -17,9 +17,6 @@ private:
   // We use a renderer instead of a surface because it is GPU-accelerated
   SDL_Renderer *renderer_;
 
-  std::map<Color, SDL_Texture *> rectangles_textures_;
-  std::map<Color, SDL_Texture *> balls_textures_;
-
 public:
   SDL2Window();
   SDL2Window(int screen_width, int screen_height);
@@ -29,22 +26,19 @@ public:
 private:
   void initSDLObjects();
 
-public: 
+public:
   void update();
   ~SDL2Window();
 
   inline void temporisation(Uint32 ms) const { SDL_Delay(ms); }
+  inline SDL_Renderer *getRenderer(void) { return renderer_; }
+  inline void clearWindow(void) {SDL_RenderClear(renderer_);}
 
 public:
   void drawCirle(double centerX, double centerY, double radius);
   void fillCircle(double centerX, double centerY, double radius);
 
-  void loadTextures(void);
-
-  void foo(void);
-
-private:
-  SDL_Texture *loadTexture(const char *path);
+  // void foo(void);
 };
 
 #endif

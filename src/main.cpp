@@ -1,12 +1,9 @@
-#include "../include/brick.h"
+#include "../include/game.h"
 
 int main(int argc, char *argv[]) {
-  // SDL2Window window;
-  // window.init();
-  // window.foo();
-  // window.update();
-  // window.temporisation(4000);
-
-  Brick brick;
+  Game my_game;
+  my_game.init();
+  // my_game.foo();
+  my_game.mainLoop();
   return 0;
 }

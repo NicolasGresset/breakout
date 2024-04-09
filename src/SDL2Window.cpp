@@ -42,7 +42,7 @@ void SDL2Window::initSDLObjects() {
 
 void SDL2Window::init() {
   this->initSDLObjects();
-  this->loadTextures();
+  this->clearWindow();
 }
 
 SDL2Window::~SDL2Window() {
@@ -53,43 +53,11 @@ SDL2Window::~SDL2Window() {
 
 void SDL2Window::update() { SDL_RenderPresent(renderer_); }
 
-SDL_Texture *SDL2Window::loadTexture(const char *path) {
-  SDL_Surface *surface = SDL_LoadBMP(path);
 
-  if (!surface) {
-    std::cerr << "unable to load image : " << path << std::endl;
-    exit(EXIT_FAILURE);
-  }
 
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer_, surface);
-  SDL_FreeSurface(surface);
-
-  return texture;
-}
-
-void SDL2Window::loadTextures(void) {
-  // Load rectangles
-  rectangles_textures_.insert(std::make_pair(
-      Color::blue, loadTexture("textures/element_blue_rectangle.bmp")));
-  rectangles_textures_.insert(std::make_pair(
-      Color::green, loadTexture("textures/element_green_rectangle.bmp")));
-  rectangles_textures_.insert(std::make_pair(
-      Color::grey, loadTexture("textures/element_grey_rectangle.bmp")));
-  rectangles_textures_.insert(std::make_pair(
-      Color::purple, loadTexture("textures/element_purple_rectangle.bmp")));
-  rectangles_textures_.insert(std::make_pair(
-      Color::red, loadTexture("textures/element_red_rectangle.bmp")));
-  rectangles_textures_.insert(std::make_pair(
-      Color::yellow, loadTexture("textures/element_yellow_rectangle.bmp")));
-
-  // Load balls
-  balls_textures_.insert(
-      std::make_pair(Color::blue, loadTexture("textures/ball_blue.bmp")));
-}
-
-void SDL2Window::foo() {
-  SDL_Rect destinationRect = {100, 100, 70, 70}; // x, y, width, height
-  SDL_RenderClear(renderer_);
-  SDL_RenderCopy(renderer_, balls_textures_[Color::blue], NULL,
-                 &destinationRect);
-}
+// void SDL2Window::foo() {
+//   SDL_Rect destinationRect = {100, 100, 70, 70}; // x, y, width, height
+//   SDL_RenderClear(renderer_);
+//   SDL_RenderCopy(renderer_, assets_.getBallTexture(Color::blue), NULL,
+//                  &destinationRect);
+// }

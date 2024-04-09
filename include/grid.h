@@ -1,7 +1,10 @@
 #ifndef GRID_H
 #define GRID_H
+#include "assets.h"
 #include "brick.h"
 #include "rectangle_brick.h"
+#include <SDL2/SDL_render.h>
+#include <cstddef>
 #include <vector>
 
 /*
@@ -19,12 +22,16 @@ private:
   double window_height_;
   double window_width_;
 
-  void initializeGrid(void);
+  Assets *assets_;
+
+
+public:
+  void init();
+
+private:
   RectangleBrick initializeElement(const int i, const int j);
 
 public:
-  Grid();
-
   /*
   // Width corresponds to the number of bricks on the width of the screen
   // Height corresponds to the number of bricks on the height of the screen
@@ -32,8 +39,13 @@ public:
   // for instance, for a 3*4 grid, call Grid(3, 4)
   // the convention is similar to matrixes
   */
-  Grid(const int height, const int width, const double window_height,
-       const double window_width);
+  Grid(const int height = 4, const int width = 8, const double window_height = 500,
+       const double window_width = 800, Assets *assets= nullptr);
+
+  Grid(Assets * assets);
+
+
+  void draw (SDL_Renderer *renderer) const;
 };
 
 #endif

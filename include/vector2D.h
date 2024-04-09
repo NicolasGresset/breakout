@@ -1,13 +1,15 @@
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
-class Vector2D{
-    private:
-    double x_;
-    double y_;
+class Vector2D {
+private:
+  double x_;
+  double y_;
 
-    public:
-    Vector2D(double x, double y);
+public:
+  Vector2D(double x, double y);
+  inline double getX(void) const { return x_; }
+  inline double getY(void) const { return y_; }
 };
 
 #endif

@@ -20,7 +20,7 @@ private:
 public:
   CollisionEngine();
   CollisionEngine(Ball *ball, Grid *grid);
-  ~CollisionEngine();
+  //~CollisionEngine();
 
   /* Starting from a state of the positions of the game, move them in a way
    * there are*/
