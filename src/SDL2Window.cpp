@@ -8,10 +8,11 @@
 #include <cstdlib>
 #include <iostream>
 #include <utility>
+#include "../include/constants.h"
 
 SDL2Window::SDL2Window()
-    : window_{nullptr}, renderer_(nullptr), screen_width_{800},
-      screen_height_{500} {}
+    : window_{nullptr}, renderer_(nullptr), screen_width_{WINDOW_WIDTH},
+      screen_height_{WINDOW_HEIGHT} {}
 
 SDL2Window::SDL2Window(int screen_width, int screen_height)
     : window_(nullptr), renderer_(nullptr), screen_width_{screen_width},
@@ -52,12 +53,3 @@ SDL2Window::~SDL2Window() {
 }
 
 void SDL2Window::update() { SDL_RenderPresent(renderer_); }
-
-
-
-// void SDL2Window::foo() {
-//   SDL_Rect destinationRect = {100, 100, 70, 70}; // x, y, width, height
-//   SDL_RenderClear(renderer_);
-//   SDL_RenderCopy(renderer_, assets_.getBallTexture(Color::blue), NULL,
-//                  &destinationRect);
-// }
