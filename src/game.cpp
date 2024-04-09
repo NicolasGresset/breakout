@@ -2,7 +2,9 @@
 #include "color.h"
 #include <SDL_events.h>
 
-Game::Game() : is_window_closed_(false), grid_(&assets_){};
+Game::Game() : is_window_closed_(false), grid_(&assets_) {
+  balls_.push_back(Ball());
+};
 
 void Game::init() {
   window_.init();
@@ -10,6 +12,7 @@ void Game::init() {
   assets_.loadTextures(renderer_);
   grid_.init();
   player_.setTexture(assets_.getRectangleTexture(Color::blue));
+  balls_[0].setTexture(assets_.getBallTexture(Color::blue));
 }
 
 void Game::manageKeys() {
@@ -51,9 +54,11 @@ void Game::mainLoop() {
     this->manageKeys();
 
     player_.move();
+    balls_[0].move();
 
     grid_.draw(renderer_);
     player_.draw(renderer_);
+    balls_[0].draw(renderer_);
     window_.update();
     window_.temporisation(50);
   }

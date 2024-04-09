@@ -11,4 +11,13 @@ constexpr int PADDING = 20;
 
 constexpr double DOCK_SPEED_X = 5;
 
+constexpr double INITIAL_BALL_POSITION_X = (double)WINDOW_WIDTH / 2;
+constexpr double INITIAL_BALL_POSITION_Y = 2 * (double)WINDOW_HEIGHT / 3;
+
+constexpr double BALL_SPEED_NORM = 10;
+
+constexpr double BALL_RADIUS = 5;
+
+constexpr double SQUARE_ROOT_2 = 1.41321356;
+
 #endif
