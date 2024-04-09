@@ -7,6 +7,7 @@
 #include "collison_engine.h"
 #include "dock.h"
 #include "grid.h"
+#include <SDL_render.h>
 
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
@@ -31,6 +32,8 @@ or hexagons
 class Game {
 private:
   SDL2Window window_;
+  SDL_Renderer *renderer_; // shared_pointer to renderer to avoir getting it too
+                           // often from Window member
   // CollisionEngine collision_engine_;
   Dock player_;
   Grid grid_;
