@@ -25,5 +25,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 # Spécifiez l'exécutable que vous souhaitez créer
 add_executable(main ${SOURCES})
 
+# Définir les options de compilation pour votre projet
+target_compile_options(main PRIVATE "-Wunused-result")
+
 # Lier les bibliothèques SDL2
 target_link_libraries(main ${SDL2_LIBRARIES})
