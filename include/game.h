@@ -50,6 +50,10 @@ public:
   void mainLoop(void);
 
   void foo();
+
+  private:  
+    void drawObjects();
+    void moveObjects();
 };
 
 #endif

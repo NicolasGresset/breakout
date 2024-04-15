@@ -1,6 +1,7 @@
 #include "../include/game.h"
 #include "collison_engine.h"
 #include "color.h"
+#include "grid.h"
 #include <SDL_events.h>
 
 Game::Game()
@@ -49,21 +50,29 @@ void Game::foo() {
                  &destinationRect);
 }
 
+void Game::drawObjects() {
+  grid_.draw(renderer_);
+  player_.draw(renderer_);
+  for (auto &ball : balls_) {
+    ball.draw(renderer_);
+  }
+}
+
+void Game::moveObjects() {
+  player_.move();
+  for (auto &ball : balls_) {
+    ball.move();
+  }
+}
+
 void Game::mainLoop() {
   while (!is_window_closed_) {
     window_.clearWindow();
-
     this->pollEvent();
     this->manageKeys();
-
-    player_.move();
-    balls_[0].move();
-
+    moveObjects();
     collision_engine_.resolveCollisions();
-
-    grid_.draw(renderer_);
-    player_.draw(renderer_);
-    balls_[0].draw(renderer_);
+    drawObjects();
     window_.update();
     window_.temporisation(50);
   }
