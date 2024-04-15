@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[]) {
   (void)argc;
-  void(argv);
+  (void)argv;
   Game my_game;
   my_game.init();
   // my_game.foo();
