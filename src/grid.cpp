@@ -12,10 +12,10 @@ Grid::Grid(Assets *assets)
       assets_(assets) {}
 
 void Grid::init() {
-  double element_height = window_height_ / (2* height_);
+  double element_height = window_height_ / (2 * height_);
   double element_width = window_width_ / width_;
-  for (unsigned int i{0}; i < height_; i++) {
-    for (unsigned int j{0}; j < width_; j++) {
+  for (int i{0}; i < height_; i++) {
+    for (int j{0}; j < width_; j++) {
       bricks_.push_back(
           RectangleBrick(Vector2D(j * element_width + element_width / 2,
                                   i * element_height + element_height / 2),
