@@ -1,4 +1,5 @@
 #include "../include/SDL2Window.h"
+#include <SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
@@ -9,6 +10,7 @@
 #include <iostream>
 #include <utility>
 #include "../include/constants.h"
+#include "../include/utils.h"
 
 SDL2Window::SDL2Window()
     : window_{nullptr}, renderer_(nullptr), screen_width_{WINDOW_WIDTH},
@@ -19,26 +21,17 @@ SDL2Window::SDL2Window(int screen_width, int screen_height)
       screen_height_{screen_height} {};
 
 void SDL2Window::initSDLObjects() {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    std::cerr << "SDL could not initialize! SDL_Error: "
-              << std::string{SDL_GetError()} << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
-  if ((window_ = SDL_CreateWindow(
+  int code;
+  code = SDL_Init(SDL_INIT_VIDEO);
+  checkSDLReturnCode((code < 0));
+  
+  window_ = SDL_CreateWindow(
            "Breakout", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-           screen_width_, screen_height_, SDL_WINDOW_SHOWN)) == nullptr) {
-    std::cerr << "Window could not be created! SDL_Error: "
-              << std::string{SDL_GetError()} << std::endl;
-    exit(EXIT_FAILURE);
-  }
+           screen_width_, screen_height_, SDL_WINDOW_SHOWN);
+  checkSDLReturnCode(window_ == nullptr);
 
-  if ((renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED)) ==
-      nullptr) {
-    std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError()
-              << std::endl;
-    exit(EXIT_FAILURE);
-  }
+  renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
+  checkSDLReturnCode(renderer_ == nullptr);
 }
 
 void SDL2Window::init() {
