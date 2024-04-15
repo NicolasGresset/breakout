@@ -13,8 +13,9 @@ private:
 public:
   Brick();
   Brick(Vector2D position, SDL_Texture *texture, int life);
+  Brick(int life);
 
-  virtual void draw(SDL_Renderer *renderer) const = 0;
+  
   inline const Vector2D &getPosition(void) const { return position_; }
 };
 

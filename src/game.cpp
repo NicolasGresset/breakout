@@ -4,8 +4,8 @@
 #include <SDL_events.h>
 
 Game::Game()
-    : is_window_closed_(false), grid_(&assets_),
-      collision_engine_(balls_, grid_, player_) {
+    : collision_engine_(balls_, grid_, player_), grid_(&assets_),
+      is_window_closed_(false) {
   balls_.push_back(Ball());
 };
 

@@ -5,3 +5,5 @@ Brick::Brick() : Object(), life_{3} {};
 
 Brick::Brick(Vector2D position, SDL_Texture *texture, int life)
     : Object(position, texture), life_(life){};
+
+Brick::Brick(int life) : Object(), life_(life) {};

@@ -1,4 +1,6 @@
 #include "../include/rectangle_brick.h"
+#include "brick.h"
+#include "rectangle.h"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <cstddef>
@@ -7,19 +9,8 @@
 
 RectangleBrick::RectangleBrick(Vector2D position, SDL_Texture *texture,
                                int life, double width, double height)
-    : Brick(position, texture, life), width_(width), height_(height){};
-RectangleBrick::RectangleBrick() : Brick(Vector2D{0, 0}, nullptr, 3){};
+    : Rectangle(position, texture, width, height), Brick(life){};
+RectangleBrick::RectangleBrick() : Rectangle(Vector2D{0, 0}, nullptr, 0, 0), Brick(3){};
 
 
-void RectangleBrick::draw(SDL_Renderer *renderer) const {
-  Vector2D upper_left_coords = this->toUpperLeftCoords();
-  SDL_Rect destinationRect = {(int)upper_left_coords.getX(),
-                              (int)upper_left_coords.getY(), (int)width_,
-                              (int)height_};
 
-  if (SDL_RenderCopy(renderer, texture_, NULL, &destinationRect) < 0) {
-    std::cerr << "unable to render rectangle brick : "
-              << std::string{SDL_GetError()} << std::endl;
-    exit(EXIT_FAILURE);
-  }
-}
