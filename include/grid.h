@@ -24,7 +24,6 @@ private:
 
   Assets *assets_;
 
-
 public:
   void init();
 
@@ -39,13 +38,16 @@ public:
   // for instance, for a 3*4 grid, call Grid(3, 4)
   // the convention is similar to matrixes
   */
-  Grid(const int height = 4, const int width = 8, const double window_height = 500,
-       const double window_width = 800, Assets *assets= nullptr);
+  Grid(const int height = 4, const int width = 8,
+       const double window_height = 500, const double window_width = 800,
+       Assets *assets = nullptr);
 
-  Grid(Assets * assets);
+  Grid(Assets *assets);
 
+  void draw(SDL_Renderer *renderer) const;
 
-  void draw (SDL_Renderer *renderer) const;
+  inline double getWindowHeight() { return window_height_; }
+  inline double getWindowWidth() { return window_width_; }
 };
 
 #endif

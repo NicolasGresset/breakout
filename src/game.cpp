@@ -59,6 +59,8 @@ void Game::mainLoop() {
     player_.move();
     balls_[0].move();
 
+    collision_engine_.resolveCollisions();
+
     grid_.draw(renderer_);
     player_.draw(renderer_);
     balls_[0].draw(renderer_);

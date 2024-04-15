@@ -12,8 +12,8 @@ we should consider multiple heritance
 #todo
 */
 class Ball : public Object {
-  Vector2D speed_;
   double radius_;
+  Vector2D speed_;
   double rounding_square_side_length;
   double path_angle_;
 
@@ -30,6 +30,13 @@ private:
 
 public:
   void move();
+
+  /*
+  Checks wether the ball is colliding outside of the boundaries of the window and updates its speed accordingly
+  */
+  int bounceIntoWindow(double height, double width);
+
+  void reset();
 };
 
 #endif
