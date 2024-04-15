@@ -15,16 +15,16 @@ void Dock::handleEvent(SDL_Event &event) {
 
   if (event.type == SDL_KEYDOWN) {
     if (event.key.keysym.sym == SDLK_RIGHT) {
-      speed_.setX(DOCK_SPEED_X);
+      speed_.x_ = DOCK_SPEED_X;
     } else if (event.key.keysym.sym == SDLK_LEFT) {
-      speed_.setX(-DOCK_SPEED_X);
+      speed_.x_ = -DOCK_SPEED_X;
     }
   } else if (event.type == SDL_KEYUP) {
-    speed_.setX(0);
+    speed_.x_ = 0;
   }
 }
 
 void Dock::move() {
-  position_.setX(position_.getX() + speed_.getX());
-  position_.setY(position_.getY() + speed_.getY());
+  position_.x_ += speed_.x_;
+  position_.y_ += speed_.y_;
 }

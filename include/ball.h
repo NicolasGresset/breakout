@@ -24,8 +24,8 @@ public:
 
 private:
   inline Vector2D toUpperLeftCoords() const {
-    return Vector2D(position_.getX() - radius_ / 2,
-                    position_.getY() - radius_ / 2);
+    return Vector2D(position_.x_ - radius_ / 2,
+                    position_.y_ - radius_ / 2);
   }
 
 public:

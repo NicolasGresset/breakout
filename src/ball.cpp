@@ -16,7 +16,7 @@ void Ball::draw(SDL_Renderer *renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
 
   SDL_Rect destinationRect = {
-      (int)upper_left_coords.getX(), (int)upper_left_coords.getY(),
+      (int)upper_left_coords.x_, (int)upper_left_coords.y_,
       (int)rounding_square_side_length, (int)rounding_square_side_length};
 
   if (SDL_RenderCopy(renderer, texture_, NULL, &destinationRect) < 0) {
@@ -27,34 +27,34 @@ void Ball::draw(SDL_Renderer *renderer) const {
 }
 
 void Ball::move() {
-  position_.setX(position_.getX() + speed_.getX());
-  position_.setY(position_.getY() + speed_.getY());
+  position_.x_ += speed_.x_;
+  position_.y_ += speed_.y_;
 }
 
 int Ball::bounceIntoWindow(double height, double width) {
-  if (this->position_.getY() + this->radius_ > height) {
+  if (this->position_.y_ + this->radius_ > height) {
     reset();
     return 0;
   }
 
-  if (this->position_.getX() + this->radius_ > width) {
-    this->speed_.setX((-this->speed_.getX()));
+  if (this->position_.x_ + this->radius_ > width) {
+    speed_.x_ = -speed_.x_;
   }
 
-  if (this->position_.getX() - this->radius_ < 0) {
-    this->speed_.setX((-this->speed_.getX()));
+  if (this->position_.x_ - this->radius_ < 0) {
+    speed_.x_ = -speed_.x_;
   }
 
-  if (this->position_.getY() - this->radius_ < 0) {
-    this->speed_.setY((-this->speed_.getY()));
+  if (this->position_.y_ - this->radius_ < 0) {
+    speed_.y_ = -speed_.y_;
   }
 
   return 1;
 }
 
 void Ball::reset(){
-  this->speed_.setX(0);
-  this->speed_.setY(BALL_SPEED_NORM);
-  this->position_.setX(INITIAL_BALL_POSITION_X);
-  this->position_.setY(INITIAL_BALL_POSITION_Y);
+  speed_.x_ = 0;
+  speed_.y_ = BALL_SPEED_NORM;
+  position_.x_ = INITIAL_BALL_POSITION_X;
+  position_.y_ = INITIAL_BALL_POSITION_Y;
 }
