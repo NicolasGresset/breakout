@@ -5,6 +5,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
 #include <cstdlib>
 #include <iostream>
@@ -24,7 +25,11 @@ void SDL2Window::initSDLObjects() {
   int code;
   code = SDL_Init(SDL_INIT_VIDEO);
   checkSDLReturnCode((code < 0));
-  
+
+  // Init TTF
+  code = TTF_Init();
+  checkSDLReturnCode((code < 0));
+
   window_ = SDL_CreateWindow(
            "Breakout", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
            screen_width_, screen_height_, SDL_WINDOW_SHOWN);
@@ -42,6 +47,7 @@ void SDL2Window::init() {
 SDL2Window::~SDL2Window() {
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
+  TTF_Quit(); // Quit ttf
   SDL_Quit();
 }
 

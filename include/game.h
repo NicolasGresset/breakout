@@ -51,9 +51,10 @@ public:
 
   void foo();
 
-  private:  
+  private:
     void drawObjects();
     void moveObjects();
+    void gameInit();
 };
 
 #endif
