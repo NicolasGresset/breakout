@@ -6,7 +6,7 @@
 #include "utils/vector2D.h"
 #include <SDL2/SDL_render.h>
 
-class Brick : public Object {
+class Brick : virtual public Object {
 private:
   int life_;
 

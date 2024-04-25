@@ -35,18 +35,24 @@ public:
   virtual ~Object(){};
 };
 
-class MovableObject : public Object {
+/* Héritage virtuel pour résoudre le problème du diamant*/
+class MovableObject : virtual public Object {
 protected:
   Vector2D speed_;
 
 public:
   inline void move(Uint64 delta) {
+    position_.print();
     position_.x_ += speed_.x_ * delta;
     position_.y_ += speed_.y_ * delta;
+    position_.print();
+    printf("\n");
   }
 
   MovableObject();
   MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
+
+  inline const Vector2D &getSpeed() const { return speed_; }
 };
 
 #endif

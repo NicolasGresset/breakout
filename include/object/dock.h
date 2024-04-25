@@ -25,7 +25,8 @@ public:
     return Rectangle::getPosition();
   }
 
-  inline void draw(SDL_Renderer *renderer) const { Rectangle::draw(renderer); }
+  inline void draw(SDL_Renderer *renderer) const { 
+    Rectangle::draw(renderer); }
 
   inline Vector2D toUpperLeftCoords() const {
     return Rectangle::toUpperLeftCoords();
@@ -34,6 +35,12 @@ public:
   inline void setTexture(SDL_Texture *texture) {
     Rectangle::setTexture(texture);
   }
+
+  inline void move(Uint64 delta) {
+    position_.print();
+    printf("dock position %p\n", &position_);
+    MovableObject::move(delta);
+  }  
 };
 
 #endif

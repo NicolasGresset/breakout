@@ -4,7 +4,9 @@
 #include "object.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
-class Rectangle : public Object {
+
+/* Héritage virtuel pour résoudre le problème du diamant */
+class Rectangle : virtual public Object {
 
 private:
   double width_;
