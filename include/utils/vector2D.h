@@ -8,6 +8,7 @@ public:
 
 public:
   Vector2D(double x = 0, double y = 0);
+  Vector2D(const Vector2D &vector);
 
 
   void print(void) const;
