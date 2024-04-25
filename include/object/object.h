@@ -30,6 +30,8 @@ public:
 
   inline const Vector2D &getPosition() const { return position_; }
 
+  inline SDL_Texture *getTexture() { return texture_; }
+
   virtual inline Vector2D toUpperLeftCoords() const = 0;
 
   virtual ~Object(){};
@@ -42,11 +44,8 @@ protected:
 
 public:
   inline void move(Uint64 delta) {
-    position_.print();
     position_.x_ += speed_.x_ * delta;
     position_.y_ += speed_.y_ * delta;
-    position_.print();
-    printf("\n");
   }
 
   MovableObject();
