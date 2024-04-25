@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 
-RectangleBrick::RectangleBrick(Vector2D position, SDL_Texture *texture,
+RectangleBrick::RectangleBrick(Vector2D position, std::shared_ptr<SDL_Texture> texture,
                                int life, double width, double height)
     : Rectangle(position, texture, width, height), Brick(life) {}
 RectangleBrick::RectangleBrick() : Rectangle(), Brick(){};

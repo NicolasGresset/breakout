@@ -10,7 +10,7 @@ class RectangleBrick : public Rectangle, public Brick {
 
 public:
   RectangleBrick();
-  RectangleBrick(Vector2D position, SDL_Texture *texture, int life,
+  RectangleBrick(Vector2D position, std::shared_ptr<SDL_Texture> texture, int life,
                  double width, double height);
 
   inline void draw(SDL_Renderer &renderer) const override {

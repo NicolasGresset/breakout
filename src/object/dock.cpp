@@ -15,7 +15,7 @@
 
 Dock::Dock() : Rectangle(), MovableObject() {}
 
-Dock::Dock(Vector2D position, double width, double height, SDL_Texture *texture, Vector2D speed) : Rectangle(position, texture, width, height), MovableObject(speed) {}
+Dock::Dock(Vector2D position, double width, double height, std::shared_ptr<SDL_Texture> texture, Vector2D speed) : Rectangle(position, texture, width, height), MovableObject(speed) {}
 
 void Dock::handleEvent(SDL_Event &event) {
 

@@ -23,7 +23,7 @@ private:
 
 public:
   Ball();
-  Ball(Vector2D position, SDL_Texture *texture, Vector2D speed, double radius);
+  Ball(Vector2D position, std::shared_ptr<SDL_Texture> texture, Vector2D speed, double radius);
   // Ball(SDL_Texture *texture);
 
   void draw(SDL_Renderer &renderer) const override;

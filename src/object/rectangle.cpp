@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <iostream>
 
-Rectangle::Rectangle(Vector2D position, SDL_Texture *texture, double width,
+Rectangle::Rectangle(Vector2D position, std::shared_ptr<SDL_Texture> texture, double width,
                      double height)
     : Object(position, texture), width_(width), height_(height){};
 
@@ -19,6 +19,6 @@ void Rectangle::draw(SDL_Renderer &renderer) const {
                               (int)upper_left_coords.y_, (int)width_,
                               (int)height_};
 
-  int code = SDL_RenderCopy(&renderer, texture_, NULL, &destinationRect);
+  int code = SDL_RenderCopy(&renderer, texture_.get(), NULL, &destinationRect);
   CHECK_SDL_RETURN_CODE(code < 0);
 }

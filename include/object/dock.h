@@ -19,7 +19,7 @@ class Dock : public Rectangle, public MovableObject {
 public:
   Dock();
   // Dock(SDL_Texture *texture);
-  Dock(Vector2D position, double width, double height, SDL_Texture *texture,
+  Dock(Vector2D position, double width, double height, std::shared_ptr<SDL_Texture> texture,
        Vector2D speed);
 
   void handleEvent(SDL_Event &event);
@@ -34,9 +34,6 @@ public:
     return Rectangle::toUpperLeftCoords();
   }
 
-  inline void setTexture(SDL_Texture *texture) {
-    Rectangle::setTexture(texture);
-  }
 
   // inline void move(Uint64 delta) {
   //   MovableObject::move(delta);

@@ -14,7 +14,7 @@ private:
 
 public:
   Rectangle();
-  Rectangle(Vector2D position, SDL_Texture *texture, double width,
+  Rectangle(Vector2D position, std::shared_ptr<SDL_Texture> texture, double width,
             double height);
 
   //Rectangle(double width, double height);

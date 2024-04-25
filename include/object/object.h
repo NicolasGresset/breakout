@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL_stdinc.h>
+#include <memory>
 
 /*
 An Object is a class which represents anything present in the screen that can
@@ -19,18 +20,18 @@ protected:
   // The position of the center of the object --> any object MUST have a center
   // unambiguously defined
   Vector2D position_;
-  SDL_Texture *texture_;
+  std::shared_ptr<SDL_Texture> texture_;
 
 public:
   Object();
-  Object(Vector2D position, SDL_Texture *texture);
+  Object(Vector2D position, std::shared_ptr<SDL_Texture> texture);
   virtual void draw(SDL_Renderer &renderer) const = 0;
 
-  inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
+  inline void setTexture(std::shared_ptr<SDL_Texture> texture) { texture_ = texture; }
 
   inline const Vector2D &getPosition() const { return position_; }
 
-  inline SDL_Texture *getTexture() { return texture_; }
+  // inline SDL_Texture *getTexture() { return texture_; }
 
   virtual inline Vector2D toUpperLeftCoords() const = 0;
 
@@ -49,7 +50,7 @@ public:
   }
 
   MovableObject();
-  MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
+  MovableObject(Vector2D position, std::shared_ptr<SDL_Texture> texture, Vector2D speed);
   MovableObject(Vector2D speed);
 
   inline const Vector2D &getSpeed() const { return speed_; }
