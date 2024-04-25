@@ -29,7 +29,7 @@ of the rectangle
   inline double getWidth() const { return width_; };
   inline double getHeight() const { return height_; }
 
-  void draw(SDL_Renderer *renderer) const override;
+  void draw(SDL_Renderer &renderer) const override;
 };
 
 #endif

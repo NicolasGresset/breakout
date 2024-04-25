@@ -25,14 +25,14 @@ Ball::Ball(Vector2D position, SDL_Texture *texture, Vector2D speed,
 //       radius_(BALL_RADIUS),
 //       rounding_square_side_length(radius_ * SQUARE_ROOT_2) {}
 
-void Ball::draw(SDL_Renderer *renderer) const {
+void Ball::draw(SDL_Renderer &renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
 
   SDL_Rect destinationRect = {
       (int)upper_left_coords.x_, (int)upper_left_coords.y_,
       (int)rounding_square_side_length, (int)rounding_square_side_length};
 
-  int code = SDL_RenderCopy(renderer, texture_, NULL, &destinationRect);
+  int code = SDL_RenderCopy(&renderer, texture_, NULL, &destinationRect);
   CHECK_SDL_RETURN_CODE(code < 0);
 }
 

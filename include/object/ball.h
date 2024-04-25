@@ -26,7 +26,7 @@ public:
   Ball(Vector2D position, SDL_Texture *texture, Vector2D speed, double radius);
   // Ball(SDL_Texture *texture);
 
-  void draw(SDL_Renderer *renderer) const override;
+  void draw(SDL_Renderer &renderer) const override;
 
 private:
   inline Vector2D toUpperLeftCoords() const override {
