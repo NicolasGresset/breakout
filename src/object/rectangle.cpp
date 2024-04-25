@@ -10,6 +10,8 @@ Rectangle::Rectangle(Vector2D position, SDL_Texture *texture, double width,
 
 Rectangle::Rectangle() : Object(Vector2D{0, 0}, nullptr){};
 
+Rectangle::Rectangle(double width, double height) : Object(), width_(width), height_(height){}
+
 void Rectangle::draw(SDL_Renderer *renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
   SDL_Rect destinationRect = {(int)upper_left_coords.x_,

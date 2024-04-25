@@ -9,8 +9,6 @@
 
 RectangleBrick::RectangleBrick(Vector2D position, SDL_Texture *texture,
                                int life, double width, double height)
-    : Rectangle(position, texture, width, height), Brick(life){};
-RectangleBrick::RectangleBrick() : Rectangle(Vector2D{0, 0}, nullptr, 0, 0), Brick(3){};
-
-
-
+    : Object(position, texture), Rectangle(width, height), Brick(life){}
+RectangleBrick::RectangleBrick()
+    : Rectangle(Vector2D{0, 0}, nullptr, 0, 0), Brick(3){};

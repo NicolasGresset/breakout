@@ -1,12 +1,12 @@
 #include "game.h"
 #include "button.h"
 #include "collison_engine.h"
+#include "grid.h"
 #include "gui/color.h"
 #include "utils/constants.h"
-#include "grid.h"
 #include <SDL_events.h>
-#include <SDL_ttf.h>
 #include <SDL_timer.h>
+#include <SDL_ttf.h>
 
 Game::Game()
     : collision_engine_(balls_, grid_, player_), grid_(&assets_),
@@ -14,30 +14,26 @@ Game::Game()
   balls_.push_back(Ball());
 };
 
+void Game::init() {
+  window_.init();
+  renderer_ = window_.getRenderer();
+  window_.update();
 
-void Game::init()
-{
-    window_.init();
-    renderer_ = window_.getRenderer();
-    window_.update();
+  Button button{Vector2D{350, 150}};
+  button.draw(renderer_);
+  window_.update();
 
-    Button button{Vector2D{350, 150}};
-    button.draw(renderer_);
-    window_.update();
+  // window_.temporisation(5000); // todo décommenter en phase finale
 
-    // window_.temporisation(5000); // todo décommenter en phase finale
-
-    gameInit();
+  gameInit();
 }
 
-
-
 void Game::gameInit() {
-    window_.update();
-    assets_.loadTextures(renderer_);
-    grid_.init();
-    player_.setTexture(assets_.getRectangleTexture(Color::blue));
-    balls_[0].setTexture(assets_.getBallTexture(Color::blue));
+  window_.update();
+  assets_.loadTextures(renderer_);
+  grid_.init();
+  player_.setTexture(assets_.getRectangleTexture(Color::blue));
+  balls_[0].setTexture(assets_.getBallTexture(Color::blue));
 }
 
 void Game::manageKeys() {
@@ -89,6 +85,6 @@ void Game::mainLoop() {
     collision_engine_.resolveCollisions();
     drawObjects();
     window_.update();
-    window_.temporisation(15);
+    window_.temporisation(150);
   }
 }
