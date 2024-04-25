@@ -10,6 +10,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+find_package(SDL2_ttf REQUIRED)
+include_directories(${SDL2_TTF_INCLUDE_DIRS})
+
 
 # Liste de tous les fichiers sources
 file(GLOB SOURCES "src/*.cpp")
@@ -29,4 +32,4 @@ add_executable(main ${SOURCES})
 target_compile_options(main PRIVATE -Wall -Wextra --std=c++17)
 
 # Lier les bibliothèques SDL2
-target_link_libraries(main ${SDL2_LIBRARIES})
+target_link_libraries(main ${SDL2_LIBRARIES} SDL2_ttf)
