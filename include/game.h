@@ -1,16 +1,17 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "collison_engine.h"
+#include "grid.h"
 #include "gui/SDL2Window.h"
 #include "gui/assets.h"
 #include "object/ball.h"
-#include "utils/clock.h"
-#include "collison_engine.h"
 #include "object/dock.h"
-#include "grid.h"
+#include "utils/clock.h"
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
 #include <SDL_timer.h>
+#include <memory>
 
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
@@ -35,12 +36,11 @@ or hexagons
 class Game {
 private:
   SDL2Window window_;
-  SDL_Renderer *renderer_; // shared_pointer to renderer to avoir getting it too
-                           // often from Window member
+
   CollisionEngine collision_engine_;
-  Dock player_;
+  std::shared_ptr<Dock> player_;
   Grid grid_;
-  std::vector<Ball> balls_;
+  std::vector<std::shared_ptr<Ball>> balls_;
   Assets assets_;
 
   bool is_window_closed_;

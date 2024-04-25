@@ -4,23 +4,21 @@
 #include "grid.h"
 #include "gui/color.h"
 #include "utils/constants.h"
+#include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_timer.h>
 #include <SDL_ttf.h>
 
 Game::Game()
-    : collision_engine_(balls_, grid_, player_), grid_(&assets_),
-      is_window_closed_(false) {
-  balls_.push_back(Ball());
-};
+    : window_(), collision_engine_(), player_(), grid_(), balls_(), assets_(),
+      is_window_closed_(false){};
 
 void Game::init() {
   window_.init();
-  renderer_ = window_.getRenderer();
   window_.update();
 
   Button button{Vector2D{350, 150}};
-  button.draw(renderer_);
+  button.draw(window_.getRenderer());
   window_.update();
 
   // window_.temporisation(5000); // todo décommenter en phase finale
@@ -30,10 +28,15 @@ void Game::init() {
 
 void Game::gameInit() {
   window_.update();
-  assets_.loadTextures(renderer_);
+  assets_.loadTextures(window_.getRenderer());
   grid_.init();
-  player_.setTexture(assets_.getRectangleTexture(Color::blue));
-  balls_[0].setTexture(assets_.getBallTexture(Color::blue));
+  // player_ = Dock(
+  //     Vector2D(WINDOW_WIDTH / 2, WINDOW_HEIGHT - PADDING - DOCK_HEIGHT / 2),
+  //     DOCK_WIDTH, DOCK_HEIGHT, assets_.getRectangleTexture(Color::blue),
+  //     Vector2D(DOCK_SPEED_X, 0));
+  player_->getPosition().print();
+  player_->setTexture(assets_.getRectangleTexture(Color::blue));
+  balls_[0]->setTexture(assets_.getBallTexture(Color::blue));
 }
 
 void Game::manageKeys() {
@@ -53,7 +56,7 @@ void Game::pollEvent() {
 
     default:
       if (!event.key.repeat)
-        player_.handleEvent(event);
+        player_->handleEvent(event);
       break;
     }
   }
@@ -61,17 +64,17 @@ void Game::pollEvent() {
 }
 
 void Game::drawObjects() {
-  grid_.draw(renderer_);
-  player_.draw(renderer_);
+  grid_.draw(window_.getRenderer());
+  player_->draw(window_.getRenderer());
   for (auto &ball : balls_) {
-    ball.draw(renderer_);
+    ball->draw(window_.getRenderer());
   }
 }
 
 void Game::moveObjects(Uint64 delta) {
-  player_.move(delta);
+  player_->move(delta);
   for (auto &ball : balls_) {
-    ball.move(delta);
+    ball->move(delta);
   }
 }
 
