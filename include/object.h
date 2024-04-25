@@ -4,6 +4,7 @@
 #include "vector2D.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
+#include <SDL_stdinc.h>
 
 /*
 An Object is a class which represents anything present in the screen that can
@@ -22,14 +23,30 @@ protected:
 
 public:
   Object();
-  Object(Vector2D position, SDL_Texture * texture);
-  virtual void draw(SDL_Renderer* renderer) const = 0;
+  Object(Vector2D position, SDL_Texture *texture);
+  virtual void draw(SDL_Renderer *renderer) const = 0;
 
   inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
 
-  inline const Vector2D & getPosition() const {return position_;}
+  inline const Vector2D &getPosition() const { return position_; }
 
-  virtual ~Object() {};
+  virtual inline Vector2D toUpperLeftCoords() const = 0;
+
+  virtual ~Object(){};
+};
+
+class MovableObject : public Object {
+protected:
+  Vector2D speed_;
+
+public:
+  inline void move(Uint64 delta) {
+    position_.x_ += speed_.x_ * delta;
+    position_.y_ += speed_.y_ * delta;
+  }
+
+  MovableObject();
+  MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
 };
 
 #endif

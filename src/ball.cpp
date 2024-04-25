@@ -10,9 +10,9 @@
 #include <iostream>
 
 Ball::Ball(SDL_Texture *texture)
-    : Object(Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),
-             texture),
-      radius_(BALL_RADIUS), speed_(0, BALL_SPEED_NORM),
+    : MovableObject(Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),
+                    texture, Vector2D(0, BALL_SPEED_NORM)),
+      radius_(BALL_RADIUS),
       rounding_square_side_length(radius_ * SQUARE_ROOT_2) {}
 
 void Ball::draw(SDL_Renderer *renderer) const {
@@ -29,10 +29,6 @@ void Ball::draw(SDL_Renderer *renderer) const {
   }
 }
 
-void Ball::move(Uint64 delta) {
-  position_.x_ += speed_.x_ * delta;
-  position_.y_ += speed_.y_ * delta;
-}
 
 int Ball::bounceIntoWindow(double height, double width) {
   if (this->position_.y_ + this->radius_ > height) {
@@ -91,10 +87,13 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
    * proportional to the distance between the point of impact and the paddle
    * center */
 
-   /* this computation maps the bouncing angle between [3 pi / 2 + delta, 5 pi / 2 - delta] */
+  /* this computation maps the bouncing angle between [3 pi / 2 + delta, 5 pi /
+   * 2 - delta] */
 
-   path_angle_ = ((PI - 2*delta_)/paddle.getWidth()) * (position_.x_ - paddle.getPosition().x_) + 3* PI/2 + delta_;
+  path_angle_ = ((PI - 2 * delta_) / paddle.getWidth()) *
+                    (position_.x_ - paddle.getPosition().x_) +
+                3 * PI / 2 + delta_;
 
-   speed_.x_ = BALL_SPEED_NORM * cos(path_angle_);
-   speed_.y_ = BALL_SPEED_NORM * sin(path_angle_);
+  speed_.x_ = BALL_SPEED_NORM * cos(path_angle_);
+  speed_.y_ = BALL_SPEED_NORM * sin(path_angle_);
 }

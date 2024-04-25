@@ -27,7 +27,7 @@ public:
       Returns the 2DVector corresopnding to the coordinates of the upper left corner
       of the rectangle
     */
-    inline Vector2D toUpperLeftCoords() const {
+    inline Vector2D toUpperLeftCoords() const override{
         return Vector2D(position_.x_ - width_ / 2,
                         position_.y_ - height_ / 2);
     }

@@ -36,7 +36,7 @@ private:
   bool isCollisionCircleRect(Ball & ball, Rectangle& rectangle) const;
   bool checkAABBCollision();
   // returns 0 if there are no intersections or the point of collision otherwise
-  bool ballIntersectRectangle(Ball &ball, RectangleBrick &brick) const;
+  // bool ballIntersectRectangle(Ball &ball, RectangleBrick &brick) const;
 };
 
 #endif

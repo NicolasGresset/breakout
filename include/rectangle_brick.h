@@ -19,6 +19,10 @@ public:
       Rectangle::draw(renderer);
     }
   }
+
+  inline Vector2D toUpperLeftCoords() const override {
+    return Rectangle::toUpperLeftCoords();
+  }
 };
 
 #endif
