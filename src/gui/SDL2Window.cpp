@@ -1,4 +1,6 @@
 #include "gui/SDL2Window.h"
+#include "utils/constants.h"
+#include "utils/utils.h"
 #include <SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_keycode.h>
@@ -10,16 +12,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <utility>
-#include "utils/constants.h"
-#include "utils/utils.h"
 
 SDL2Window::SDL2Window()
-    : window_{nullptr}, renderer_(nullptr), screen_width_{WINDOW_WIDTH},
-      screen_height_{WINDOW_HEIGHT} {}
+    : screen_width_{WINDOW_WIDTH}, screen_height_{WINDOW_HEIGHT},
+      window_{nullptr}, renderer_(nullptr) {}
 
 SDL2Window::SDL2Window(int screen_width, int screen_height)
-    : window_(nullptr), renderer_(nullptr), screen_width_{screen_width},
-      screen_height_{screen_height} {};
+    : screen_width_{screen_width}, screen_height_{screen_height},
+      window_(nullptr), renderer_(nullptr){};
 
 void SDL2Window::initSDLObjects() {
   int code;
@@ -30,9 +30,9 @@ void SDL2Window::initSDLObjects() {
   code = TTF_Init();
   CHECK_SDL_RETURN_CODE((code < 0));
 
-  window_ = SDL_CreateWindow(
-           "Breakout", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-           screen_width_, screen_height_, SDL_WINDOW_SHOWN);
+  window_ = SDL_CreateWindow("Breakout", SDL_WINDOWPOS_UNDEFINED,
+                             SDL_WINDOWPOS_UNDEFINED, screen_width_,
+                             screen_height_, SDL_WINDOW_SHOWN);
   CHECK_SDL_RETURN_CODE(window_ == nullptr);
 
   renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
