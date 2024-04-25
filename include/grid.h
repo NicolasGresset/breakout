@@ -2,6 +2,7 @@
 #define GRID_H
 #include "assets.h"
 #include "brick.h"
+#include "constants.h"
 #include "rectangle_brick.h"
 #include <SDL2/SDL_render.h>
 #include <cstddef>
@@ -39,12 +40,14 @@ public:
   // the convention is similar to matrixes
   */
   Grid(const int height = 4, const int width = 8,
-       const double window_height = 500, const double window_width = 800,
-       Assets *assets = nullptr);
+       const double window_height = WINDOW_HEIGHT,
+       const double window_width = WINDOW_WIDTH, Assets *assets = nullptr);
 
   Grid(Assets *assets);
 
   void draw(SDL_Renderer *renderer) const;
+
+  inline std::vector<RectangleBrick> &getBricks() { return bricks_; }
 
   inline double getWindowHeight() { return window_height_; }
   inline double getWindowWidth() { return window_width_; }

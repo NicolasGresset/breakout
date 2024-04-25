@@ -4,10 +4,13 @@
 #include "SDL2Window.h"
 #include "assets.h"
 #include "ball.h"
+#include "clock.h"
 #include "collison_engine.h"
 #include "dock.h"
 #include "grid.h"
 #include <SDL_render.h>
+#include <SDL_stdinc.h>
+#include <SDL_timer.h>
 
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
@@ -44,17 +47,17 @@ private:
   void manageKeys(void);
   void pollEvent(void);
 
+  Clock clock_;
+
 public:
   Game();
   void init(void);
   void mainLoop(void);
 
-  void foo();
-
-  private:
-    void drawObjects();
-    void moveObjects();
-    void gameInit();
+private:
+  void drawObjects();
+  void moveObjects(Uint64 delta);
+  void gameInit();
 };
 
 #endif

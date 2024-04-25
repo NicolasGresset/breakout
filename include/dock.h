@@ -7,6 +7,7 @@
 #include "vector2D.h"
 #include <SDL_events.h>
 #include <SDL_render.h>
+#include <SDL_stdinc.h>
 
 /*
 A dock is semantically close to a rectangle because of its shape but also
@@ -27,7 +28,7 @@ public:
   /*
   Update Dock's position_ accordingly to its speed
 */
-  void move() ;
+  void move(Uint64 delta) ;
 
 };
 

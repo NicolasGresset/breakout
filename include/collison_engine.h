@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "dock.h"
 #include "grid.h"
+#include "rectangle.h"
 #include "rectangle_brick.h"
 #include "vector2D.h"
 #include <vector>
@@ -32,7 +33,7 @@ public:
 
 private:
 
-
+  bool isCollisionCircleRect(Ball & ball, Rectangle& rectangle) const;
   bool checkAABBCollision();
   // returns 0 if there are no intersections or the point of collision otherwise
   bool ballIntersectRectangle(Ball &ball, RectangleBrick &brick) const;

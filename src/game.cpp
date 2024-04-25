@@ -2,9 +2,11 @@
 #include "../include/button.h"
 #include "collison_engine.h"
 #include "color.h"
+#include "constants.h"
 #include "grid.h"
 #include <SDL_events.h>
 #include <SDL_ttf.h>
+#include <SDL_timer.h>
 
 Game::Game()
     : collision_engine_(balls_, grid_, player_), grid_(&assets_),
@@ -62,13 +64,6 @@ void Game::pollEvent() {
   return;
 }
 
-void Game::foo() {
-  SDL_Rect destinationRect = {100, 100, 70, 70}; // x, y, width, height
-  SDL_RenderClear(renderer_);
-  SDL_RenderCopy(renderer_, assets_.getRectangleTexture(Color::blue), NULL,
-                 &destinationRect);
-}
-
 void Game::drawObjects() {
   grid_.draw(renderer_);
   player_.draw(renderer_);
@@ -77,22 +72,23 @@ void Game::drawObjects() {
   }
 }
 
-void Game::moveObjects() {
-  player_.move();
+void Game::moveObjects(Uint64 delta) {
+  player_.move(delta);
   for (auto &ball : balls_) {
-    ball.move();
+    ball.move(delta);
   }
 }
 
 void Game::mainLoop() {
   while (!is_window_closed_) {
+    clock_.tick(); // update the time elapsed since last frame
     window_.clearWindow();
     this->pollEvent();
     this->manageKeys();
-    moveObjects();
+    moveObjects(clock_.time_elapsed);
     collision_engine_.resolveCollisions();
     drawObjects();
     window_.update();
-    window_.temporisation(50);
+    window_.temporisation(15);
   }
 }

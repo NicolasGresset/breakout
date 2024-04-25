@@ -27,6 +27,8 @@ public:
 
   inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
 
+  inline const Vector2D & getPosition() const {return position_;}
+
   virtual ~Object() {};
 };
 

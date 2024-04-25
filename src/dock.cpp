@@ -24,7 +24,7 @@ void Dock::handleEvent(SDL_Event &event) {
   }
 }
 
-void Dock::move() {
-  position_.x_ += speed_.x_;
-  position_.y_ += speed_.y_;
+void Dock::move(Uint64 delta) {
+  position_.x_ += speed_.x_ * delta;
+  position_.y_ += speed_.y_ * delta;
 }

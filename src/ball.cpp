@@ -1,9 +1,12 @@
 #include "../include/ball.h"
 #include "constants.h"
+#include "rectangle.h"
 #include "vector2D.h"
 #include <SDL_render.h>
 
+#include <SDL_timer.h>
 #include <algorithm>
+#include <cstdio>
 #include <iostream>
 
 Ball::Ball(SDL_Texture *texture)
@@ -26,9 +29,9 @@ void Ball::draw(SDL_Renderer *renderer) const {
   }
 }
 
-void Ball::move() {
-  position_.x_ += speed_.x_;
-  position_.y_ += speed_.y_;
+void Ball::move(Uint64 delta) {
+  position_.x_ += speed_.x_ * delta;
+  position_.y_ += speed_.y_ * delta;
 }
 
 int Ball::bounceIntoWindow(double height, double width) {
@@ -52,9 +55,46 @@ int Ball::bounceIntoWindow(double height, double width) {
   return 1;
 }
 
-void Ball::reset(){
+void Ball::reset() {
   speed_.x_ = 0;
   speed_.y_ = BALL_SPEED_NORM;
   position_.x_ = INITIAL_BALL_POSITION_X;
   position_.y_ = INITIAL_BALL_POSITION_Y;
+}
+
+void Ball::bounceOverRectangle(const Rectangle &rectangle) {
+  Vector2D rectangle_position = rectangle.toUpperLeftCoords();
+  double overlap_x_left = position_.x_ + radius_ - rectangle_position.x_;
+  double overlap_x_right =
+      rectangle_position.x_ + rectangle.getWidth() - (position_.x_ - radius_);
+  double overlap_y_top = position_.y_ + radius_ - rectangle_position.y_;
+  double overlap_y_bottom =
+      rectangle_position.y_ + rectangle.getHeight() - (position_.y_ - radius_);
+
+  if ((overlap_x_left < overlap_y_bottom && overlap_x_left < overlap_y_top &&
+       overlap_x_left < overlap_x_right) ||
+      (overlap_x_right < overlap_y_bottom && overlap_x_right < overlap_y_top &&
+       overlap_x_right < overlap_x_left)) {
+    speed_.x_ = -speed_.x_;
+  } else if ((overlap_y_bottom < overlap_x_left &&
+              overlap_y_bottom < overlap_x_right &&
+              overlap_y_bottom < overlap_y_top) ||
+             (overlap_y_top < overlap_x_left &&
+              overlap_y_top < overlap_x_right &&
+              overlap_y_top < overlap_y_bottom)) {
+    speed_.y_ = -speed_.y_;
+  }
+}
+
+void Ball::bounceOverPaddle(const Dock &paddle) {
+  /* the ball is assumed to bounce over the paddle with a reflection angle
+   * proportional to the distance between the point of impact and the paddle
+   * center */
+
+   /* this computation maps the bouncing angle between [3 pi / 2 + delta, 5 pi / 2 - delta] */
+
+   path_angle_ = ((PI - 2*delta_)/paddle.getWidth()) * (position_.x_ - paddle.getPosition().x_) + 3* PI/2 + delta_;
+
+   speed_.x_ = BALL_SPEED_NORM * cos(path_angle_);
+   speed_.y_ = BALL_SPEED_NORM * sin(path_angle_);
 }

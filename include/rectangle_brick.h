@@ -14,8 +14,10 @@ public:
                  SDL_Texture *texture = nullptr, int life = 3, double width = 0,
                  double height = 0);
 
-  inline void draw(SDL_Renderer *renderer) const override{
-    Rectangle::draw(renderer);
+  inline void draw(SDL_Renderer *renderer) const override {
+    if (!destroyed_) {
+      Rectangle::draw(renderer);
+    }
   }
 };
 

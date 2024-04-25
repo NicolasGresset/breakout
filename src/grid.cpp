@@ -19,7 +19,7 @@ void Grid::init() {
       bricks_.push_back(
           RectangleBrick(Vector2D(j * element_width + element_width / 2,
                                   i * element_height + element_height / 2),
-                         assets_->getRectangleTexture(Color::red), 3,
+                         assets_->getRectangleTexture(Color::red), 1,
                          element_width, element_height));
     }
   }
