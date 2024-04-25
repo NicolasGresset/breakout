@@ -3,7 +3,7 @@
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
-SDL_Texture *Assets::loadTexture(const char *path) {
+SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
 
   if (!surface) {
@@ -12,7 +12,7 @@ SDL_Texture *Assets::loadTexture(const char *path) {
   }
 
   SDL_Texture *texture;
-  if ((texture = SDL_CreateTextureFromSurface(renderer_, surface)) == nullptr) {
+  if ((texture = SDL_CreateTextureFromSurface(&renderer, surface)) == nullptr) {
     std ::cerr << std::string{SDL_GetError()} << std::endl;
     exit(EXIT_FAILURE);
   }
@@ -21,23 +21,27 @@ SDL_Texture *Assets::loadTexture(const char *path) {
   return texture;
 }
 
-void Assets::loadTextures(SDL_Renderer *renderer) {
-  renderer_ = renderer;
+void Assets::loadTextures(SDL_Renderer &renderer) {
   // Load rectangles
   rectangles_textures_.insert(std::make_pair(
-      Color::blue, loadTexture("textures/element_blue_rectangle.bmp")));
+      Color::blue,
+      loadTexture("textures/element_blue_rectangle.bmp", renderer)));
   rectangles_textures_.insert(std::make_pair(
-      Color::green, loadTexture("textures/element_green_rectangle.bmp")));
+      Color::green,
+      loadTexture("textures/element_green_rectangle.bmp", renderer)));
   rectangles_textures_.insert(std::make_pair(
-      Color::grey, loadTexture("textures/element_grey_rectangle.bmp")));
+      Color::grey,
+      loadTexture("textures/element_grey_rectangle.bmp", renderer)));
   rectangles_textures_.insert(std::make_pair(
-      Color::purple, loadTexture("textures/element_purple_rectangle.bmp")));
+      Color::purple,
+      loadTexture("textures/element_purple_rectangle.bmp", renderer)));
   rectangles_textures_.insert(std::make_pair(
-      Color::red, loadTexture("textures/element_red_rectangle.bmp")));
+      Color::red, loadTexture("textures/element_red_rectangle.bmp", renderer)));
   rectangles_textures_.insert(std::make_pair(
-      Color::yellow, loadTexture("textures/element_yellow_rectangle.bmp")));
+      Color::yellow,
+      loadTexture("textures/element_yellow_rectangle.bmp", renderer)));
 
   // Load balls
-  balls_textures_.insert(
-      std::make_pair(Color::blue, loadTexture("textures/ball_blue.bmp")));
+  balls_textures_.insert(std::make_pair(
+      Color::blue, loadTexture("textures/ball_blue.bmp", renderer)));
 }

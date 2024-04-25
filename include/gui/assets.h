@@ -4,24 +4,24 @@
 #include "color.h"
 #include <SDL2/SDL_render.h>
 #include <map>
+#include <memory>
 
 class Assets {
 private:
-  std::map<Color, SDL_Texture *> rectangles_textures_;
-  std::map<Color, SDL_Texture *> balls_textures_;
-  SDL_Renderer *renderer_;
+  std::map<Color, std::shared_ptr<SDL_Texture>> rectangles_textures_;
+  std::map<Color, std::shared_ptr<SDL_Texture>> balls_textures_;
 
 public:
-  void loadTextures(SDL_Renderer *renderer);
-  inline SDL_Texture *getRectangleTexture(Color color) {
+  void loadTextures(SDL_Renderer &renderer);
+  inline std::shared_ptr<SDL_Texture> getRectangleTexture(Color color) {
     return rectangles_textures_[color];
   }
-  inline SDL_Texture *getBallTexture(Color color) {
+  inline std::shared_ptr<SDL_Texture> getBallTexture(Color color) {
     return balls_textures_[color];
   }
 
 private:
-  SDL_Texture *loadTexture(const char *path);
+  SDL_Texture *loadTexture(const char *path, SDL_Renderer &renderer);
 };
 
 #endif
