@@ -36,11 +36,9 @@ public:
     Rectangle::setTexture(texture);
   }
 
-  inline void move(Uint64 delta) {
-    position_.print();
-    printf("dock position %p\n", &position_);
-    MovableObject::move(delta);
-  }  
+  // inline void move(Uint64 delta) {
+  //   MovableObject::move(delta);
+  // }  
 };
 
 #endif
