@@ -16,8 +16,10 @@ This function should only be called thanks to the wrapper CHECK_SDL_RETURN_CODE
 */
 inline void checkSDLReturnCode(bool code, std::string file, int line) {
   if (code) {
-    std::cerr << file << ":" << line
-              << " : SDL_Error : " << std::string{SDL_GetError()} << std::endl;
+    std::cerr << "\033[1;34m" << file << ":"
+              << "\033[1;33m" << line << ": "
+              << "\033[1;31m" << std::string{SDL_GetError()} << std::endl
+              << "\033[0m";
     exit(EXIT_FAILURE);
   }
 }
