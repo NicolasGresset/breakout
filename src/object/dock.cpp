@@ -1,6 +1,6 @@
-#include "../include/dock.h"
-#include "../include/constants.h"
-#include "vector2D.h"
+#include "object/dock.h"
+#include "utils/constants.h"
+#include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_keycode.h>
 #include <SDL_render.h>

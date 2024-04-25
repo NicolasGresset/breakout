@@ -14,8 +14,13 @@ find_package(SDL2_ttf REQUIRED)
 include_directories(${SDL2_TTF_INCLUDE_DIRS})
 
 
-# Liste de tous les fichiers sources
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+# add_subdirectory(src)
+# add_subdirectory(include)
+# add_subdirectory(gui)
+# add_subdirectory(object)
+# add_subdirectory(utils)
 
 
 

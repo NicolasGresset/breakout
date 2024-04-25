@@ -1,11 +1,11 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "constants.h"
+#include "utils/constants.h"
 #include "dock.h"
 #include "object.h"
 #include "rectangle.h"
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL_render.h>
 
 /**

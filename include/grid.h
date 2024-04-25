@@ -1,9 +1,9 @@
 #ifndef GRID_H
 #define GRID_H
-#include "assets.h"
-#include "brick.h"
-#include "constants.h"
-#include "rectangle_brick.h"
+#include "gui/assets.h"
+#include "object/brick.h"
+#include "utils/constants.h"
+#include "object/rectangle_brick.h"
 #include <SDL2/SDL_render.h>
 #include <cstddef>
 #include <vector>

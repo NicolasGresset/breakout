@@ -1,4 +1,4 @@
-#include "../include/SDL2Window.h"
+#include "gui/SDL2Window.h"
 #include <SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_keycode.h>
@@ -10,8 +10,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <utility>
-#include "../include/constants.h"
-#include "../include/utils.h"
+#include "utils/constants.h"
+#include "utils/utils.h"
 
 SDL2Window::SDL2Window()
     : window_{nullptr}, renderer_(nullptr), screen_width_{WINDOW_WIDTH},

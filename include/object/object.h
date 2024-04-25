@@ -1,7 +1,7 @@
 #ifndef Object_H
 #define Object_H
 
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL_stdinc.h>

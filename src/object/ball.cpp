@@ -1,7 +1,7 @@
-#include "../include/ball.h"
-#include "constants.h"
-#include "rectangle.h"
-#include "vector2D.h"
+#include "object/ball.h"
+#include "utils/constants.h"
+#include "object/rectangle.h"
+#include "utils/vector2D.h"
 #include <SDL_render.h>
 
 #include <SDL_timer.h>

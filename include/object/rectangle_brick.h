@@ -3,7 +3,7 @@
 
 #include "brick.h"
 #include "rectangle.h"
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL2/SDL_render.h>
 
 class RectangleBrick : public Rectangle, public Brick {

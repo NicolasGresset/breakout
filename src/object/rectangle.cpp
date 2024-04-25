@@ -1,5 +1,5 @@
-#include "../include/rectangle.h"
-#include "utils.h"
+#include "object/rectangle.h"
+#include "utils/utils.h"
 #include <SDL_render.h>
 #include <cstddef>
 #include <iostream>

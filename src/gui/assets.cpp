@@ -1,4 +1,4 @@
-#include "../include/assets.h"
+#include "gui/assets.h"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <iostream>

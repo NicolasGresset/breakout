@@ -2,7 +2,7 @@
 #define RECTANGLE_H
 
 #include "object.h"
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL_render.h>
 class Rectangle : public Object {
 

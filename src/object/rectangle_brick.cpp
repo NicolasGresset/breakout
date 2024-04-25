@@ -1,6 +1,6 @@
-#include "../include/rectangle_brick.h"
-#include "brick.h"
-#include "rectangle.h"
+#include "object/rectangle_brick.h"
+#include "object/brick.h"
+#include "object/rectangle.h"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <cstddef>

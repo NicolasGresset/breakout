@@ -1,8 +1,8 @@
 #include "collison_engine.h"
-#include "dock.h"
-#include "rectangle.h"
-#include "rectangle_brick.h"
-#include "vector2D.h"
+#include "object/dock.h"
+#include "object/rectangle.h"
+#include "object/rectangle_brick.h"
+#include "utils/vector2D.h"
 #include <cmath>
 #include <cstdio>
 #include <iostream>

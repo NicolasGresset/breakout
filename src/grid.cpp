@@ -1,4 +1,4 @@
-#include "../include/grid.h"
+#include "grid.h"
 #include <SDL2/SDL_render.h>
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#include "../include/brick.h"
+#include "object/brick.h"
 #include <SDL2/SDL_render.h>
 
 Brick::Brick() : Object(), life_{3} {};

@@ -1,10 +1,10 @@
 #ifndef DOCK_H
 #define DOCK_H
 
-#include "SDL2Window.h"
+#include "gui/SDL2Window.h"
 #include "object.h"
 #include "rectangle.h"
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_render.h>
 #include <SDL_stdinc.h>

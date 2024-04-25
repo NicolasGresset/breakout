@@ -1,8 +1,8 @@
-#include "../include/game.h"
-#include "../include/button.h"
+#include "game.h"
+#include "button.h"
 #include "collison_engine.h"
-#include "color.h"
-#include "constants.h"
+#include "gui/color.h"
+#include "utils/constants.h"
 #include "grid.h"
 #include <SDL_events.h>
 #include <SDL_ttf.h>
@@ -25,7 +25,7 @@ void Game::init()
     button.draw(renderer_);
     window_.update();
 
-    window_.temporisation(5000);
+    // window_.temporisation(5000); // todo décommenter en phase finale
 
     gameInit();
 }

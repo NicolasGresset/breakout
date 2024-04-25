@@ -1,4 +1,4 @@
-#include "../include/object.h"
+#include "object/object.h"
 #include <cstddef>
 
 Object::Object() : position_(0, 0), texture_(nullptr){};

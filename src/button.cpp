@@ -1,5 +1,5 @@
-#include "../include/button.h"
-#include "utils.h"
+#include "button.h"
+#include "utils/utils.h"
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 #include <cstddef>

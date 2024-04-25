@@ -1,12 +1,12 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "vector2D.h"
-#include "object.h"
+#include "utils/vector2D.h"
+#include "object/object.h"
 #include <SDL_render.h>
 #include <SDL_ttf.h>
 #include <string>
-#include "assets.h"
+#include "gui/assets.h"
 
 class Button : public Object {
 

@@ -1,12 +1,12 @@
 #ifndef COLLISION_ENINE_H
 #define COLLISION_ENINE_H
 
-#include "ball.h"
-#include "dock.h"
+#include "object/ball.h"
+#include "object/dock.h"
 #include "grid.h"
-#include "rectangle.h"
-#include "rectangle_brick.h"
-#include "vector2D.h"
+#include "object/rectangle.h"
+#include "object/rectangle_brick.h"
+#include "utils/vector2D.h"
 #include <vector>
 /*
 Collision detection is intrisically linked to the shape of bricks composing the

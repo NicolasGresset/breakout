@@ -1,12 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "SDL2Window.h"
-#include "assets.h"
-#include "ball.h"
-#include "clock.h"
+#include "gui/SDL2Window.h"
+#include "gui/assets.h"
+#include "object/ball.h"
+#include "utils/clock.h"
 #include "collison_engine.h"
-#include "dock.h"
+#include "object/dock.h"
 #include "grid.h"
 #include <SDL_render.h>
 #include <SDL_stdinc.h>

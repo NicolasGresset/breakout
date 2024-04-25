@@ -1,9 +1,9 @@
 #ifndef BRICK_H
 #define BRICK_H
 
-#include "color.h"
+#include "gui/color.h"
 #include "object.h"
-#include "vector2D.h"
+#include "utils/vector2D.h"
 #include <SDL2/SDL_render.h>
 
 class Brick : public Object {
