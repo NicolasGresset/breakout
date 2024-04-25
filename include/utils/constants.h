@@ -23,6 +23,8 @@ constexpr double SQUARE_ROOT_2 = 1.41321356;
 
 constexpr double PI = 3.14159265;
 
+constexpr int DEFAULT_BRICK_LIFE = 1;
+
 constexpr Uint64 FRAME_DURATION = 10; 
 
 #endif
