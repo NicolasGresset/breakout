@@ -2,7 +2,6 @@
 #define UTILS_H
 
 #include <SDL_error.h>
-#include <cstdlib>
 #include <iostream>
 
 /*
@@ -14,7 +13,7 @@ Wrapper to checkSDLReturnCode to pass file and line number
 Print SDL Error if condition code is true
 This function should only be called thanks to the wrapper CHECK_SDL_RETURN_CODE
 */
-inline void checkSDLReturnCode(bool code, std::string file, int line) {
+static inline void checkSDLReturnCode(bool code, std::string file, int line) {
   if (code) {
     std::cerr << "\033[1;34m" << file << ":"
               << "\033[1;33m" << line << ": "
