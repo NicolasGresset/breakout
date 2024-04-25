@@ -12,7 +12,7 @@ Button::Button(Vector2D position, SDL_Color color, double width, double height,
 
 // Button::Button() : Object(Vector2D{0, 0}, nullptr){};
 
-void Button::draw(SDL_Renderer *renderer) const {
+void Button::draw(SDL_Renderer &renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
   SDL_Rect destButton = {(int)upper_left_coords.x_, (int)upper_left_coords.y_,
                          (int)width_, (int)height_};
@@ -24,7 +24,7 @@ void Button::draw(SDL_Renderer *renderer) const {
   SDL_Surface *surface = TTF_RenderText_Solid(font, text_.c_str(), color_);
   CHECK_SDL_RETURN_CODE(!surface);
 
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(&renderer, surface);
   CHECK_SDL_RETURN_CODE(!texture);
 
   SDL_Rect textRect = {(int)(upper_left_coords.x_ + (width_ - surface->w) / 2),
@@ -34,6 +34,6 @@ void Button::draw(SDL_Renderer *renderer) const {
   TTF_CloseFont(font);
   SDL_FreeSurface(surface);
 
-  code = SDL_RenderCopy(renderer, texture, NULL, &textRect);
+  code = SDL_RenderCopy(&renderer, texture, NULL, &textRect);
   CHECK_SDL_RETURN_CODE(code < 0);
 }

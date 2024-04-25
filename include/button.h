@@ -32,7 +32,7 @@ public:
                         position_.y_ - height_ / 2);
     }
 
-    void draw(SDL_Renderer *renderer) const override;
+    void draw(SDL_Renderer &renderer) const override;
 };
 
 #endif
