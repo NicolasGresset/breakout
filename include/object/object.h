@@ -20,14 +20,14 @@ protected:
   // The position of the center of the object --> any object MUST have a center
   // unambiguously defined
   Vector2D position_;
-  std::shared_ptr<SDL_Texture> texture_;
+  SDL_Texture *texture_;
 
 public:
   Object();
-  Object(Vector2D position, std::shared_ptr<SDL_Texture> texture);
+  Object(Vector2D position, SDL_Texture *texture);
   virtual void draw(SDL_Renderer &renderer) const = 0;
 
-  inline void setTexture(std::shared_ptr<SDL_Texture> texture) { texture_ = texture; }
+  inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
 
   inline const Vector2D &getPosition() const { return position_; }
 
@@ -50,7 +50,7 @@ public:
   }
 
   MovableObject();
-  MovableObject(Vector2D position, std::shared_ptr<SDL_Texture> texture, Vector2D speed);
+  MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
   MovableObject(Vector2D speed);
 
   inline const Vector2D &getSpeed() const { return speed_; }

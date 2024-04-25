@@ -4,10 +4,11 @@
 
 Brick::Brick() : Object(), life_{0} {};
 
-Brick::Brick(Vector2D position, std::shared_ptr<SDL_Texture> texture, int life)
+Brick::Brick(Vector2D position, SDL_Texture *texture, int life)
     : Object(position, texture), life_(life){};
 
-Brick::Brick(int life) : Object(), life_(life){};
+Brick::Brick(int life) : Object(), life_(life) {};
+
 
 void Brick::decrementLife(int number) {
   life_ -= number;

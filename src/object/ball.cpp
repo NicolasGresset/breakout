@@ -13,8 +13,8 @@
 
 Ball::Ball() : MovableObject(), radius_(0), rounding_square_side_length(0){};
 
-Ball::Ball(Vector2D position, std::shared_ptr<SDL_Texture> texture,
-           Vector2D speed, double radius)
+Ball::Ball(Vector2D position, SDL_Texture *texture, Vector2D speed,
+           double radius)
     : MovableObject(position, texture, speed), radius_(radius),
       rounding_square_side_length(radius * SQUARE_ROOT_2) {}
 
@@ -32,7 +32,7 @@ void Ball::draw(SDL_Renderer &renderer) const {
       (int)upper_left_coords.x_, (int)upper_left_coords.y_,
       (int)rounding_square_side_length, (int)rounding_square_side_length};
 
-  int code = SDL_RenderCopy(&renderer, texture_.get(), NULL, &destinationRect);
+  int code = SDL_RenderCopy(&renderer, texture_, NULL, &destinationRect);
   CHECK_SDL_RETURN_CODE(code < 0);
 }
 
