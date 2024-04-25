@@ -19,13 +19,13 @@ void Button::draw(SDL_Renderer *renderer) const {
   int code;
 
   TTF_Font *font = TTF_OpenFont("./font/hershey.ttf", 24);
-  checkSDLReturnCode(!font);
+  CHECK_SDL_RETURN_CODE(!font);
   // Render text inside button
   SDL_Surface *surface = TTF_RenderText_Solid(font, text_.c_str(), color_);
-  checkSDLReturnCode(!surface);
+  CHECK_SDL_RETURN_CODE(!surface);
 
   SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-  checkSDLReturnCode(!texture);
+  CHECK_SDL_RETURN_CODE(!texture);
 
   SDL_Rect textRect = {(int)(upper_left_coords.x_ + (width_ - surface->w) / 2),
                        (int)(upper_left_coords.y_ + (height_ - surface->h) / 2),
@@ -35,5 +35,5 @@ void Button::draw(SDL_Renderer *renderer) const {
   SDL_FreeSurface(surface);
 
   code = SDL_RenderCopy(renderer, texture, NULL, &textRect);
-  checkSDLReturnCode(code < 0);
+  CHECK_SDL_RETURN_CODE(code < 0);
 }

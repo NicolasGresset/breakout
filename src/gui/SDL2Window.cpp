@@ -24,19 +24,19 @@ SDL2Window::SDL2Window(int screen_width, int screen_height)
 void SDL2Window::initSDLObjects() {
   int code;
   code = SDL_Init(SDL_INIT_VIDEO);
-  checkSDLReturnCode((code < 0));
+  CHECK_SDL_RETURN_CODE((code < 0));
 
   // Init TTF
   code = TTF_Init();
-  checkSDLReturnCode((code < 0));
+  CHECK_SDL_RETURN_CODE((code < 0));
 
   window_ = SDL_CreateWindow(
            "Breakout", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
            screen_width_, screen_height_, SDL_WINDOW_SHOWN);
-  checkSDLReturnCode(window_ == nullptr);
+  CHECK_SDL_RETURN_CODE(window_ == nullptr);
 
   renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
-  checkSDLReturnCode(renderer_ == nullptr);
+  CHECK_SDL_RETURN_CODE(renderer_ == nullptr);
 }
 
 void SDL2Window::init() {

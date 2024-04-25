@@ -17,5 +17,5 @@ void Rectangle::draw(SDL_Renderer *renderer) const {
                               (int)height_};
 
   int code = SDL_RenderCopy(renderer, texture_, NULL, &destinationRect);
-  checkSDLReturnCode(code < 0);
+  CHECK_SDL_RETURN_CODE(code < 0);
 }
