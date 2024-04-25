@@ -3,7 +3,8 @@
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
-SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
+SDL_Texture* Assets::loadTexture(const char *path,
+                                                 SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
 
   if (!surface) {
