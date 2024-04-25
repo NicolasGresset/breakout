@@ -8,27 +8,29 @@
 #include <iostream>
 #include <vector>
 
-CollisionEngine::CollisionEngine(std::vector<Ball> &balls, Grid &grid,
-                                 Dock &player)
+CollisionEngine::CollisionEngine() : balls_(), grid_(), player_(){};
+
+CollisionEngine::CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid,
+                                 std::shared_ptr<Dock> player)
     : balls_(balls), grid_(grid), player_(player){};
 
 void CollisionEngine::resolveCollisions() {
-  for (auto &ball : balls_) {
-    if (!ball.bounceIntoWindow(grid_.getWindowHeight(),
-                               grid_.getWindowWidth())) {
+  for (auto ball : *balls_) {
+    if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
+                                (*grid_).getWindowWidth())) {
       // decrement life
     }
 
-    for (auto &brick : grid_.getBricks()) {
-      if (isCollisionCircleRect(ball, brick)) {
-        ball.bounceOverRectangle(brick);
-        brick.decrementLife(1);
+    for (auto brick : (grid_.get())->getBricks()) {
+      if (isCollisionCircleRect(*ball, *brick)) {
+        ball->bounceOverRectangle(*brick);
+        brick->decrementLife(1);
         break;
       }
     }
 
-    if (isCollisionCircleRect(ball, (player_))) {
-      ball.bounceOverPaddle(player_);
+    if (isCollisionCircleRect(*ball, *player_)) {
+      ball->bounceOverPaddle(*player_);
     }
   }
 }
