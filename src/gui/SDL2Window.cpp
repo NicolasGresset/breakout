@@ -22,7 +22,6 @@ SDL2Window::SDL2Window(int screen_width, int screen_height)
     : screen_width_{screen_width}, screen_height_{screen_height},
       window_{nullptr, SDL_DestroyWindow},
       renderer_(nullptr, SDL_DestroyRenderer) {}
-{};
 
 void SDL2Window::initSDLObjects() {
   int code;
