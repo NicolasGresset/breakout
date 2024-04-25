@@ -17,7 +17,10 @@ heritance shall be considered #todo
 class Dock : public Rectangle, public MovableObject {
 
 public:
-  Dock(SDL_Texture *texture = nullptr);
+  Dock();
+  // Dock(SDL_Texture *texture);
+  Dock(Vector2D position, double width, double height, SDL_Texture *texture,
+       Vector2D speed);
 
   void handleEvent(SDL_Event &event);
 
@@ -25,8 +28,7 @@ public:
     return Rectangle::getPosition();
   }
 
-  inline void draw(SDL_Renderer *renderer) const { 
-    Rectangle::draw(renderer); }
+  inline void draw(SDL_Renderer *renderer) const { Rectangle::draw(renderer); }
 
   inline Vector2D toUpperLeftCoords() const {
     return Rectangle::toUpperLeftCoords();
@@ -38,7 +40,7 @@ public:
 
   // inline void move(Uint64 delta) {
   //   MovableObject::move(delta);
-  // }  
+  // }
 };
 
 #endif

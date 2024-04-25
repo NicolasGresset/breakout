@@ -1,6 +1,8 @@
 #include "object/ball.h"
-#include "utils/constants.h"
+#include "object/object.h"
 #include "object/rectangle.h"
+#include "utils/constants.h"
+#include "utils/utils.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
@@ -9,11 +11,19 @@
 #include <cstdio>
 #include <iostream>
 
-Ball::Ball(SDL_Texture *texture)
-    : MovableObject(Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),
-                    texture, Vector2D(0, BALL_SPEED_NORM)),
-      radius_(BALL_RADIUS),
-      rounding_square_side_length(radius_ * SQUARE_ROOT_2) {}
+Ball::Ball() : MovableObject(), radius_(0), rounding_square_side_length(0){};
+
+Ball::Ball(Vector2D position, SDL_Texture *texture, Vector2D speed,
+           double radius)
+    : MovableObject(position, texture, speed), radius_(radius),
+      rounding_square_side_length(radius * SQUARE_ROOT_2) {}
+
+// Ball::Ball(SDL_Texture *texture)
+//     : MovableObject(Vector2D(INITIAL_BALL_POSITION_X,
+//     INITIAL_BALL_POSITION_Y),
+//                     texture, Vector2D(0, BALL_SPEED_NORM)),
+//       radius_(BALL_RADIUS),
+//       rounding_square_side_length(radius_ * SQUARE_ROOT_2) {}
 
 void Ball::draw(SDL_Renderer *renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
@@ -22,13 +32,9 @@ void Ball::draw(SDL_Renderer *renderer) const {
       (int)upper_left_coords.x_, (int)upper_left_coords.y_,
       (int)rounding_square_side_length, (int)rounding_square_side_length};
 
-  if (SDL_RenderCopy(renderer, texture_, NULL, &destinationRect) < 0) {
-    std::cerr << "unable to render rectangle brick : "
-              << std::string{SDL_GetError()} << std::endl;
-    exit(EXIT_FAILURE);
-  }
+  int code = SDL_RenderCopy(renderer, texture_, NULL, &destinationRect);
+  CHECK_SDL_RETURN_CODE(code < 0);
 }
-
 
 int Ball::bounceIntoWindow(double height, double width) {
   if (this->position_.y_ + this->radius_ > height) {
@@ -90,10 +96,10 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
   /* this computation maps the bouncing angle between [3 pi / 2 + delta, 5 pi /
    * 2 - delta] */
 
-  path_angle_ = ((PI - 2 * delta_) / paddle.getWidth()) *
-                    (position_.x_ - paddle.getPosition().x_) +
-                3 * PI / 2 + delta_;
+  double path_angle = ((PI - 2 * delta_) / paddle.getWidth()) *
+                          (position_.x_ - paddle.getPosition().x_) +
+                      3 * PI / 2 + delta_;
 
-  speed_.x_ = BALL_SPEED_NORM * cos(path_angle_);
-  speed_.y_ = BALL_SPEED_NORM * sin(path_angle_);
+  speed_.x_ = BALL_SPEED_NORM * cos(path_angle);
+  speed_.y_ = BALL_SPEED_NORM * sin(path_angle);
 }

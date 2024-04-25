@@ -19,7 +19,6 @@ public:
   Brick(int life);
 
   void decrementLife(int number);
-  inline const Vector2D &getPosition(void) const { return position_; }
 };
 
 #endif

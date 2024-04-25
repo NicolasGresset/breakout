@@ -14,10 +14,10 @@ private:
 
 public:
   Rectangle();
-  Rectangle(Vector2D position = Vector2D{0, 0}, SDL_Texture *texture = nullptr,
-            double width = 0, double height = 0);
+  Rectangle(Vector2D position, SDL_Texture *texture, double width,
+            double height);
 
-  Rectangle(double width, double height);
+  //Rectangle(double width, double height);
   /*
 Returns the 2DVector corresopnding to the coordinates of the upper left corner
 of the rectangle

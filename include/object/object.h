@@ -50,6 +50,7 @@ public:
 
   MovableObject();
   MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
+  MovableObject(Vector2D speed);
 
   inline const Vector2D &getSpeed() const { return speed_; }
 };

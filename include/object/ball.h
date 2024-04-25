@@ -17,13 +17,14 @@ class Ball : public MovableObject {
 private:
   double radius_;
   double rounding_square_side_length;
-  double path_angle_;
 
   double delta_ =
       0.1; // used to calculate direction when bouncing over the paddle
 
 public:
-  Ball(SDL_Texture *texture = nullptr);
+  Ball();
+  Ball(Vector2D position, SDL_Texture *texture, Vector2D speed, double radius);
+  // Ball(SDL_Texture *texture);
 
   void draw(SDL_Renderer *renderer) const override;
 

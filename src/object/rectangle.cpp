@@ -8,9 +8,9 @@ Rectangle::Rectangle(Vector2D position, SDL_Texture *texture, double width,
                      double height)
     : Object(position, texture), width_(width), height_(height){};
 
-Rectangle::Rectangle() : Object(Vector2D{0, 0}, nullptr){};
+Rectangle::Rectangle() : Object(), width_(0), height_(0){};
 
-Rectangle::Rectangle(double width, double height) : Object(), width_(width), height_(height){}
+// Rectangle::Rectangle(double width, double height) : Object(), width_(width), height_(height){}
 
 void Rectangle::draw(SDL_Renderer *renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();

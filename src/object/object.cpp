@@ -10,4 +10,6 @@ MovableObject::MovableObject(Vector2D position, SDL_Texture *texture,
                              Vector2D speed)
     : Object(position, texture), speed_(speed){};
 
+MovableObject::MovableObject(Vector2D speed) : Object(), speed_(speed) {}
+
 MovableObject::MovableObject() : Object(), speed_() {}
