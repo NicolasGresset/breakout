@@ -1,10 +1,10 @@
 #include "gui/assets.h"
+#include "utils/utils.h"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <iostream>
 
-SDL_Texture* Assets::loadTexture(const char *path,
-                                                 SDL_Renderer &renderer) {
+SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
 
   if (!surface) {
@@ -13,10 +13,8 @@ SDL_Texture* Assets::loadTexture(const char *path,
   }
 
   SDL_Texture *texture;
-  if ((texture = SDL_CreateTextureFromSurface(&renderer, surface)) == nullptr) {
-    std ::cerr << std::string{SDL_GetError()} << std::endl;
-    exit(EXIT_FAILURE);
-  }
+  texture = SDL_CreateTextureFromSurface(&renderer, surface);
+  CHECK_SDL_RETURN_CODE(texture == nullptr);
 
   SDL_FreeSurface(surface);
   return texture;
