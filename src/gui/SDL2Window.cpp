@@ -16,12 +16,16 @@
 SDL2Window::SDL2Window()
     : screen_width_{WINDOW_WIDTH}, screen_height_{WINDOW_HEIGHT},
       window_{nullptr, SDL_DestroyWindow},
-      renderer_(nullptr, SDL_DestroyRenderer) {}
+      renderer_(nullptr, SDL_DestroyRenderer) {
+  init();
+}
 
 SDL2Window::SDL2Window(int screen_width, int screen_height)
     : screen_width_{screen_width}, screen_height_{screen_height},
       window_{nullptr, SDL_DestroyWindow},
-      renderer_(nullptr, SDL_DestroyRenderer) {}
+      renderer_(nullptr, SDL_DestroyRenderer) {
+  init();
+}
 
 void SDL2Window::initSDLObjects() {
   int code;

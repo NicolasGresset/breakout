@@ -37,11 +37,13 @@ class Game {
 private:
   SDL2Window window_;
 
-  CollisionEngine collision_engine_;
+  std::shared_ptr<CollisionEngine> collision_engine_; // could be unique ptr ?
   std::shared_ptr<Dock> player_;
-  Grid grid_;
-  std::vector<std::shared_ptr<Ball>> balls_;
-  Assets assets_;
+  std::shared_ptr<Grid> grid_;
+  balls_ptr balls_;
+  std::shared_ptr<Assets> assets_;
+
+  int life_;
 
   bool is_window_closed_;
   void manageKeys(void);
@@ -49,15 +51,17 @@ private:
 
   Clock clock_;
 
+  friend class GameController;
+
 public:
   Game();
-  void init(void);
+  Game(int screen_width, int screen_height, int life);
   void mainLoop(void);
+  void start();
 
 private:
   void drawObjects();
   void moveObjects(Uint64 delta);
-  void gameInit();
 };
 
 #endif

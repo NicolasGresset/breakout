@@ -23,9 +23,8 @@ public:
   SDL2Window();
   SDL2Window(int screen_width, int screen_height);
 
-  void init();
-
 private:
+  void init();
   void initSDLObjects();
 
 public:
