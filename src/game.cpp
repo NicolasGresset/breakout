@@ -8,6 +8,7 @@
 #include <SDL_events.h>
 #include <SDL_timer.h>
 #include <SDL_ttf.h>
+#include <iostream>
 
 Game::Game()
     : window_(), collision_engine_(), player_(), grid_(), balls_(), assets_(),
@@ -17,13 +18,15 @@ void Game::init() {
   window_.init();
   window_.update();
 
+#ifndef GAME_TESTING
   Button button{Vector2D{350, 150}};
   button.draw(window_.getRenderer());
+#endif
   window_.update();
 
-  // window_.temporisation(5000); // todo décommenter en phase finale
+  window_.temporisation(1000); // todo décommenter en phase finale
+  //gameInit();
 
-  gameInit();
 }
 
 void Game::gameInit() {
