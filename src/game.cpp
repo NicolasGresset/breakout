@@ -1,5 +1,4 @@
 #include "game.h"
-#include "button.h"
 #include "collison_engine.h"
 #include "grid.h"
 #include "gui/color.h"
@@ -7,7 +6,6 @@
 #include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_timer.h>
-#include <SDL_ttf.h>
 #include <iostream>
 
 Game::Game()
@@ -18,13 +16,6 @@ void Game::init() {
   window_.init();
   window_.update();
 
-#ifndef GAME_TESTING
-  Button button{Vector2D{350, 150}};
-  button.draw(window_.getRenderer());
-#endif
-  window_.update();
-
-  window_.temporisation(1000); // todo décommenter en phase finale
   //gameInit();
 
 }
@@ -81,7 +72,7 @@ void Game::moveObjects(Uint64 delta) {
   }
 }
 
-void Game::mainLoop() {
+void Game::gameMainLoop() {
   while (!is_window_closed_) {
     clock_.tick(); // update the time elapsed since last frame
     window_.clearWindow();
@@ -91,6 +82,57 @@ void Game::mainLoop() {
     collision_engine_.resolveCollisions();
     drawObjects();
     window_.update();
-    window_.temporisation(150);
+    window_.temporisation(50);
   }
+}
+
+void Game::menuMainLoop() {
+    int mouseX, mouseY;
+    bool play = false;
+
+    while (!is_window_closed_) {
+        clock_.tick(); // update the time elapsed since last frame
+        window_.clearWindow();
+
+#ifndef GAME_TESTING
+
+        Button breakout_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6},  WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12};
+        breakout_text.draw(window_.getRenderer());
+
+        Button play_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*6/12},
+            WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Play"};
+        play_button.draw(window_.getRenderer());
+
+        Button levels_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*8/12},
+            WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Levels"};
+        levels_button.draw(window_.getRenderer());
+
+        Button quit_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*10/12},
+            WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Quit"};
+        quit_button.draw(window_.getRenderer());
+
+        SDL_GetMouseState(&mouseX, &mouseY);
+        if (quit_button.isClicked(mouseX, mouseY)) {
+            std::cout << mouseX << " " << mouseY << std::endl;
+            //is_window_closed_ = true;
+        }
+        else if (play_button.isClicked(mouseX, mouseY))
+        {
+            play = true;
+            break;
+        }
+
+#endif
+        this->pollEvent();
+        this->manageKeys();
+
+        window_.update();
+        window_.temporisation(50);
+
+        if (play)
+        {
+            gameInit();
+            gameMainLoop();
+        }
+    }
 }

@@ -19,11 +19,14 @@ public:
 
     //Button();
     Button(Vector2D position = Vector2D{0, 0},
-           SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF },
            double width = 150,
            double height = 50,
+           SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF },
            std::string text = "BREAKOUT");
-    /*
+
+    bool isClicked(int mouseX, int mouseY);
+
+/*
       Returns the 2DVector corresopnding to the coordinates of the upper left corner
       of the rectangle
     */
