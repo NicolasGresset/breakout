@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "button.h"
 #include "collison_engine.h"
 #include "grid.h"
 #include "gui/SDL2Window.h"
@@ -27,7 +28,8 @@ dropping down when bricks get destroyed can collide with the dock.
 
 Hence, a CollisionEngine is required to handle such behaviour.
 
-A game is parametrized by the type of bricks it is composed : either rectangles
+A game i
+s parametrized by the type of bricks it is composed : either rectangles
 or hexagons
 
 */
@@ -55,9 +57,13 @@ private:
 
 public:
   Game();
+
   Game(int screen_width, int screen_height, int life);
   void mainLoop(void);
   void start();
+  void init(void);
+  void gameMainLoop(void);
+  void menuMainLoop(void);
 
 private:
   void drawObjects();
