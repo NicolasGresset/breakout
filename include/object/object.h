@@ -47,7 +47,7 @@ protected:
   Vector2D speed_;
 
 public:
-  inline void move(Uint64 delta) {
+  virtual inline void move(Uint64 delta) {
     position_.x_ += speed_.x_ * delta;
     position_.y_ += speed_.y_ * delta;
   }

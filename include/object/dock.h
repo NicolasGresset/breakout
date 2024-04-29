@@ -28,17 +28,16 @@ public:
     return Rectangle::getPosition();
   }
 
-  inline void draw(SDL_Renderer &renderer) const {
+  inline void draw(SDL_Renderer &renderer) const override {
     Rectangle::draw(renderer);
   }
 
-  inline Vector2D toUpperLeftCoords() const {
+  inline Vector2D toUpperLeftCoords() const override {
     return Rectangle::toUpperLeftCoords();
   }
 
-  // inline void move(Uint64 delta) {
-  //   MovableObject::move(delta);
-  // }
+  void move(Uint64 delta) override ; 
+
 };
 
 #endif

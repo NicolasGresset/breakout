@@ -33,3 +33,13 @@ void Dock::handleEvent(SDL_Event &event) {
     speed_.x_ = 0;
   }
 }
+
+void Dock::move(Uint64 delta) {
+  double new_x = position_.x_ + speed_.x_ * delta;
+  if (new_x - width_ / 2 < 0) {
+    new_x = width_ / 2;
+  } else if (new_x + width_ / 2 > WINDOW_WIDTH) {
+    new_x = WINDOW_WIDTH - width_ / 2;
+  }
+  position_.x_ = new_x;
+}

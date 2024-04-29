@@ -18,8 +18,8 @@ void GameController::init(int screen_width, int screen_height, int life) {
   game_->balls_ = std::make_shared<std::vector<std::shared_ptr<Ball>>>();
   game_->balls_->push_back(std::make_shared<Ball>(
       Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),
-      game_->assets_->getRectangleTexture(Color::red),
-      Vector2D(0, BALL_SPEED_NORM), BALL_RADIUS));
+      game_->assets_->getBallTexture(Color::blue), Vector2D(0, BALL_SPEED_NORM),
+      BALL_RADIUS));
 
   game_->collision_engine_ = std::make_shared<CollisionEngine>(
       game_->balls_, game_->grid_, game_->player_);

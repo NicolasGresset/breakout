@@ -8,7 +8,7 @@
 /* Héritage virtuel pour résoudre le problème du diamant */
 class Rectangle : virtual public Object {
 
-private:
+protected:
   double width_;
   double height_;
 
