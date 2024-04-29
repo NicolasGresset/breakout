@@ -16,14 +16,6 @@ Game::Game(int width, int height, int life)
     : window_(width, height), life_(life) {}
 
 
-void Game::start() {
-  Button button{Vector2D{350, 150}};
-  button.draw(window_.getRenderer());
-  window_.update();
-
-  window_.temporisation(5000); // todo décommenter en phase finale
-  this->mainLoop();
-}
 
 void Game::manageKeys() {
   int nbk;

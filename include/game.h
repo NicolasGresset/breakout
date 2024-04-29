@@ -60,7 +60,6 @@ public:
 
   Game(int screen_width, int screen_height, int life);
   void mainLoop(void);
-  void start();
   void init(void);
   void gameMainLoop(void);
   void menuMainLoop(void);
