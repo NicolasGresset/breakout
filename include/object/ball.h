@@ -19,7 +19,7 @@ private:
   double rounding_square_side_length;
 
   double delta_ =
-      0.1; // used to calculate direction when bouncing over the paddle
+      0.3; // used to calculate direction when bouncing over the paddle
 
 public:
   Ball();

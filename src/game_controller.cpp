@@ -10,7 +10,7 @@ void GameController::init(int screen_width, int screen_height, int life) {
   game_ = std::make_shared<Game>(screen_width, screen_height, life);
   game_->assets_ = std::make_shared<Assets>(game_->window_.getRenderer());
   game_->grid_ =
-      std::make_shared<Grid>(3, 4, screen_width, screen_height, game_->assets_);
+      std::make_shared<Grid>(7, 3, screen_width, screen_height, game_->assets_);
   game_->player_ = std::make_shared<Dock>(
       Vector2D(screen_width / 2, screen_height - PADDING - DOCK_HEIGHT / 2),
       DOCK_WIDTH, DOCK_HEIGHT, game_->assets_->getRectangleTexture(Color::blue),

@@ -66,7 +66,7 @@ void Game::gameMainLoop() {
     collision_engine_->resolveCollisions();
     drawObjects();
     window_.update();
-    window_.temporisation(10);
+    window_.temporisation(2);
   }
 }
 
