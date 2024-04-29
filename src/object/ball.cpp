@@ -11,7 +11,8 @@
 #include <cstdio>
 #include <iostream>
 
-Ball::Ball() : Object(), MovableObject(), radius_(0), rounding_square_side_length(0){};
+Ball::Ball()
+    : Object(), MovableObject(), radius_(0), rounding_square_side_length(0){};
 
 Ball::Ball(Vector2D position, SDL_Texture *texture, Vector2D speed,
            double radius)
@@ -95,6 +96,12 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
 
   /* this computation maps the bouncing angle between [3 pi / 2 + delta, 5 pi /
    * 2 - delta] */
+
+  // bouncing over the side
+  if (position_.y_ + radius_ > paddle.getPosition().y_ + paddle.getHeight()) {
+    speed_.x_ = -speed_.x_;
+    return;
+  }
 
   double path_angle = ((PI - 2 * delta_) / paddle.getWidth()) *
                           (position_.x_ - paddle.getPosition().x_) +
