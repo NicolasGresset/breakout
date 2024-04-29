@@ -22,7 +22,7 @@ void CollisionEngine::resolveCollisions() {
     }
 
     for (auto brick : (grid_.get())->getBricks()) {
-      if (isCollisionCircleRect(*ball, *brick)) {
+      if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
         ball->bounceOverRectangle(*brick);
         brick->decrementLife(1);
         break;

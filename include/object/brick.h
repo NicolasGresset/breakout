@@ -19,6 +19,7 @@ public:
   Brick(int life);
 
   void decrementLife(int number);
+  inline bool isDestroyed() const { return destroyed_; }
 };
 
 #endif
