@@ -8,8 +8,8 @@ Grid::Grid()
     : bricks_(), height_(), width_(), window_height_(), window_width_(),
       assets_(){};
 
-Grid::Grid(const int height, const int width, double window_height,
-           double window_width, std::shared_ptr<Assets> assets)
+Grid::Grid(const int width, const int height, double window_width,
+           double window_height, std::shared_ptr<Assets> assets)
     : height_(height), width_(width), window_height_(window_height),
       window_width_(window_width), assets_(assets) {
   init();

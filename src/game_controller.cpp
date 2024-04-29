@@ -14,7 +14,7 @@ void GameController::init(int screen_width, int screen_height, int life) {
   game_->player_ = std::make_shared<Dock>(
       Vector2D(screen_width / 2, screen_height - PADDING - DOCK_HEIGHT / 2),
       DOCK_WIDTH, DOCK_HEIGHT, game_->assets_->getRectangleTexture(Color::blue),
-      Vector2D(DOCK_SPEED_X, 0));
+      Vector2D(0, 0));
   game_->balls_ = std::make_shared<std::vector<std::shared_ptr<Ball>>>();
   game_->balls_->push_back(std::make_shared<Ball>(
       Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),

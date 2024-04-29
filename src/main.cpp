@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
   (void)argc;
   (void)argv;
-  GameController game_controller(WINDOW_HEIGHT, WINDOW_WIDTH, 3);
+  GameController game_controller(WINDOW_WIDTH, WINDOW_HEIGHT, 3);
   std::shared_ptr<Game> my_game = game_controller.getGame();
   my_game->start();
   return 0;

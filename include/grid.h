@@ -41,8 +41,8 @@ public:
   // for instance, for a 3*4 grid, call Grid(3, 4)
   // the convention is similar to matrixes
   */
-  Grid(const int height, const int width, const double window_height,
-       const double window_width, std::shared_ptr<Assets> assets);
+  Grid(const int width, const int height, const double window_width,
+       const double window_height, std::shared_ptr<Assets> assets);
 
   Grid(std::shared_ptr<Assets> assets);
 

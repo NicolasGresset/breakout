@@ -22,7 +22,7 @@ void Game::start() {
   button.draw(window_.getRenderer());
   window_.update();
 
-  // window_.temporisation(5000); // todo décommenter en phase finale
+  window_.temporisation(5000); // todo décommenter en phase finale
   this->mainLoop();
 }
 
@@ -75,6 +75,6 @@ void Game::mainLoop() {
     collision_engine_->resolveCollisions();
     drawObjects();
     window_.update();
-    window_.temporisation(150);
+    window_.temporisation(10);
   }
 }

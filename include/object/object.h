@@ -6,6 +6,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL_stdinc.h>
 #include <memory>
+#include <sys/types.h>
 
 /*
 An Object is a class which represents anything present in the screen that can
@@ -28,6 +29,8 @@ public:
   virtual void draw(SDL_Renderer &renderer) const = 0;
 
   inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
+
+  inline SDL_Texture *getTexture() { return texture_; }
 
   inline const Vector2D &getPosition() const { return position_; }
 

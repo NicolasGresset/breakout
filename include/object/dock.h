@@ -28,12 +28,13 @@ public:
     return Rectangle::getPosition();
   }
 
-  inline void draw(SDL_Renderer &renderer) const { Rectangle::draw(renderer); }
+  inline void draw(SDL_Renderer &renderer) const {
+    Rectangle::draw(renderer);
+  }
 
   inline Vector2D toUpperLeftCoords() const {
     return Rectangle::toUpperLeftCoords();
   }
-
 
   // inline void move(Uint64 delta) {
   //   MovableObject::move(delta);

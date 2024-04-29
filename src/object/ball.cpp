@@ -11,11 +11,11 @@
 #include <cstdio>
 #include <iostream>
 
-Ball::Ball() : MovableObject(), radius_(0), rounding_square_side_length(0){};
+Ball::Ball() : Object(), MovableObject(), radius_(0), rounding_square_side_length(0){};
 
 Ball::Ball(Vector2D position, SDL_Texture *texture, Vector2D speed,
            double radius)
-    : MovableObject(position, texture, speed), radius_(radius),
+    : Object(position, texture), MovableObject(speed), radius_(radius),
       rounding_square_side_length(radius * SQUARE_ROOT_2) {}
 
 // Ball::Ball(SDL_Texture *texture)

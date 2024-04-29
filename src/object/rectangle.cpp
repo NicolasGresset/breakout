@@ -4,11 +4,13 @@
 #include <cstddef>
 #include <iostream>
 
-Rectangle::Rectangle(Vector2D position, SDL_Texture* texture, double width,
+Rectangle::Rectangle(Vector2D position, SDL_Texture *texture, double width,
                      double height)
     : Object(position, texture), width_(width), height_(height){};
 
 Rectangle::Rectangle() : Object(), width_(0), height_(0){};
+
+Rectangle::Rectangle(double width, double height) : Object(), width_(width), height_(height){}
 
 // Rectangle::Rectangle(double width, double height) : Object(), width_(width),
 // height_(height){}
