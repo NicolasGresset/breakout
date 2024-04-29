@@ -123,7 +123,6 @@ void Game::menuMainLoop() {
 
         if (play)
         {
-            gameInit();
             gameMainLoop();
         }
     }
