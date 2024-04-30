@@ -20,7 +20,7 @@ Grid::Grid(std::shared_ptr<Assets> assets)
       assets_(assets) {}
 
 void Grid::init() {
-  double element_height = window_height_ / (2 * height_);
+  double element_height = window_height_ / (4 * height_);
   double element_width = window_width_ / width_;
   for (int i{0}; i < height_; i++) {
     for (int j{0}; j < width_; j++) {

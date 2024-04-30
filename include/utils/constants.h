@@ -15,7 +15,7 @@ constexpr double DOCK_SPEED_X = 1.5;
 constexpr double INITIAL_BALL_POSITION_X = (double)WINDOW_WIDTH / 2;
 constexpr double INITIAL_BALL_POSITION_Y = 2 * (double)WINDOW_HEIGHT / 3;
 
-constexpr double BALL_SPEED_NORM = 3;
+constexpr double BALL_SPEED_NORM = 2;
 
 constexpr double BALL_RADIUS = 20;
 
