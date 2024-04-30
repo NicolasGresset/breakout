@@ -9,10 +9,10 @@
 #include <SDL_timer.h>
 #include <iostream>
 
-Game::Game()
-    : window_(), collision_engine_(), player_(), grid_(), balls_(), assets_(){};
+Game::Game(std::shared_ptr<SDL2Window> & window_ptr)
+    : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(), balls_(), assets_(){};
 
-Game::Game(int width, int height) : window_(width, height) {}
+//Game::Game(int width, int height) : window_(width, height) {}
 
 void Game::manageKeys() {
   int nbk;
@@ -39,11 +39,11 @@ void Game::pollEvent() {
 }
 
 void Game::drawObjects() {
-  background_->draw(window_.getRenderer());
-  grid_->draw(window_.getRenderer());
-  player_->draw(window_.getRenderer());
+  background_->draw(window_ptr_->getRenderer());
+  grid_->draw(window_ptr_->getRenderer());
+  player_->draw(window_ptr_->getRenderer());
   for (auto ball : *balls_) {
-    ball->draw(window_.getRenderer());
+      ball->draw(window_ptr_->getRenderer());
   }
 }
 
@@ -54,77 +54,20 @@ void Game::moveObjects(Uint64 delta) {
   }
 }
 
-void Game::gameMainLoop() {
+void Game::mainLoop() {
   while (!is_window_closed_) {
     if (!player_->isAlive()) {
       std::cout << "You lost!" << std::endl;
       break;
     }
     clock_.tick(); // update the time elapsed since last frame
-    window_.clearWindow();
+    window_ptr_->clearWindow();
     pollEvent();
     manageKeys();
     moveObjects(clock_.time_elapsed);
     collision_engine_->resolveCollisions();
     drawObjects();
-    window_.update();
-    // window_.temporisation(2);
-  }
-}
-
-void Game::menuMainLoop() {
-  int mouseX, mouseY;
-  bool play = false;
-
-  while (!is_window_closed_) {
-    clock_.tick(); // update the time elapsed since last frame
-    window_.clearWindow();
-
-#ifndef GAME_TESTING
-
-    Button breakout_text{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 6},
-                         WINDOW_WIDTH / 2, WINDOW_HEIGHT * 3 / 12};
-    breakout_text.draw(window_.getRenderer());
-
-    Button play_button{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT * 6 / 12},
-                       WINDOW_WIDTH * 2 / 12,
-                       WINDOW_HEIGHT * 1.5 / 12,
-                       {0x00, 0x00, 0xFF, 0xFF},
-                       "Play"};
-    play_button.draw(window_.getRenderer());
-
-    Button levels_button{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT * 8 / 12},
-                         WINDOW_WIDTH * 2 / 12,
-                         WINDOW_HEIGHT * 1.5 / 12,
-                         {0x00, 0x00, 0xFF, 0xFF},
-                         "Levels"};
-    levels_button.draw(window_.getRenderer());
-
-    Button quit_button{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT * 10 / 12},
-                       WINDOW_WIDTH * 2 / 12,
-                       WINDOW_HEIGHT * 1.5 / 12,
-                       {0x00, 0x00, 0xFF, 0xFF},
-                       "Quit"};
-    quit_button.draw(window_.getRenderer());
-
-    SDL_GetMouseState(&mouseX, &mouseY);
-    if (quit_button.isClicked(mouseX, mouseY)) {
-      std::cout << mouseX << " " << mouseY << std::endl;
-      // is_window_closed_ = true;
-    } else if (play_button.isClicked(mouseX, mouseY)) {
-      play = true;
-      break;
-    }
-
-#endif
-    this->pollEvent();
-    this->manageKeys();
-
-    window_.update();
-    window_.temporisation(50);
-
-    if (play) {
-      gameMainLoop();
-    }
+    window_ptr_->update();
+    window_ptr_->temporisation(2);
   }
 }

@@ -8,16 +8,14 @@ Button::Button(Vector2D position,
                double width,
                double height,
                SDL_Color color,
-               std::string text)
+               std::string text,
+               bool clickable)
     : Object(position, NULL), color_(color), width_(width), height_(height),
-      text_(text){};
+      text_(text), clickable_(clickable){};
 
 // Button::Button() : Object(Vector2D{0, 0}, nullptr){};
 
 void Button::draw(SDL_Renderer &renderer) const {
-    //Vector2D upper_left_coords = this->toUpperLeftCoords();
-    //SDL_Rect destButton = {(int)upper_left_coords.x_, (int)upper_left_coords.y_,
-    //                     (int)width_, (int)height_};
   int code;
 
   TTF_Font *font = TTF_OpenFont("./font/hershey.ttf", 50);

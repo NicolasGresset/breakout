@@ -6,9 +6,9 @@
 #include "utils/vector2D.h"
 #include <memory>
 
-void GameController::init(int screen_width, int screen_height, int life) {
-  game_ = std::make_shared<Game>(screen_width, screen_height);
-  game_->assets_ = std::make_shared<Assets>(game_->window_.getRenderer());
+void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_width, int screen_height, int life) {
+  game_ = std::make_shared<Game>(window_ptr);
+  game_->assets_ = std::make_shared<Assets>(game_->window_ptr_->getRenderer());
   game_->grid_ = std::make_shared<Grid>(10, 8, screen_width, screen_height,
                                         game_->assets_);
   game_->player_ = std::make_shared<Dock>(

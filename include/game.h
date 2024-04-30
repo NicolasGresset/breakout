@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "button.h"
 #include "collison_engine.h"
 #include "grid.h"
 #include "gui/SDL2Window.h"
@@ -38,7 +37,7 @@ or hexagons
 // template<typename T>
 class Game {
 private:
-  SDL2Window window_;
+  std::shared_ptr<SDL2Window> window_ptr_;
 
   std::shared_ptr<CollisionEngine> collision_engine_; // could be unique ptr ?
   std::shared_ptr<Dock> player_;
@@ -57,13 +56,11 @@ private:
   friend class GameController;
 
 public:
-  Game();
+    Game(std::shared_ptr<SDL2Window> & window_ptr);
 
-  Game(int screen_width, int screen_height);
+    //Game(int screen_width, int screen_height);
   void mainLoop(void);
   void init(void);
-  void gameMainLoop(void);
-  void menuMainLoop(void);
 
 private:
   void drawObjects();

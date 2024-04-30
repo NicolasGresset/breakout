@@ -8,11 +8,11 @@ class GameController {
 private:
   std::shared_ptr<Game> game_;
 
-  void init(int screen_width, int screen_height, int life);
+    void init(std::shared_ptr<SDL2Window> & window_ptr, int screen_width, int screen_height, int life);
 public:
   GameController();
-  GameController(int screen_width, int screen_height, int life) {
-    init(screen_width, screen_height, life);
+  GameController(std::shared_ptr<SDL2Window> & window_ptr, int screen_width, int screen_height, int life) {
+      init(window_ptr, screen_width, screen_height, life);
   };
 
 

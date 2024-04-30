@@ -15,6 +15,8 @@ private:
     double width_;
     double height_;
     std::string text_;
+    bool clickable_;
+
 public:
 
     //Button();
@@ -22,8 +24,10 @@ public:
            double width = 150,
            double height = 50,
            SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF },
-           std::string text = "BREAKOUT");
+           std::string text = "BREAKOUT",
+           bool clickable = true);
 
+    bool isClickable() { return clickable_; };
     bool isClicked(int mouseX, int mouseY);
 
 /*
