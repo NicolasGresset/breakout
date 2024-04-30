@@ -10,11 +10,9 @@
 #include <iostream>
 
 Game::Game()
-    : window_(), collision_engine_(), player_(), grid_(), balls_(), assets_(),
-      is_window_closed_(false){};
+    : window_(), collision_engine_(), player_(), grid_(), balls_(), assets_(){};
 
-Game::Game(int width, int height, int life)
-    : window_(width, height), life_(life) {}
+Game::Game(int width, int height) : window_(width, height) {}
 
 void Game::manageKeys() {
   int nbk;
@@ -60,8 +58,8 @@ void Game::gameMainLoop() {
   while (!is_window_closed_) {
     clock_.tick(); // update the time elapsed since last frame
     window_.clearWindow();
-    this->pollEvent();
-    this->manageKeys();
+    pollEvent();
+    manageKeys();
     moveObjects(clock_.time_elapsed);
     collision_engine_->resolveCollisions();
     drawObjects();
