@@ -34,12 +34,6 @@ public:
   inline void temporisation(Uint32 ms) const { SDL_Delay(ms); }
   inline SDL_Renderer &getRenderer(void) { return *renderer_; }
   inline void clearWindow(void) { SDL_RenderClear(renderer_.get()); }
-
-public:
-  void drawCirle(double centerX, double centerY, double radius);
-  void fillCircle(double centerX, double centerY, double radius);
-
-  // void foo(void);
 };
 
 #endif
