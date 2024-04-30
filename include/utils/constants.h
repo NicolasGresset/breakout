@@ -12,8 +12,10 @@ constexpr int PADDING = 20;
 
 constexpr double DOCK_SPEED_X = 1.5;
 
-constexpr double INITIAL_BALL_POSITION_X = (double)WINDOW_WIDTH / 2;
-constexpr double INITIAL_BALL_POSITION_Y = 2 * (double)WINDOW_HEIGHT / 3;
+constexpr double INITIAL_BALL_POSITION_X =
+    static_cast<double>(WINDOW_WIDTH) / 2;
+constexpr double INITIAL_BALL_POSITION_Y =
+    2 * static_cast<double>(WINDOW_HEIGHT) / 3;
 
 constexpr double BALL_SPEED_NORM = 2;
 
@@ -25,6 +27,6 @@ constexpr double PI = 3.14159265;
 
 constexpr int DEFAULT_BRICK_LIFE = 1;
 
-constexpr Uint64 FRAME_DURATION = 10; 
+constexpr Uint64 FRAME_DURATION = 10;
 
 #endif
