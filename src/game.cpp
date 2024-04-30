@@ -56,6 +56,10 @@ void Game::moveObjects(Uint64 delta) {
 
 void Game::gameMainLoop() {
   while (!is_window_closed_) {
+    if (!player_->isAlive()) {
+      std::cout << "You lost!" << std::endl;
+      break;
+    }
     clock_.tick(); // update the time elapsed since last frame
     window_.clearWindow();
     pollEvent();

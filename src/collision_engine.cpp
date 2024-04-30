@@ -18,7 +18,7 @@ void CollisionEngine::resolveCollisions() {
   for (auto ball : *balls_) {
     if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
                                 (*grid_).getWindowWidth())) {
-      // decrement life
+      player_->popLife();
     }
 
     for (auto brick : (grid_.get())->getBricks()) {

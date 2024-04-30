@@ -14,12 +14,12 @@
 //           2}, texture, DOCK_WIDTH, DOCK_HEIGHT),
 //           MovableObject(Vector2D(DOCK_SPEED_X,0)) {}
 
-Dock::Dock() : Object(), Rectangle(), MovableObject() {}
+Dock::Dock() : Object(), Rectangle(), MovableObject(), life_() {}
 
 Dock::Dock(Vector2D position, double width, double height, SDL_Texture *texture,
-           Vector2D speed)
-    : Object(position, texture), Rectangle(width, height),
-      MovableObject(speed) {}
+           Vector2D speed, int life)
+    : Object(position, texture), Rectangle(width, height), MovableObject(speed),
+      life_(life) {}
 
 void Dock::handleEvent(SDL_Event &event) {
 

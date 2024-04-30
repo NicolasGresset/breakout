@@ -7,14 +7,16 @@
 #include <memory>
 
 void GameController::init(int screen_width, int screen_height, int life) {
-  game_ = std::make_shared<Game>(screen_width, screen_height, life);
+  game_ = std::make_shared<Game>(screen_width, screen_height);
   game_->assets_ = std::make_shared<Assets>(game_->window_.getRenderer());
-  game_->grid_ =
-      std::make_shared<Grid>(7, 3, screen_width, screen_height, game_->assets_);
+  game_->grid_ = std::make_shared<Grid>(10, 8, screen_width, screen_height,
+                                        game_->assets_);
   game_->player_ = std::make_shared<Dock>(
-      Vector2D(screen_width / 2, screen_height - PADDING - DOCK_HEIGHT / 2),
+      Vector2D(static_cast<double>(screen_width) / 2,
+               static_cast<double>(screen_height - PADDING) -
+                   static_cast<double>(DOCK_HEIGHT) / 2),
       DOCK_WIDTH, DOCK_HEIGHT, game_->assets_->getRectangleTexture(Color::blue),
-      Vector2D(0, 0));
+      Vector2D(0, 0), life);
   game_->balls_ = std::make_shared<std::vector<std::shared_ptr<Ball>>>();
   game_->balls_->push_back(std::make_shared<Ball>(
       Vector2D(INITIAL_BALL_POSITION_X, INITIAL_BALL_POSITION_Y),

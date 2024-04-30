@@ -48,9 +48,7 @@ private:
 
   std::shared_ptr<Background> background_;
 
-  int life_;
-
-  bool is_window_closed_;
+  bool is_window_closed_ = false;
   void manageKeys(void);
   void pollEvent(void);
 
@@ -61,7 +59,7 @@ private:
 public:
   Game();
 
-  Game(int screen_width, int screen_height, int life);
+  Game(int screen_width, int screen_height);
   void mainLoop(void);
   void init(void);
   void gameMainLoop(void);

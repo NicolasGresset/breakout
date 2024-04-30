@@ -15,12 +15,14 @@ differs because of different methods and its ability to move. Hence, multiple
 heritance shall be considered #todo
 */
 class Dock : public Rectangle, public MovableObject {
+private:
+  int life_;
 
 public:
   Dock();
   // Dock(SDL_Texture *texture);
   Dock(Vector2D position, double width, double height, SDL_Texture *texture,
-       Vector2D speed);
+       Vector2D spee, int life);
 
   void handleEvent(SDL_Event &event);
 
@@ -36,8 +38,11 @@ public:
     return Rectangle::toUpperLeftCoords();
   }
 
-  void move(Uint64 delta) override ; 
+  void move(Uint64 delta) override;
 
+  inline void popLife() { life_--; }
+
+  inline bool isAlive() const { return life_ > 0; }
 };
 
 #endif
