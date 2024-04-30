@@ -16,6 +16,10 @@ public:
     time_elapsed =
         ((now_ - last_) * 1000) / (double)SDL_GetPerformanceFrequency();
   }
+
+  inline double getFPS(){
+    return 1000.0 / time_elapsed;
+  }
 };
 
 #endif

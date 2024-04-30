@@ -23,4 +23,7 @@ void GameController::init(int screen_width, int screen_height, int life) {
 
   game_->collision_engine_ = std::make_shared<CollisionEngine>(
       game_->balls_, game_->grid_, game_->player_);
+
+  game_->background_ = std::make_shared<Background>(
+      game_->assets_->getBackgroundTexture(), screen_width, screen_height);
 }

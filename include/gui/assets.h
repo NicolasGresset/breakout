@@ -5,12 +5,14 @@
 #include <SDL2/SDL_render.h>
 #include <map>
 #include <memory>
+#include <vector>
 
 class Assets {
 private:
   // can't use smart pointers because SDL_Texture is an incomplete type
   std::map<Color, SDL_Texture *> rectangles_textures_;
   std::map<Color, SDL_Texture *> balls_textures_;
+  std::vector<SDL_Texture *> background_texture_;
 
 public:
   Assets() {}
@@ -20,6 +22,10 @@ public:
   }
   inline SDL_Texture *getBallTexture(Color color) {
     return balls_textures_[color];
+  }
+
+  inline std::shared_ptr<std::vector<SDL_Texture *>> getBackgroundTexture() {
+    return std::make_shared<std::vector<SDL_Texture *>>(background_texture_);
   }
 
 private:

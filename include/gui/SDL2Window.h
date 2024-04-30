@@ -2,6 +2,7 @@
 #define SDL2WINDOW_H
 
 #include "assets.h"
+#include "background.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>

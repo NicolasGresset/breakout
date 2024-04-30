@@ -6,6 +6,7 @@
 #include "grid.h"
 #include "gui/SDL2Window.h"
 #include "gui/assets.h"
+#include "gui/background.h"
 #include "object/ball.h"
 #include "object/dock.h"
 #include "utils/clock.h"
@@ -44,6 +45,8 @@ private:
   std::shared_ptr<Grid> grid_;
   balls_ptr balls_;
   std::shared_ptr<Assets> assets_;
+
+  std::shared_ptr<Background> background_;
 
   int life_;
 

@@ -43,4 +43,12 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
   // Load balls
   balls_textures_.insert(std::make_pair(
       Color::blue, loadTexture("textures/ball_blue.bmp", renderer)));
+
+  // load background
+  for (int i(2); i<12; i++) {
+    std::string background_name =
+        "textures/mandelbrot" + std::to_string(i) + ".bmp";
+    background_texture_.push_back(
+        loadTexture(background_name.c_str(), renderer));
+  }
 }
