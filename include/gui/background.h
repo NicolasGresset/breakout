@@ -1,18 +1,24 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
+#include "utils/constants.h"
+#include "utils/vector2D.h"
 #include <SDL_render.h>
 #include <memory>
 #include <vector>
 
-class Background {
+class ElementBackground {
 private:
   std::shared_ptr<std::vector<SDL_Texture *>> background_texture_;
+  SDL_Texture *current_texture_;
   const int screen_width_;
   const int screen_height_;
 
-  // the frame to be displayed at this call of draw : valid index of
-  // background_texture
+  // center of the image
+  Vector2D position_;
+
+  // the index of the frame to be displayed at this call of draw : valid index
+  // of background_texture
   int current_frame_ = 0;
 
   // the number of frames we display the same background
@@ -25,14 +31,29 @@ private:
   bool raising_values = true;
 
 public:
-  Background();
-  Background(std::shared_ptr<std::vector<SDL_Texture *>> background_texture,
+  ElementBackground();
+  ElementBackground(std::shared_ptr<std::vector<SDL_Texture *>> background_texture,
              int screen_width, int screen_height);
 
-  void draw(SDL_Renderer &renderer) ;
+  void draw(SDL_Renderer &renderer);
 
-  private:
-    void updateFrames();
+  inline void update(Uint64 delta) {
+    total_time_ += delta;
+    current_texture_ = background_texture_->at(current_frame_);
+  }
+
+private:
+  Uint64 total_time_;
+  SDL_Point center_;
+  SDL_Rect rect_;
+  void updateFrames();
+  // rotate once every reset_threshold milliseconds
+  inline double getAngle(Uint64 reset_threshold) {
+    return (
+        (static_cast<double>(total_time_ % reset_threshold) / reset_threshold) *
+        360);
+  }
 };
+
 
 #endif

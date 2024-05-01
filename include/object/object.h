@@ -7,6 +7,9 @@
 #include <SDL_stdinc.h>
 #include <memory>
 #include <sys/types.h>
+#include <vector>
+
+using texture_ptr = std::shared_ptr<std::vector<SDL_Texture *>>;
 
 /*
 An Object is a class which represents anything present in the screen that can
@@ -21,16 +24,16 @@ protected:
   // The position of the center of the object --> any object MUST have a center
   // unambiguously defined
   Vector2D position_;
-  SDL_Texture *texture_;
+  texture_ptr texture_;
 
 public:
   Object();
-  Object(Vector2D position, SDL_Texture *texture);
+  Object(Vector2D position, texture_ptr texture);
   virtual void draw(SDL_Renderer &renderer) const = 0;
 
-  inline void setTexture(SDL_Texture *texture) { texture_ = texture; }
+  inline void setTexture(texture_ptr texture) { texture_ = texture; }
 
-  inline SDL_Texture *getTexture() { return texture_; }
+  inline texture_ptr getTexture() { return texture_; }
 
   inline const Vector2D &getPosition() const { return position_; }
 
@@ -53,7 +56,7 @@ public:
   }
 
   MovableObject();
-  MovableObject(Vector2D position, SDL_Texture *texture, Vector2D speed);
+  MovableObject(Vector2D position, texture_ptr texture, Vector2D speed);
   MovableObject(Vector2D speed);
 
   inline const Vector2D &getSpeed() const { return speed_; }

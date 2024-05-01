@@ -9,11 +9,7 @@
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
 
-/*
-A dock is semantically close to a rectangle because of its shape but also
-differs because of different methods and its ability to move. Hence, multiple
-heritance shall be considered #todo
-*/
+
 class Dock : public Rectangle, public MovableObject {
 private:
   int life_;
@@ -21,7 +17,7 @@ private:
 public:
   Dock();
   // Dock(SDL_Texture *texture);
-  Dock(Vector2D position, double width, double height, SDL_Texture *texture,
+  Dock(Vector2D position, double width, double height, texture_ptr texture,
        Vector2D spee, int life);
 
   void handleEvent(SDL_Event &event);

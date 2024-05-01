@@ -16,7 +16,7 @@
 
 Dock::Dock() : Object(), Rectangle(), MovableObject(), life_() {}
 
-Dock::Dock(Vector2D position, double width, double height, SDL_Texture *texture,
+Dock::Dock(Vector2D position, double width, double height, texture_ptr texture,
            Vector2D speed, int life)
     : Object(position, texture), Rectangle(width, height), MovableObject(speed),
       life_(life) {}

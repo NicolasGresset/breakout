@@ -45,7 +45,7 @@ private:
   balls_ptr balls_;
   std::shared_ptr<Assets> assets_;
 
-  std::shared_ptr<Background> background_;
+  std::shared_ptr<ElementBackground> background_;
 
   bool is_window_closed_ = false;
   void manageKeys(void);

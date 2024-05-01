@@ -2,6 +2,7 @@
 #define RECTANGLE_BRICK_H
 
 #include "brick.h"
+#include "object/object.h"
 #include "rectangle.h"
 #include "utils/vector2D.h"
 #include <SDL2/SDL_render.h>
@@ -10,7 +11,7 @@ class RectangleBrick : public Rectangle, public Brick {
 
 public:
   RectangleBrick();
-  RectangleBrick(Vector2D position, SDL_Texture *texture, int life,
+  RectangleBrick(Vector2D position, texture_ptr texture, int life,
                  double width, double height);
 
   inline void draw(SDL_Renderer &renderer) const override {

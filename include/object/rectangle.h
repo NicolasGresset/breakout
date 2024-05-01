@@ -15,12 +15,12 @@ protected:
 public:
   Rectangle();
   Rectangle(double width, double height);
-  Rectangle(Vector2D position, SDL_Texture* texture, double width,
+  Rectangle(Vector2D position, texture_ptr texture, double width,
             double height);
 
   //Rectangle(double width, double height);
   /*
-Returns the 2DVector corresopnding to the coordinates of the upper left corner
+Returns the 2DVector corresponding to the coordinates of the upper left corner
 of the rectangle
 */
   inline Vector2D toUpperLeftCoords() const override {

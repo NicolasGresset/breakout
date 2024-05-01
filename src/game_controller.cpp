@@ -4,6 +4,7 @@
 #include "object/ball.h"
 #include "utils/constants.h"
 #include "utils/vector2D.h"
+#include <SDL_render.h>
 #include <memory>
 
 void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_width, int screen_height, int life) {
@@ -15,7 +16,8 @@ void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_w
       Vector2D(static_cast<double>(screen_width) / 2,
                static_cast<double>(screen_height - PADDING) -
                    static_cast<double>(DOCK_HEIGHT) / 2),
-      DOCK_WIDTH, DOCK_HEIGHT, game_->assets_->getRectangleTexture(Color::blue),
+      DOCK_WIDTH, DOCK_HEIGHT, 
+      game_->assets_->getRectangleTexture(Color::blue),
       Vector2D(0, 0), life);
   game_->balls_ = std::make_shared<std::vector<std::shared_ptr<Ball>>>();
   game_->balls_->push_back(std::make_shared<Ball>(
@@ -26,6 +28,6 @@ void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_w
   game_->collision_engine_ = std::make_shared<CollisionEngine>(
       game_->balls_, game_->grid_, game_->player_);
 
-  game_->background_ = std::make_shared<Background>(
+  game_->background_ = std::make_shared<ElementBackground>(
       game_->assets_->getBackgroundTexture(), screen_width, screen_height);
 }

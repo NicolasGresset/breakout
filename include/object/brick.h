@@ -15,7 +15,7 @@ protected:
 
 public:
   Brick();
-  Brick(Vector2D position, SDL_Texture *texture, int life);
+  Brick(Vector2D position, texture_ptr texture, int life);
   Brick(int life);
 
   void decrementLife(int number);

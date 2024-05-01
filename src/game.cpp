@@ -9,10 +9,11 @@
 #include <SDL_timer.h>
 #include <iostream>
 
-Game::Game(std::shared_ptr<SDL2Window> & window_ptr)
-    : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(), balls_(), assets_(){};
+Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
+    : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
+      balls_(), assets_(){};
 
-//Game::Game(int width, int height) : window_(width, height) {}
+// Game::Game(int width, int height) : window_(width, height) {}
 
 void Game::manageKeys() {
   int nbk;
@@ -43,7 +44,7 @@ void Game::drawObjects() {
   grid_->draw(window_ptr_->getRenderer());
   player_->draw(window_ptr_->getRenderer());
   for (auto ball : *balls_) {
-      ball->draw(window_ptr_->getRenderer());
+    ball->draw(window_ptr_->getRenderer());
   }
 }
 
@@ -52,6 +53,7 @@ void Game::moveObjects(Uint64 delta) {
   for (auto ball : *balls_) {
     ball->move(delta);
   }
+  background_->update(delta);
 }
 
 void Game::mainLoop() {
