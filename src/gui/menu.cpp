@@ -24,9 +24,11 @@ void Menu::pollEvent() {
             is_window_closed_ = true;
             break;
         case SDL_MOUSEBUTTONDOWN:
-            checkButtonClicked();
+            checkButtonClicked(true);
             break;
-
+        case SDL_MOUSEMOTION:
+            checkButtonClicked(false);
+            break;
         default:
             break;
         }
@@ -35,7 +37,7 @@ void Menu::pollEvent() {
 }
 
 
-void Menu::checkButtonClicked()
+void Menu::checkButtonClicked(bool click)
 {
     int mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
@@ -44,9 +46,18 @@ void Menu::checkButtonClicked()
     for (int i = 0; i < n; i++)
     {
         if (buttons_[i].isClickable() && buttons_[i].isClicked(mouseX, mouseY))
-            buttonAction(i);
-    }
+        {
+            if (click)
+                buttonAction(i);
+            else
+                buttons_[i].setColor({0x00, 0x00, 0xFF, 0x00});
 
+        }
+        else
+        {
+            buttons_[i].setColor({0xFF, 0xFF, 0xFF, 0xFF});
+        }
+    }
 }
 
 /**
@@ -77,20 +88,23 @@ void Menu::init()
                          { 0xFF, 0xFF, 0xFF, 0xFF }, "BREAKOUT", false};
 
     Button play_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*6/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Play"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Play"};
 
     Button levels_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*8/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Levels"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Levels"};
 
     Button quit_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*10/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0x00, 0x00, 0xFF, 0xFF }, "Quit"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Quit"};
 
 
     buttons_.push_back(breakout_text);
     buttons_.push_back(play_button);
     buttons_.push_back(levels_button);
     buttons_.push_back(quit_button);
+}
 
+void Menu::drawObjects()
+{
     for (auto button : buttons_)
     {
         button.draw(window_ptr_->getRenderer());
@@ -102,9 +116,11 @@ int Menu::mainLoop() {
 
     while (!is_window_closed_) {
         clock_.tick(); // update the time elapsed since last frame
-
+        window_ptr_->clearWindow();
         this->pollEvent();
         this->manageKeys();
+
+        drawObjects();
 
         window_ptr_->update();
         window_ptr_->temporisation(50);
@@ -116,5 +132,4 @@ int Menu::mainLoop() {
     }
     // The window will be closed
     return 1;
-
 }

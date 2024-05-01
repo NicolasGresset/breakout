@@ -40,6 +40,8 @@ public:
     }
 
     void draw(SDL_Renderer &renderer) const override;
+
+    void setColor(SDL_Color color) { color_ = color; };
 };
 
 #endif

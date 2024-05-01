@@ -32,7 +32,8 @@ public:
     int mainLoop(void);
     void init(void);
 private:
-    void checkButtonClicked();
+    void checkButtonClicked(bool click);
     void buttonAction(int idx);
+    void drawObjects();
 };
 #endif

@@ -27,7 +27,8 @@ void Game::pollEvent() {
   while (!is_window_closed_ && SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_QUIT:
-      is_window_closed_ = true;
+        // Mettre en pause par un booléen
+        is_window_closed_ = true;
       break;
 
     default:
@@ -59,9 +60,12 @@ void Game::moveObjects(Uint64 delta) {
 void Game::mainLoop() {
   while (!is_window_closed_) {
     if (!player_->isAlive()) {
-      std::cout << "You lost!" << std::endl;
-      break;
+        // Faire l'écran de fin de jeu
+        std::cout << "You lost!" << std::endl;
+        break;
     }
+
+
     clock_.tick(); // update the time elapsed since last frame
     window_ptr_->clearWindow();
     pollEvent();
