@@ -39,6 +39,8 @@ public:
   inline void popLife() { life_--; }
 
   inline bool isAlive() const { return life_ > 0; }
+
+  void reset();
 };
 
 #endif

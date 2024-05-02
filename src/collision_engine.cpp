@@ -20,6 +20,7 @@ bool CollisionEngine::resolveCollisions() {
     if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
                                 (*grid_).getWindowWidth())) {
       player_->popLife();
+      player_->reset();
     }
 
     for (auto brick : (grid_.get())->getBricks()) {

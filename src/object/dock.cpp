@@ -43,3 +43,9 @@ void Dock::move(Uint64 delta) {
   }
   position_.x_ = new_x;
 }
+
+void Dock::reset() {
+  position_.x_ = static_cast<double>(WINDOW_WIDTH) / 2;
+  position_.y_ = static_cast<double>(WINDOW_HEIGHT - PADDING) -
+                 static_cast<double>(DOCK_HEIGHT) / 2;
+}
