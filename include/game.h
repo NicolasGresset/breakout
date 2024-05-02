@@ -13,7 +13,7 @@
 #include <SDL_stdinc.h>
 #include <SDL_timer.h>
 #include <memory>
-
+#include "gui/menu.h"
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
 namely :
@@ -48,6 +48,7 @@ private:
   std::shared_ptr<ElementBackground> background_;
 
   bool is_window_closed_ = false;
+  bool is_game_paused_ = false;
   void manageKeys(void);
   void pollEvent(void);
 

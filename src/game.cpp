@@ -18,8 +18,8 @@ Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
 void Game::manageKeys() {
   int nbk;
   const Uint8 *keys = SDL_GetKeyboardState(&nbk);
-  if (keys[SDL_SCANCODE_ESCAPE])
-    is_window_closed_ = true;
+  if (keys[SDL_SCANCODE_Q])
+      is_window_closed_ = true; // Marche pas
 }
 
 void Game::pollEvent() {
@@ -32,10 +32,17 @@ void Game::pollEvent() {
       break;
 
     default:
-      if (!event.key.repeat)
-        player_->handleEvent(event);
-      break;
+        if (!event.key.repeat)
+            player_->handleEvent(event);
+
+        if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+            is_game_paused_ = !is_game_paused_;
+
+        if (event.key.keysym.sym == SDLK_q)
+            is_window_closed_ = true;
+        break;
     }
+
   }
   return;
 }
@@ -65,17 +72,30 @@ void Game::mainLoop() {
         break;
     }
 
-
     clock_.tick(); // update the time elapsed since last frame
     window_ptr_->clearWindow();
+
     pollEvent();
     manageKeys();
-    moveObjects(clock_.time_elapsed);
-    if (collision_engine_->resolveCollisions()){
-      background_->speedUp(5);
+
+
+    // if game pause
+    // drawObjects(Pause)
+    //
+    // else (modifier managekeys et poll event pour le jeu en pause (avec le bool) ?)
+
+    if (is_game_paused_)
+    {
+        std::cout << "En pause" << std::endl;
     }
-    drawObjects();
-    window_ptr_->update();
-    window_ptr_->temporisation(2);
+    else
+    {
+        moveObjects(clock_.time_elapsed);
+        collision_engine_->resolveCollisions();
+        drawObjects();
+
+        window_ptr_->update();
+        window_ptr_->temporisation(2);
+    }
   }
 }
