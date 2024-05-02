@@ -35,11 +35,6 @@ void CollisionEngine::resolveCollisions() {
   }
 }
 
-// bool CollisionEngine::ballIntersectRectangle(Ball &ball,
-//                                              RectangleBrick &brick) const {
-//   // We first check if the two Axis Aligned Bounding Box collide
-// }
-
 bool CollisionEngine::isCollisionCircleRect(Ball &ball,
                                             Rectangle &rectangle) const {
   Vector2D ball_position = ball.getPosition();
