@@ -65,7 +65,5 @@ bool CollisionEngine::isCollisionCircleRect(Ball &ball,
   double distance =
       pow(ball_position.x_ - test_x, 2) + pow(ball_position.y_ - test_y, 2);
 
-  if (distance < ball.getRadius())
-    return true;
-  return false;
+  return (distance < ball.getRadius());
 }
