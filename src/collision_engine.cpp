@@ -14,7 +14,8 @@ CollisionEngine::CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid,
                                  std::shared_ptr<Dock> player)
     : balls_(balls), grid_(grid), player_(player){};
 
-void CollisionEngine::resolveCollisions() {
+bool CollisionEngine::resolveCollisions() {
+  bool return_code = false;
   for (auto ball : *balls_) {
     if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
                                 (*grid_).getWindowWidth())) {
@@ -25,6 +26,7 @@ void CollisionEngine::resolveCollisions() {
       if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
         ball->bounceOverRectangle(*brick);
         brick->decrementLife(1);
+        return_code = true;
         break;
       }
     }
@@ -33,6 +35,7 @@ void CollisionEngine::resolveCollisions() {
       ball->bounceOverPaddle(*player_);
     }
   }
+  return return_code;
 }
 
 bool CollisionEngine::isCollisionCircleRect(Ball &ball,

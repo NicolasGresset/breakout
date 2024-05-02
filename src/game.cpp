@@ -71,7 +71,9 @@ void Game::mainLoop() {
     pollEvent();
     manageKeys();
     moveObjects(clock_.time_elapsed);
-    collision_engine_->resolveCollisions();
+    if (collision_engine_->resolveCollisions()){
+      background_->speedUp(5);
+    }
     drawObjects();
     window_ptr_->update();
     window_ptr_->temporisation(2);

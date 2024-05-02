@@ -29,7 +29,7 @@ public:
   CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid, std::shared_ptr<Dock> player);
   //~CollisionEngine();
 
-  void resolveCollisions();
+  bool resolveCollisions();
 
 private:
   bool isCollisionCircleRect(Ball &ball, Rectangle &rectangle) const;

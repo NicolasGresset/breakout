@@ -4,6 +4,7 @@
 #include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
+#include <SDL_stdinc.h>
 #include <memory>
 #include <vector>
 
@@ -32,8 +33,9 @@ private:
 
 public:
   ElementBackground();
-  ElementBackground(std::shared_ptr<std::vector<SDL_Texture *>> background_texture,
-             int screen_width, int screen_height);
+  ElementBackground(
+      std::shared_ptr<std::vector<SDL_Texture *>> background_texture,
+      int screen_width, int screen_height);
 
   void draw(SDL_Renderer &renderer);
 
@@ -46,14 +48,19 @@ private:
   Uint64 total_time_;
   SDL_Point center_;
   SDL_Rect rect_;
+
+  Uint64 reset_threshold_ = 1000;
   void updateFrames();
   // rotate once every reset_threshold milliseconds
-  inline double getAngle(Uint64 reset_threshold) {
-    return (
-        (static_cast<double>(total_time_ % reset_threshold) / reset_threshold) *
-        360);
+  inline double getAngle() {
+    return ((static_cast<double>(total_time_ % reset_threshold_) /
+             reset_threshold_) *
+            360);
   }
-};
 
+public:
+  // amount in percentage to speed up background rotation;s
+  void speedUp(double amount);
+};
 
 #endif

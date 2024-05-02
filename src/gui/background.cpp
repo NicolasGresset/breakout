@@ -13,7 +13,7 @@ ElementBackground::ElementBackground(
 
 void ElementBackground::draw(SDL_Renderer &renderer) {
   CHECK_SDL_RETURN_CODE(SDL_RenderCopyEx(&renderer, current_texture_, NULL,
-                                         &rect_, getAngle(3000), &center_,
+                                         &rect_, getAngle(), &center_,
                                          SDL_FLIP_NONE) < 0);
 
   updateFrames();
@@ -35,4 +35,13 @@ void ElementBackground::updateFrames() {
       }
     }
   }
+}
+
+void ElementBackground::speedUp(double amount) {
+  ASSERT_FN(amount >= 0 && amount <= 100, [&]() {
+    std::cerr << "Amount should be a percentage between 0 and 100 and it is "
+              << amount << std::endl;
+  });
+
+  reset_threshold_ *= (1 - amount / 100);
 }
