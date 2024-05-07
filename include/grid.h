@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <memory>
 #include <vector>
+#include <string>
 
 /*
 A grid can either be composed of rectangles or hexagons, thus a template class
@@ -26,6 +27,8 @@ private:
 
   std::shared_ptr<Assets> assets_;
 
+  std::string  grid_path_;
+
 public:
   void init();
 
@@ -42,7 +45,8 @@ public:
   // the convention is similar to matrixes
   */
   Grid(const int width, const int height, const double window_width,
-       const double window_height, std::shared_ptr<Assets> assets);
+       const double window_height, std::shared_ptr<Assets> assets,
+       std::string grid_path_="");
 
   Grid(std::shared_ptr<Assets> assets);
 
