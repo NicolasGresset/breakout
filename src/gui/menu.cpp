@@ -12,7 +12,7 @@ Menu::Menu(std::shared_ptr<SDL2Window> & window_ptr)
 void Menu::manageKeys() {
     int nbk;
     const Uint8 *keys = SDL_GetKeyboardState(&nbk);
-    if (keys[SDL_SCANCODE_ESCAPE])
+    if (keys[SDL_SCANCODE_A])
         is_window_closed_ = true;
 }
 
@@ -113,13 +113,14 @@ void Menu::drawObjects()
 int Menu::mainLoop() {
     this->init();
 
-    while (!is_window_closed_) {
-        clock_.tick(); // update the time elapsed since last frame
+    while (!this->is_window_closed_) {
+
         window_ptr_->clearWindow();
         this->pollEvent();
+
         this->manageKeys();
 
-        drawObjects();
+        this->drawObjects();
 
         window_ptr_->update();
         window_ptr_->temporisation(50);

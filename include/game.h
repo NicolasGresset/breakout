@@ -68,6 +68,7 @@ public:
 
 private:
   void drawObjects();
+  void drawPauseObjects();
   void moveObjects(Uint64 delta);
 };
 

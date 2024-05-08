@@ -8,6 +8,7 @@
 #include <SDL_events.h>
 #include <SDL_timer.h>
 #include <iostream>
+#include <gui/menu.h>
 
 Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
     : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
@@ -18,7 +19,7 @@ Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
 void Game::manageKeys() {
   int nbk;
   const Uint8 *keys = SDL_GetKeyboardState(&nbk);
-  if (keys[SDL_SCANCODE_Q])
+  if (keys[SDL_SCANCODE_A])
       is_window_closed_ = true; // Marche pas
 }
 
@@ -38,8 +39,6 @@ void Game::pollEvent() {
         if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
             is_game_paused_ = !is_game_paused_;
 
-        if (event.key.keysym.sym == SDLK_q)
-            is_window_closed_ = true;
         break;
     }
 
@@ -61,6 +60,26 @@ void Game::drawObjects() {
   scoreButton_->setText("score: " + std::to_string(score_));
   scoreButton_->draw(window_ptr_->getRenderer());
 
+}
+
+void Game::drawPauseObjects()
+{
+    background_->draw(window_ptr_->getRenderer());
+    grid_->draw(window_ptr_->getRenderer());
+    player_->draw(window_ptr_->getRenderer());
+    for (auto ball : *balls_) {
+        ball->draw(window_ptr_->getRenderer());
+    }
+
+    lifeButton_->setText("lives: " + std::to_string(player_->getLifes()));
+    lifeButton_->draw(window_ptr_->getRenderer());
+
+    scoreButton_->setText("score: " + std::to_string(score_));
+    scoreButton_->draw(window_ptr_->getRenderer());
+
+    Button breakout_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6}, WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,  "PAUSE", false};
+
+    breakout_text.draw(window_ptr_->getRenderer());
 }
 
 void Game::moveObjects(Uint64 delta) {
@@ -85,15 +104,14 @@ void Game::mainLoop() {
     pollEvent();
     manageKeys();
 
-
-    // if game pause
-    // drawObjects(Pause)
-    //
-    // else (modifier managekeys et poll event pour le jeu en pause (avec le bool) ?)
-
     if (is_game_paused_)
     {
-        std::cout << "En pause" << std::endl;
+        Menu pause{window_ptr_};
+        int code = pause.mainLoop();
+        if (code == 1)
+            break;
+         is_game_paused_ = !is_game_paused_;
+         clock_.tick();
     }
     else
     {
@@ -102,9 +120,9 @@ void Game::mainLoop() {
             score_ += 10;
 
         drawObjects();
-
-        window_ptr_->update();
-        window_ptr_->temporisation(2);
     }
+
+    window_ptr_->update();
+    window_ptr_->temporisation(2);
   }
 }
