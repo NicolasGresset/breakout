@@ -7,11 +7,11 @@
 Button::Button(Vector2D position,
                double width,
                double height,
-               SDL_Color color,
                std::string text,
-               bool clickable)
-    : Object(position, NULL), color_(color), width_(width), height_(height),
-      text_(text), clickable_(clickable){};
+               bool clickable,
+               SDL_Color color)
+    : Object(position, NULL),  width_(width), height_(height),
+      text_(text), clickable_(clickable), color_(color){};
 
 // Button::Button() : Object(Vector2D{0, 0}, nullptr){};
 

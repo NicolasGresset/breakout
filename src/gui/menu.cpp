@@ -84,17 +84,16 @@ void Menu::buttonAction(int idx)
 
 void Menu::init()
 {
-    Button breakout_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6}, WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,
-                         { 0xFF, 0xFF, 0xFF, 0xFF }, "BREAKOUT", false};
+    Button breakout_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6}, WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,  "BREAKOUT", false};
 
     Button play_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*6/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Play"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12,  "Play"};
 
     Button levels_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*8/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Levels"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, "Levels"};
 
     Button quit_button{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT*10/12},
-        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, { 0xFF, 0xFF, 0xFF, 0xFF }, "Quit"};
+        WINDOW_WIDTH*2/12, WINDOW_HEIGHT*1.5/12, "Quit"};
 
 
     buttons_.push_back(breakout_text);

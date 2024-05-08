@@ -16,7 +16,7 @@ void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_w
       Vector2D(static_cast<double>(screen_width) / 2,
                static_cast<double>(screen_height - PADDING) -
                    static_cast<double>(DOCK_HEIGHT) / 2),
-      DOCK_WIDTH, DOCK_HEIGHT, 
+      DOCK_WIDTH, DOCK_HEIGHT,
       game_->assets_->getRectangleTexture(Color::blue),
       Vector2D(0, 0), life);
   game_->balls_ = std::make_shared<std::vector<std::shared_ptr<Ball>>>();
@@ -30,4 +30,14 @@ void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_w
 
   game_->background_ = std::make_shared<ElementBackground>(
       game_->assets_->getBackgroundTexture(), screen_width, screen_height);
+
+  std::string life_text = "lives: " + std::to_string(life);
+  game_->lifeButton_ = std::make_shared<Button>(
+      Vector2D{screen_width - 80., screen_height - 40.},
+      80, 30, life_text, false);
+
+  std::string score_text = "score: 0";
+  game_->scoreButton_ = std::make_shared<Button>(
+      Vector2D{80., screen_height - 40.}, 80, 30, score_text, false);
+
 }

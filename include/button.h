@@ -11,11 +11,11 @@
 class Button : public Object {
 
 private:
-    SDL_Color color_;
-    double width_;
-    double height_;
+    const double width_;
+    const double height_;
     std::string text_;
     bool clickable_;
+    SDL_Color color_;
 
 public:
 
@@ -23,9 +23,9 @@ public:
     Button(Vector2D position = Vector2D{0, 0},
            double width = 150,
            double height = 50,
-           SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF },
            std::string text = "BREAKOUT",
-           bool clickable = true);
+           bool clickable = true,
+           SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF });
 
     bool isClickable() { return clickable_; };
     bool isClicked(int mouseX, int mouseY);
@@ -41,7 +41,8 @@ public:
 
     void draw(SDL_Renderer &renderer) const override;
 
-    void setColor(SDL_Color color) { color_ = color; };
+    inline void setColor(SDL_Color color) { color_ = color; };
+    inline void setText(std::string text) {text_ = text;};
 };
 
 #endif

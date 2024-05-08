@@ -40,6 +40,7 @@ public:
 
   inline bool isAlive() const { return life_ > 0; }
 
+  inline int getLifes() const {return life_;}
   void reset();
 };
 

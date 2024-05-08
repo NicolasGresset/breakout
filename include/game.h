@@ -46,9 +46,12 @@ private:
   std::shared_ptr<Assets> assets_;
 
   std::shared_ptr<ElementBackground> background_;
+  std::shared_ptr<Button> lifeButton_;
+  std::shared_ptr<Button> scoreButton_;
 
+  unsigned int score_;
   bool is_window_closed_ = false;
-  bool is_game_paused_ = false;
+  bool is_game_paused_{false};
   void manageKeys(void);
   void pollEvent(void);
 
@@ -57,7 +60,7 @@ private:
   friend class GameController;
 
 public:
-    Game(std::shared_ptr<SDL2Window> & window_ptr);
+  Game(std::shared_ptr<SDL2Window> & window_ptr);
 
     //Game(int screen_width, int screen_height);
   void mainLoop(void);

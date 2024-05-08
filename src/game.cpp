@@ -11,7 +11,7 @@
 
 Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
     : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
-      balls_(), assets_(){};
+      balls_(), assets_(), score_(0){};
 
 // Game::Game(int width, int height) : window_(width, height) {}
 
@@ -54,6 +54,13 @@ void Game::drawObjects() {
   for (auto ball : *balls_) {
     ball->draw(window_ptr_->getRenderer());
   }
+
+  lifeButton_->setText("lives: " + std::to_string(player_->getLifes()));
+  lifeButton_->draw(window_ptr_->getRenderer());
+
+  scoreButton_->setText("score: " + std::to_string(score_));
+  scoreButton_->draw(window_ptr_->getRenderer());
+
 }
 
 void Game::moveObjects(Uint64 delta) {
@@ -91,7 +98,9 @@ void Game::mainLoop() {
     else
     {
         moveObjects(clock_.time_elapsed);
-        collision_engine_->resolveCollisions();
+        if (collision_engine_->resolveCollisions())
+            score_ += 10;
+
         drawObjects();
 
         window_ptr_->update();
