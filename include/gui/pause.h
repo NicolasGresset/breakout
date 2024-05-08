@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef PAUSE_H
+#define PAUSE_H
 
 #include "button.h"
 #include <gui/button_interface.h>
@@ -11,16 +11,17 @@
 #include <memory>
 #include <vector>
 
-class Menu : public ButtonInterface {
+class Pause : public ButtonInterface {
 
+private:
+    const unsigned int score_;
+    bool go_to_menu_{false};
 public:
-    Menu();
-    Menu(std::shared_ptr<SDL2Window> & window_ptr);
-    //Menu(int screen_width, int screen_height);
+    Pause();
+    Pause(std::shared_ptr<SDL2Window> & window_ptr, const unsigned int score);
+    //Pause(int screen_width, int screen_height);
     int mainLoop(void);
     void init(void);
-
-
 private:
     void buttonAction(int idx);
 };

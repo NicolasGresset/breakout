@@ -63,7 +63,13 @@ public:
   Game(std::shared_ptr<SDL2Window> & window_ptr);
 
     //Game(int screen_width, int screen_height);
-  void mainLoop(void);
+  /**
+   * The main loop of the game
+   *
+   * return : 1 the game is finished (and the window must be closed)
+   *          0 when the current game is finished but the not the window must not be closed
+   */
+  int mainLoop(void);
   void init(void);
 
 private:

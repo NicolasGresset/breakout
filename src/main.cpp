@@ -10,17 +10,23 @@ int main(int argc, char *argv[]) {
   int code = 0;
   std::shared_ptr<SDL2Window> window = std::make_shared<SDL2Window>();//SDL2Window window{};
 
+  bool quit_game = false;
+  while (!quit_game)
+  {
 #ifndef GAME_TESTING
-  Menu menu{window};
-  code = menu.mainLoop();
+      Menu menu{window};
+      code = menu.mainLoop();
 #endif
 
-  if (code == 1)
-      return 0;
+      if (code == 1)
+          return 0;
 
-  GameController game_controller(window, WINDOW_WIDTH, WINDOW_HEIGHT, 3);
-  std::shared_ptr<Game> my_game = game_controller.getGame();
+      GameController game_controller(window, WINDOW_WIDTH, WINDOW_HEIGHT, 3);
+      std::shared_ptr<Game> my_game = game_controller.getGame();
 
-  my_game->mainLoop();
+      code = my_game->mainLoop();
+      if (code == 1)
+          quit_game = true;
+          }
   return 0;
 }

@@ -8,7 +8,7 @@
 #include <SDL_events.h>
 #include <SDL_timer.h>
 #include <iostream>
-#include <gui/menu.h>
+#include <gui/pause.h>
 
 Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
     : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
@@ -62,26 +62,6 @@ void Game::drawObjects() {
 
 }
 
-void Game::drawPauseObjects()
-{
-    background_->draw(window_ptr_->getRenderer());
-    grid_->draw(window_ptr_->getRenderer());
-    player_->draw(window_ptr_->getRenderer());
-    for (auto ball : *balls_) {
-        ball->draw(window_ptr_->getRenderer());
-    }
-
-    lifeButton_->setText("lives: " + std::to_string(player_->getLifes()));
-    lifeButton_->draw(window_ptr_->getRenderer());
-
-    scoreButton_->setText("score: " + std::to_string(score_));
-    scoreButton_->draw(window_ptr_->getRenderer());
-
-    Button breakout_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6}, WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,  "PAUSE", false};
-
-    breakout_text.draw(window_ptr_->getRenderer());
-}
-
 void Game::moveObjects(Uint64 delta) {
   player_->move(delta);
   for (auto ball : *balls_) {
@@ -90,12 +70,12 @@ void Game::moveObjects(Uint64 delta) {
   background_->update(delta);
 }
 
-void Game::mainLoop() {
+int Game::mainLoop() {
   while (!is_window_closed_) {
     if (!player_->isAlive()) {
         // Faire l'écran de fin de jeu
         std::cout << "You lost!" << std::endl;
-        break;
+        return 0;
     }
 
     clock_.tick(); // update the time elapsed since last frame
@@ -106,10 +86,15 @@ void Game::mainLoop() {
 
     if (is_game_paused_)
     {
-        Menu pause{window_ptr_};
+        Pause pause{window_ptr_, score_};
         int code = pause.mainLoop();
+        // Closing of the window
         if (code == 1)
             break;
+        // Return to menu
+        if (code == 2)
+            return 0;
+
          is_game_paused_ = !is_game_paused_;
          clock_.tick();
     }
@@ -125,4 +110,6 @@ void Game::mainLoop() {
     window_ptr_->update();
     window_ptr_->temporisation(2);
   }
+
+  return 1;
 }
