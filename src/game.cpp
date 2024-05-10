@@ -47,7 +47,7 @@ void Game::pollEvent() {
 }
 
 void Game::drawObjects() {
-  background_->draw(window_ptr_->getRenderer());
+    //background_->draw(window_ptr_->getRenderer());
   grid_->draw(window_ptr_->getRenderer());
   player_->draw(window_ptr_->getRenderer());
   for (auto ball : *balls_) {
@@ -67,7 +67,7 @@ void Game::moveObjects(Uint64 delta) {
   for (auto ball : *balls_) {
     ball->move(delta);
   }
-  background_->update(delta);
+  //background_->update(delta);
 }
 
 int Game::mainLoop() {

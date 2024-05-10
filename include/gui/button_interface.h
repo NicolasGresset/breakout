@@ -2,7 +2,7 @@
 #define BUTTON_INTERFACE_H
 
 #include "button.h"
-#include "utils/clock.h"
+#include "utils/utils.h"
 #include "gui/SDL2Window.h"
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
@@ -10,19 +10,20 @@
 #include <memory>
 #include <vector>
 
+
 class ButtonInterface {
 protected:
     std::shared_ptr<SDL2Window> window_ptr_;
 
     bool is_window_closed_;
     bool play_game_;
+    bool go_to_menu_;
 
     void manageKeys(void);
     void pollEvent(void);
 
     std::vector<Button> buttons_;
 
-    Clock clock_;
     std::shared_ptr<Assets> assets_;
 
 public:

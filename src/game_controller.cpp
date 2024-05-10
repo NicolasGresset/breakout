@@ -7,11 +7,15 @@
 #include <SDL_render.h>
 #include <memory>
 
-void GameController::init(std::shared_ptr<SDL2Window> & window_ptr, int screen_width, int screen_height, int life) {
+void GameController::init(std::shared_ptr<SDL2Window> & window_ptr,
+                          int screen_width,
+                          int screen_height,
+                          int life,
+                          std::string level_path) {
   game_ = std::make_shared<Game>(window_ptr);
   game_->assets_ = std::make_shared<Assets>(game_->window_ptr_->getRenderer());
   game_->grid_ = std::make_shared<Grid>(10, 8, screen_width, screen_height,
-                                        game_->assets_);
+                                        game_->assets_, level_path);
   game_->player_ = std::make_shared<Dock>(
       Vector2D(static_cast<double>(screen_width) / 2,
                static_cast<double>(screen_height - PADDING) -

@@ -58,11 +58,15 @@ void Grid::init() {
                case 5:
                    color = Color::purple;
                    break;
-               default:
+               case 6:
                    color = Color::yellow;
                    break;
+               default:
+                   // Not render a brick
+                   color = Color::black;
+                   break;
                }
-               if (color == Color::yellow)
+               if (color == Color::black)
                    continue;
                bricks_.push_back(std::make_shared<RectangleBrick>(
                        Vector2D(j * element_width + element_width / 2,

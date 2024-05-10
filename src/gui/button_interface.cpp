@@ -1,13 +1,15 @@
-#include "gui/menu.h"
+#include "gui/button_interface.h"
 #include "gui/color.h"
 #include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_timer.h>
 #include <iostream>
+#include <ctime>
 
 ButtonInterface::ButtonInterface(std::shared_ptr<SDL2Window> & window_ptr)
-    : window_ptr_(window_ptr), is_window_closed_(false), play_game_(false){}
+    : window_ptr_(window_ptr), is_window_closed_(false),
+      play_game_(false), go_to_menu_(false){}
 
 void ButtonInterface::manageKeys() {
     int nbk;
@@ -62,6 +64,23 @@ void ButtonInterface::checkButtonClicked(bool click)
 
 void ButtonInterface::drawObjects()
 {
+    // Create noise
+    const int nb_points = 1000;
+    SDL_Point points[nb_points];
+    srand(time(0));
+    // Loop to draw 100 random dots
+    for (int i = 0; i < nb_points; ++i) {
+        // Generate random x and y coordinates within window bounds
+        points[i].x = rand() % WINDOW_WIDTH;
+        points[i].y = rand() % WINDOW_HEIGHT;
+
+    }
+    CHECK_SDL_RETURN_CODE(
+        SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF) < 0);
+    CHECK_SDL_RETURN_CODE(SDL_RenderDrawPoints(&window_ptr_->getRenderer(), points, nb_points) < 0);
+    CHECK_SDL_RETURN_CODE(
+        SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0x00, 0x00, 0x00, 0xFF) < 0);
+
     for (auto button : buttons_)
     {
         button.draw(window_ptr_->getRenderer());

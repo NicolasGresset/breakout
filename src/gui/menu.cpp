@@ -7,7 +7,7 @@
 #include <iostream>
 
 Menu::Menu(std::shared_ptr<SDL2Window> & window_ptr)
-    : ButtonInterface(window_ptr){}
+    : ButtonInterface(window_ptr), levels_(false){}
 
 /**
  * The index of the list allow to know which button has been clicked
@@ -21,7 +21,7 @@ void Menu::buttonAction(int idx)
         play_game_ = true;
         break;
     case 2:
-        play_game_ = true;
+        levels_ = true;
         break;
     case 3:
         is_window_closed_ = true;
@@ -67,9 +67,10 @@ int Menu::mainLoop() {
         window_ptr_->temporisation(50);
 
         if (play_game_)
-        {
             return 0;
-        }
+
+        if (levels_)
+            return 2;
     }
     // The window will be closed
     return 1;

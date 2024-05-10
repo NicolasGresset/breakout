@@ -1,22 +1,22 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "button.h"
 #include <gui/button_interface.h>
-#include "utils/clock.h"
-#include "gui/SDL2Window.h"
-#include <SDL_render.h>
-#include <SDL_stdinc.h>
-#include <SDL_timer.h>
-#include <memory>
-#include <vector>
 
 class Menu : public ButtonInterface {
 
+private:
+    bool levels_;
 public:
     Menu();
     Menu(std::shared_ptr<SDL2Window> & window_ptr);
     //Menu(int screen_width, int screen_height);
+
+    /**
+     * returns 0 when the button play is clicked,
+     *         1 when it is the quit button
+     *         2 when it is the level button
+     */
     int mainLoop(void);
     void init(void);
 
