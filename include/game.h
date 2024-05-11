@@ -76,6 +76,7 @@ private:
   void drawObjects();
   void drawPauseObjects();
   void moveObjects(Uint64 delta);
+  void drawLooseObjects();
 };
 
 #endif

@@ -70,11 +70,32 @@ void Game::moveObjects(Uint64 delta) {
   //background_->update(delta);
 }
 
+void Game::drawLooseObjects()
+{
+
+    Button loose_text_countour{Vector2D{WINDOW_WIDTH/2 - 5, WINDOW_HEIGHT/6 - 5},
+        WINDOW_WIDTH/2 + 20, WINDOW_HEIGHT*3/12 + 20,  "You lost", false, {0x00, 0x00, 0x00, 0x00}};
+
+    Button loose_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6},
+        WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,  "You lost", false, {0xF0, 0x20, 0x20, 0x00}};
+
+    Button score_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/2},
+        WINDOW_WIDTH/3, WINDOW_HEIGHT*3/12,  "Score: " + std::to_string(score_),
+        false};
+
+    loose_text_countour.draw(window_ptr_->getRenderer());
+    loose_text.draw(window_ptr_->getRenderer());
+    score_text.draw(window_ptr_->getRenderer());
+}
 int Game::mainLoop() {
   while (!is_window_closed_) {
     if (!player_->isAlive()) {
         // Faire l'écran de fin de jeu
-        std::cout << "You lost!" << std::endl;
+        //std::cout << "You lost!" << std::endl;
+        drawLooseObjects();
+
+        window_ptr_->update();
+        window_ptr_->temporisation(3000);
         return 0;
     }
 
