@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+#include <SDL_events.h>
 #include <SDL_stdinc.h>
 
 constexpr int WINDOW_HEIGHT = 800;
@@ -30,5 +31,12 @@ constexpr int DEFAULT_BRICK_LIFE = 1;
 constexpr Uint64 FRAME_DURATION = 10;
 
 constexpr int INITIAL_PLAYER_LIFE = 3;
+
+// bonus
+constexpr int BONUS_WIDTH = 10;
+constexpr int BONUS_HEIGHT = 10;
+constexpr int BONUS_SPEED = 1;
+
+constexpr Uint64 BONUS_INTERVAL_RATE = 1000;
 
 #endif

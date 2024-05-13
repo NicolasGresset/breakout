@@ -1,4 +1,5 @@
 #include "game.h"
+#include "bonus/bonus.h"
 #include "collison_engine.h"
 #include "grid.h"
 #include "gui/background.h"
@@ -7,8 +8,8 @@
 #include "utils/vector2D.h"
 #include <SDL_events.h>
 #include <SDL_timer.h>
-#include <iostream>
 #include <gui/pause.h>
+#include <iostream>
 
 Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
     : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
@@ -20,7 +21,7 @@ void Game::manageKeys() {
   int nbk;
   const Uint8 *keys = SDL_GetKeyboardState(&nbk);
   if (keys[SDL_SCANCODE_A])
-      is_window_closed_ = true; // Marche pas
+    is_window_closed_ = true; // Marche pas
 }
 
 void Game::pollEvent() {
@@ -28,26 +29,25 @@ void Game::pollEvent() {
   while (!is_window_closed_ && SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_QUIT:
-        // Mettre en pause par un booléen
-        is_window_closed_ = true;
+      // Mettre en pause par un booléen
+      is_window_closed_ = true;
       break;
 
     default:
-        if (!event.key.repeat)
-            player_->handleEvent(event);
+      if (!event.key.repeat)
+        player_->handleEvent(event);
 
-        if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-            is_game_paused_ = !is_game_paused_;
+      if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+        is_game_paused_ = !is_game_paused_;
 
-        break;
+      break;
     }
-
   }
   return;
 }
 
 void Game::drawObjects() {
-    //background_->draw(window_ptr_->getRenderer());
+  // background_->draw(window_ptr_->getRenderer());
   grid_->draw(window_ptr_->getRenderer());
   player_->draw(window_ptr_->getRenderer());
   for (auto ball : *balls_) {
@@ -60,6 +60,9 @@ void Game::drawObjects() {
   scoreButton_->setText("score: " + std::to_string(score_));
   scoreButton_->draw(window_ptr_->getRenderer());
 
+  for (auto bonus : bonus_manager_->getBonuses()) {
+    bonus->draw(window_ptr_->getRenderer());
+  }
 }
 
 void Game::moveObjects(Uint64 delta) {
@@ -67,37 +70,50 @@ void Game::moveObjects(Uint64 delta) {
   for (auto ball : *balls_) {
     ball->move(delta);
   }
-  //background_->update(delta);
+
+  for (auto bonus : bonus_manager_->getBonuses()) {
+    bonus->move(delta);
+  }
+  // background_->update(delta);
 }
 
-void Game::drawLooseObjects()
-{
+void Game::drawLooseObjects() {
 
-    Button loose_text_countour{Vector2D{WINDOW_WIDTH/2 - 5, WINDOW_HEIGHT/6 - 5},
-        WINDOW_WIDTH/2 + 20, WINDOW_HEIGHT*3/12 + 20,  "You lost", false, {0x00, 0x00, 0x00, 0x00}};
+  Button loose_text_countour{
+      Vector2D{WINDOW_WIDTH / 2 - 5, WINDOW_HEIGHT / 6 - 5},
+      WINDOW_WIDTH / 2 + 20,
+      WINDOW_HEIGHT * 3 / 12 + 20,
+      "You lost",
+      false,
+      {0x00, 0x00, 0x00, 0x00}};
 
-    Button loose_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/6},
-        WINDOW_WIDTH/2, WINDOW_HEIGHT*3/12,  "You lost", false, {0xF0, 0x20, 0x20, 0x00}};
+  Button loose_text{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 6},
+                    WINDOW_WIDTH / 2,
+                    WINDOW_HEIGHT * 3 / 12,
+                    "You lost",
+                    false,
+                    {0xF0, 0x20, 0x20, 0x00}};
 
-    Button score_text{Vector2D{WINDOW_WIDTH/2, WINDOW_HEIGHT/2},
-        WINDOW_WIDTH/3, WINDOW_HEIGHT*3/12,  "Score: " + std::to_string(score_),
-        false};
+  Button score_text{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2},
+                    WINDOW_WIDTH / 3, WINDOW_HEIGHT * 3 / 12,
+                    "Score: " + std::to_string(score_), false};
 
-    loose_text_countour.draw(window_ptr_->getRenderer());
-    loose_text.draw(window_ptr_->getRenderer());
-    score_text.draw(window_ptr_->getRenderer());
+  loose_text_countour.draw(window_ptr_->getRenderer());
+  loose_text.draw(window_ptr_->getRenderer());
+  score_text.draw(window_ptr_->getRenderer());
 }
 int Game::mainLoop() {
   while (!is_window_closed_) {
     clock_.tick(); // update the time elapsed since last frame
+    bonus_manager_->loop(clock_.time_elapsed);
     if (!player_->isAlive()) {
-        // Faire l'écran de fin de jeu
-        //std::cout << "You lost!" << std::endl;
-        drawLooseObjects();
+      // Faire l'écran de fin de jeu
+      // std::cout << "You lost!" << std::endl;
+      drawLooseObjects();
 
-        window_ptr_->update();
-        window_ptr_->temporisation(3000);
-        return 0;
+      window_ptr_->update();
+      window_ptr_->temporisation(3000);
+      return 0;
     }
 
     window_ptr_->clearWindow();
@@ -105,27 +121,26 @@ int Game::mainLoop() {
     pollEvent();
     manageKeys();
 
-    if (is_game_paused_)
-    {
-        Pause pause{window_ptr_, score_};
-        int code = pause.mainLoop();
-        // Closing of the window
-        if (code == 1)
-            break;
-        // Return to menu
-        if (code == 2)
-            return 0;
+    if (is_game_paused_) {
+      Pause pause{window_ptr_, score_};
+      int code = pause.mainLoop();
+      // Closing of the window
+      if (code == 1)
+        break;
+      // Return to menu
+      if (code == 2)
+        return 0;
 
-         is_game_paused_ = false;
-         clock_.tick();
-    }
-    else
-    {
-        moveObjects(clock_.time_elapsed);
-        if (collision_engine_->resolveCollisions())
-            score_ += 10;
+      is_game_paused_ = false;
+      clock_.tick();
+    } else {
+      moveObjects(clock_.time_elapsed);
+      if (collision_engine_->resolveCollisions(*this)) {
+        score_ += 10;
+        bonus_manager_->createNewBonus(grid_->getLastDestroyedBrick());
+      }
 
-        drawObjects();
+      drawObjects();
     }
 
     window_ptr_->update();

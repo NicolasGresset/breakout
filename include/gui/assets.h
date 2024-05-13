@@ -15,6 +15,9 @@ private:
   std::map<Color, std::vector<SDL_Texture *>> balls_textures_;
   std::vector<SDL_Texture *> background_texture_;
 
+  std::vector<SDL_Texture *> extra_life_texture_;
+  std::vector<texture_ptr> bonuses_textures_;
+
 public:
   Assets() {}
   inline Assets(SDL_Renderer &renderer) { loadTextures(renderer); }
@@ -28,6 +31,10 @@ public:
 
   inline texture_ptr getBackgroundTexture() {
     return std::make_shared<std::vector<SDL_Texture *>>(background_texture_);
+  }
+
+  inline std::shared_ptr<std::vector<texture_ptr>> getBonusesTextures() {
+    return std::make_shared<std::vector<texture_ptr>>(bonuses_textures_);
   }
 
 private:

@@ -1,11 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "bonus/bonus_manager.h"
 #include "collison_engine.h"
 #include "grid.h"
 #include "gui/SDL2Window.h"
 #include "gui/assets.h"
 #include "gui/background.h"
+#include "gui/menu.h"
 #include "object/ball.h"
 #include "object/dock.h"
 #include "utils/clock.h"
@@ -13,7 +15,6 @@
 #include <SDL_stdinc.h>
 #include <SDL_timer.h>
 #include <memory>
-#include "gui/menu.h"
 /*
 A game is composed of a SDL2Window which renders all the objects inside of it,
 namely :
@@ -49,6 +50,8 @@ private:
   std::shared_ptr<Button> lifeButton_;
   std::shared_ptr<Button> scoreButton_;
 
+  std::shared_ptr<BonusManager> bonus_manager_;
+
   unsigned int score_;
   bool is_window_closed_ = false;
   bool is_game_paused_{false};
@@ -60,14 +63,15 @@ private:
   friend class GameController;
 
 public:
-  Game(std::shared_ptr<SDL2Window> & window_ptr);
+  Game(std::shared_ptr<SDL2Window> &window_ptr);
 
-    //Game(int screen_width, int screen_height);
+  // Game(int screen_width, int screen_height);
   /**
    * The main loop of the game
    *
    * return : 1 the game is finished (and the window must be closed)
-   *          0 when the current game is finished but the not the window must not be closed
+   *          0 when the current game is finished but the not the window must
+   * not be closed
    */
   int mainLoop(void);
   void init(void);
@@ -77,6 +81,10 @@ private:
   void drawPauseObjects();
   void moveObjects(Uint64 delta);
   void drawLooseObjects();
+
+public:
+  inline std::shared_ptr<Dock> getPlayer() const { return player_; }
+  inline std::shared_ptr<BonusManager> getBonusManager() {return bonus_manager_;}
 };
 
 #endif

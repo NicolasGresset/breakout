@@ -7,8 +7,8 @@
 #include <SDL2/SDL_render.h>
 #include <cstddef>
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 /*
 A grid can either be composed of rectangles or hexagons, thus a template class
@@ -27,13 +27,14 @@ private:
 
   std::shared_ptr<Assets> assets_;
 
-  std::string  grid_path_;
+  std::string grid_path_;
 
 public:
   void init();
 
 private:
   RectangleBrick initializeElement(const int i, const int j);
+  std::shared_ptr<Brick> last_destroyed_brick_;
 
 public:
   Grid();
@@ -46,11 +47,11 @@ public:
   */
   Grid(const int width, const int height, const double window_width,
        const double window_height, std::shared_ptr<Assets> assets,
-       std::string grid_path_="");
+       std::string grid_path_ = "");
 
   Grid(std::shared_ptr<Assets> assets);
 
-  void draw(SDL_Renderer& renderer) const;
+  void draw(SDL_Renderer &renderer) const;
 
   inline std::vector<std::shared_ptr<RectangleBrick>> &getBricks() {
     return bricks_;
@@ -58,6 +59,12 @@ public:
 
   inline double getWindowHeight() { return window_height_; }
   inline double getWindowWidth() { return window_width_; }
+
+  inline void setLastDestroyedBrick(std::shared_ptr<Brick> brick) {
+    last_destroyed_brick_ = brick;
+  }
+
+  inline Brick &getLastDestroyedBrick() { return *last_destroyed_brick_; }
 };
 
 #endif

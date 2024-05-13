@@ -3,6 +3,8 @@
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
 #include <iostream>
+#include <memory>
+#include <vector>
 
 SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
@@ -53,7 +55,7 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
       loadTexture("textures/element_yellow_rectangle.bmp", renderer));
 
   // Load balls
-    balls_textures_.insert(
+  balls_textures_.insert(
       std::make_pair(Color::blue, std::vector<SDL_Texture *>()));
   balls_textures_[Color::blue].push_back(
       loadTexture("textures/ball_blue.bmp", renderer));
@@ -65,4 +67,9 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
     background_texture_.push_back(
         loadTexture(background_name.c_str(), renderer));
   }
+
+  // load bonuses textures
+  extra_life_texture_.push_back(loadTexture("textures/life.bmp", renderer));
+  bonuses_textures_.push_back(
+      std::make_shared<std::vector<SDL_Texture *>>(extra_life_texture_));
 }

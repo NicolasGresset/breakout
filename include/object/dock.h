@@ -9,7 +9,6 @@
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
 
-
 class Dock : public Rectangle, public MovableObject {
 private:
   int life_;
@@ -40,7 +39,9 @@ public:
 
   inline bool isAlive() const { return life_ > 0; }
 
-  inline int getLifes() const {return life_;}
+  inline int getLifes() const { return life_; }
+
+  inline void addLives(unsigned int number) { life_ += number; }
   void reset();
 };
 
