@@ -89,6 +89,7 @@ void Game::drawLooseObjects()
 }
 int Game::mainLoop() {
   while (!is_window_closed_) {
+    clock_.tick(); // update the time elapsed since last frame
     if (!player_->isAlive()) {
         // Faire l'écran de fin de jeu
         //std::cout << "You lost!" << std::endl;
@@ -99,7 +100,6 @@ int Game::mainLoop() {
         return 0;
     }
 
-    clock_.tick(); // update the time elapsed since last frame
     window_ptr_->clearWindow();
 
     pollEvent();
@@ -116,7 +116,7 @@ int Game::mainLoop() {
         if (code == 2)
             return 0;
 
-         is_game_paused_ = !is_game_paused_;
+         is_game_paused_ = false;
          clock_.tick();
     }
     else
@@ -129,7 +129,6 @@ int Game::mainLoop() {
     }
 
     window_ptr_->update();
-    window_ptr_->temporisation(2);
   }
 
   return 1;
