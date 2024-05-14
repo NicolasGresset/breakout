@@ -8,6 +8,7 @@
 #include "object/rectangle.h"
 #include "object/rectangle_brick.h"
 #include "object/triangle_brick.h"
+#include "utils/direction.h"
 #include "utils/vector2D.h"
 #include <cmath>
 #include <cstdio>
@@ -24,7 +25,7 @@ void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
     return;
   }
 
-  Line normal = brick->isCollisionCircle(*ball);
+  Direction normal = brick->isCollisionCircle(*ball);
   if (normal.isValid()) {
     ball->bounceOverLine(normal);
     brick->decrementLife(1);
@@ -33,12 +34,12 @@ void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
   }
 }
 
-Line CollisionEngine::isCollisionCircleBrick(Ball &ball,
+Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
                                              RectangleBrick &brick) const {
   return isCollisionCircleRect(ball, brick);
 }
 
-Line CollisionEngine::isCollisionCircleBrick(Ball &ball,
+Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
                                              TriangleBrick &brick) const {
   return isCollisionCircleTriangle(ball, brick);
 }
@@ -58,7 +59,7 @@ void CollisionEngine::resolveCollisions(Game &game) {
       manageCollisionBrickBall(brick, ball, game);
     }
 
-    Line normal = isCollisionCircleRect(*ball, *game.player_);
+    Direction normal = isCollisionCircleRect(*ball, *game.player_);
     if (normal.isValid()) {
       ball->bounceOverPaddle(*game.player_);
     }
@@ -88,7 +89,7 @@ bool CollisionEngine::isOutofWindow(Rectangle &rectangle, int width,
           rectangle.getPosition().y_ - rectangle.getHeight() / 2 < 0);
 }
 
-Line CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangle) {
+Direction CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangle) {
   Vector2D ball_position = ball.getPosition();
   Vector2D rectangle_position = rectangle.toUpperLeftCoords();
 
@@ -113,28 +114,28 @@ Line CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangle) {
       pow(ball_position.x_ - test_x, 2) + pow(ball_position.y_ - test_y, 2);
 
   if (distance >= ball.getRadius()){
-    return Line(false);
+    return Direction(false);
   }
   // else
   if (test_x == rectangle_position.x_){
-    return Line(- 1, 0);
+    return Direction(- 1, 0);
   }
   else if(test_x == rectangle_position.x_ + rectangle.getWidth()){
-    return Line(1, 0);
+    return Direction(1, 0);
   }
   else if(test_y == rectangle_position.y_){
-    return Line(0, -1);
+    return Direction(0, -1);
   }
   else if (test_y == rectangle_position.y_ + rectangle.getHeight()){
-    return Line(0, 1);
+    return Direction(0, 1);
   }
   else{
     printf("comportement bizarre : collisionCircleRect\n");
-    return Line(false);
+    return Direction(false);
   }
 }
 
-Line CollisionEngine::isCollisionCircleTriangle(Ball &ball, Triangle &triangle){
+Direction CollisionEngine::isCollisionCircleTriangle(Ball &ball, Triangle &triangle){
   // todo
 }
 

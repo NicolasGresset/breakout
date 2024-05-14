@@ -27,7 +27,7 @@ public:
     return Rectangle::toUpperLeftCoords();
   }
 
-   inline Line isCollisionCircle(Ball &ball)  override {
+   inline Direction isCollisionCircle(Ball &ball)  override {
     return CollisionEngine::isCollisionCircleRect(ball, *this);
    }
 };

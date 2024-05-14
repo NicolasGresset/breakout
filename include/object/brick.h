@@ -7,7 +7,7 @@
 #include <SDL2/SDL_render.h>
 
 class Ball;
-class Line;
+class Direction;
 
 class Brick : virtual public Object {
 private:
@@ -25,7 +25,7 @@ public:
   inline bool isDestroyed() const { return destroyed_; }
 
   // returns normal to collision if there is or special value instead
-  virtual Line isCollisionCircle(Ball &ball)  = 0;
+  virtual Direction isCollisionCircle(Ball &ball)  = 0;
 };
 
 #endif

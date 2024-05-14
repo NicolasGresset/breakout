@@ -8,7 +8,7 @@
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
-class Line;
+class Direction;
 
 /**
 Just like dock, a ball is a movable object with such attributes
@@ -48,7 +48,7 @@ public:
 
   void bounceOverPaddle(const Dock &paddle);
 
-  void bounceOverLine(const Line &line);
+  void bounceOverLine(const Direction &line);
 
   inline double getRadius() const { return radius_; }
 
