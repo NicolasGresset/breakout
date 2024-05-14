@@ -84,7 +84,15 @@ private:
 
 public:
   inline std::shared_ptr<Dock> getPlayer() const { return player_; }
-  inline std::shared_ptr<BonusManager> getBonusManager() {return bonus_manager_;}
+  inline std::shared_ptr<BonusManager> getBonusManager() {
+    return bonus_manager_;
+  }
+
+  // adds a ball at the position of the first ball of the member balls with
+  // direction direction
+  void addBall(double direction);
+
+  inline bool isLastBall() const { return balls_->size() == 1; }
 };
 
 #endif

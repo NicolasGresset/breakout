@@ -39,7 +39,6 @@ void Ball::draw(SDL_Renderer &renderer) const {
 
 int Ball::bounceIntoWindow(double height, double width) {
   if (this->position_.y_ + this->radius_ > height) {
-    reset();
     return 0;
   }
 

@@ -10,12 +10,21 @@
 #include <SDL_timer.h>
 #include <gui/pause.h>
 #include <iostream>
+#include <memory>
 
 Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
     : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
       balls_(), assets_(), score_(0){};
 
 // Game::Game(int width, int height) : window_(width, height) {}
+
+void Game::addBall(double direction) {
+  Vector2D speed(BALL_SPEED_NORM * cos(direction),
+                 BALL_SPEED_NORM * sin(direction));
+  balls_->push_back(std::make_shared<Ball>(balls_->at(0)->getPosition(),
+                                           assets_->getBallTexture(Color::blue),
+                                           speed, BALL_RADIUS));
+}
 
 void Game::manageKeys() {
   int nbk;

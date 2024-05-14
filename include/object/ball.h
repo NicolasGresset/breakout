@@ -1,10 +1,10 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "utils/constants.h"
 #include "dock.h"
 #include "object.h"
 #include "rectangle.h"
+#include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
@@ -45,7 +45,6 @@ public:
   void bounceOverPaddle(const Dock &paddle);
 
   inline double getRadius() const { return radius_; }
-
 
   void reset();
 };

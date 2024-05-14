@@ -20,7 +20,7 @@ grid, thus a template class is required
 class Bonus;
 class Game;
 
-using balls_ptr=std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
+using balls_ptr = std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
 
 class CollisionEngine {
 private:
@@ -31,16 +31,21 @@ private:
 
 public:
   CollisionEngine();
-  CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid, std::shared_ptr<Dock> player, std::shared_ptr<std::vector<std::shared_ptr<Bonus>>> bonuses);
+  CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid,
+                  std::shared_ptr<Dock> player,
+                  std::shared_ptr<std::vector<std::shared_ptr<Bonus>>> bonuses);
   //~CollisionEngine();
 
-  bool resolveCollisions(Game& game);
+  bool resolveCollisions(Game &game);
 
 private:
   bool isCollisionCircleRect(Ball &ball, Rectangle &rectangle) const;
-  bool isAABBCollision(Rectangle & rectangle1, Rectangle& rectangle2);
+  bool isAABBCollision(Rectangle &rectangle1, Rectangle &rectangle2);
 
-  bool isOutofWindow(Rectangle & rectangle, int width, int height);
+  bool isOutofWindow(Rectangle &rectangle, int width, int height);
+
+  bool manageCollisionBrickBall(std::shared_ptr<Brick> brick,
+                                std::shared_ptr<Ball> ball);
 };
 
 #endif

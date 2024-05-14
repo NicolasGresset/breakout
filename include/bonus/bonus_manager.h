@@ -4,8 +4,8 @@
 #include "bonus/bonus.h"
 #include "object/object.h"
 #include "utils/constants.h"
-#include <random>
 #include <vector>
+#include "utils/randomiser.h"
 
 class Brick;
 
@@ -17,10 +17,11 @@ private:
   Uint64 current_time_ = 0;
   Uint64 interval_; // minium interval in milliseconds between 2 bonuses
   bool new_bonus_ = false;
-  std::mt19937 random_generator_;
 
   // a pointer to a vector containing textures for all bonuses
   std::shared_ptr<std::vector<texture_ptr>> textures_;
+
+  Randomiser<int> randomiser_;
 
 public:
   // to be called at each game iteration

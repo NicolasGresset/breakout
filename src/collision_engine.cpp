@@ -1,6 +1,8 @@
 #include "bonus/bonus.h"
 #include "collison_engine.h"
 #include "game.h"
+#include "object/ball.h"
+#include "object/brick.h"
 #include "object/dock.h"
 #include "object/rectangle.h"
 #include "object/rectangle_brick.h"
@@ -8,9 +10,15 @@
 #include <cmath>
 #include <cstdio>
 #include <iostream>
+#include <memory>
 #include <vector>
 
 CollisionEngine::CollisionEngine() : balls_(), grid_(), player_(){};
+
+bool CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
+                                               std::shared_ptr<Ball> ball) {
+  return false;
+}
 
 CollisionEngine::CollisionEngine(
     balls_ptr balls, std::shared_ptr<Grid> grid, std::shared_ptr<Dock> player,
@@ -22,11 +30,15 @@ bool CollisionEngine::resolveCollisions(Game &game) {
   for (auto ball : *balls_) {
     if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
                                 (*grid_).getWindowWidth())) {
-      player_->popLife();
-      player_->reset();
+
+      if (game.isLastBall()) {
+        player_->popLife();
+        player_->reset();
+        ball.reset();
+      }
     }
 
-    for (auto brick : (grid_.get())->getBricks()) {
+    for (auto brick : grid_->getBricks()) {
       if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
         ball->bounceOverRectangle(*brick);
         brick->decrementLife(1);
@@ -44,11 +56,10 @@ bool CollisionEngine::resolveCollisions(Game &game) {
 
     for (auto bonus : game.getBonusManager()->getBonuses()) {
       if (isAABBCollision(*bonus, *player_)) {
-        if (!bonus->isOut())
-        {
-            bonus->action(game);
-            bonus->remove();
-            break;
+        if (!bonus->isOut()) {
+          bonus->action(game);
+          bonus->remove();
+          break;
         }
 
       } else if (isOutofWindow(*bonus, grid_->getWindowWidth(),
@@ -100,20 +111,20 @@ bool CollisionEngine::isCollisionCircleRect(Ball &ball,
 bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,
                                       Rectangle &rectangle2) {
 
-    float left1 = rectangle1.getPosition().x_ - rectangle1.getWidth() / 2;
-    float right1 = rectangle1.getPosition().x_ + rectangle1.getWidth() / 2;
-    float top1 = rectangle1.getPosition().y_ + rectangle1.getHeight() / 2;
-    float bottom1 = rectangle1.getPosition().y_ - rectangle1.getHeight() / 2;
+  float left1 = rectangle1.getPosition().x_ - rectangle1.getWidth() / 2;
+  float right1 = rectangle1.getPosition().x_ + rectangle1.getWidth() / 2;
+  float top1 = rectangle1.getPosition().y_ + rectangle1.getHeight() / 2;
+  float bottom1 = rectangle1.getPosition().y_ - rectangle1.getHeight() / 2;
 
-    float left2 = rectangle2.getPosition().x_ - rectangle2.getWidth() / 2;
-    float right2 = rectangle2.getPosition().x_ + rectangle2.getWidth() / 2;
-    float top2 = rectangle2.getPosition().y_ + rectangle2.getHeight() / 2;
-    float bottom2 = rectangle2.getPosition().y_ - rectangle2.getHeight() / 2;
+  float left2 = rectangle2.getPosition().x_ - rectangle2.getWidth() / 2;
+  float right2 = rectangle2.getPosition().x_ + rectangle2.getWidth() / 2;
+  float top2 = rectangle2.getPosition().y_ + rectangle2.getHeight() / 2;
+  float bottom2 = rectangle2.getPosition().y_ - rectangle2.getHeight() / 2;
 
-    // Vérifier si les rectangles se chevauchent sur chaque axe
-    bool overlapX = (left1 <= right2) && (right1 >= left2);
-    bool overlapY = (bottom1 <= top2) && (top1 >= bottom2);
+  // Vérifier si les rectangles se chevauchent sur chaque axe
+  bool overlapX = (left1 <= right2) && (right1 >= left2);
+  bool overlapY = (bottom1 <= top2) && (top1 >= bottom2);
 
-    // Si les rectangles se chevauchent sur les deux axes, il y a une collision
-    return overlapX && overlapY;
+  // Si les rectangles se chevauchent sur les deux axes, il y a une collision
+  return overlapX && overlapY;
 }
