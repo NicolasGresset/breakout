@@ -71,20 +71,21 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
    * 2 - delta] */
 
   // bouncing over the side
-  if (position_.y_ + radius_ > paddle.getPosition().y_ + paddle.getHeight()) {
+  if (position_.y_ + radius_ >
+      paddle.getPosition().y_ + paddle.getHeight() / 2) {
+    printf("we bounce over the side\n");
     speed_.x_ = -speed_.x_;
     return;
   }
 
-  double path_angle = ((PI - 2 * delta_) / paddle.getWidth()) *
-                          (position_.x_ - paddle.getPosition().x_) +
-                      3 * PI / 2 + delta_;
-
+  double path_angle = ((-PI + 2 * delta_) / paddle.getWidth()) *
+                          (- position_.x_ + (paddle.getPosition().x_)) -
+                      PI /2 ;
+                      
   speed_.x_ = BALL_SPEED_NORM * cos(path_angle);
   speed_.y_ = BALL_SPEED_NORM * sin(path_angle);
 }
 
-// we trust Chat-GPT a lot here
 void Ball::bounceOverLine(const Direction &normal) {
   double dot_product = normal.getVector().dotProduct(speed_);
   speed_.x_ -= 2 * dot_product * normal.getVector().x_;
