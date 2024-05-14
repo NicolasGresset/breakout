@@ -4,6 +4,7 @@
 #include "object.h"
 #include "rectangle.h"
 #include "utils/vector2D.h"
+#include <SDL_events.h>
 #include <SDL_render.h>
 
 class Dock : public Rectangle, public MovableObject {
