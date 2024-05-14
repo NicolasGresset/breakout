@@ -5,22 +5,22 @@
 
 class Line {
 private:
-  double x_;
-  double y_;
+  Vector2D start_;
+  Vector2D end_;
 
-  bool is_valid_ = true;
 
 public:
   Line();
-  Line(double x, double y);
+  Line(Vector2D start, Vector2D end);
   Line(bool is_valid);
 
-  inline bool isValid() const { return is_valid_; };
-  inline void setValid(bool valid) { is_valid_ = valid; }
 
   inline Vector2D getDirection() const {
-    return Vector2D(x_, y_);
+    return Vector2D(end_.x_ - start_.x_, end_.y_ - start_.y_);
   }
+
+  inline const Vector2D& getStart() const{return start_;};
+  inline const Vector2D& getEnd() const{return end_;};
 };
 
 #endif

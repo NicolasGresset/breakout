@@ -1,7 +1,6 @@
 #include "object/line.h"
+#include "utils/vector2D.h"
 
 Line::Line() {}
 
-Line::Line(double x, double y) : x_(x), y_(y) {}
-
-Line::Line(bool is_valid) : is_valid_(is_valid) {}
+Line::Line(Vector2D start, Vector2D end) : start_(start), end_(end) {}

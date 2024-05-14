@@ -35,12 +35,12 @@ void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
 }
 
 Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
-                                             RectangleBrick &brick) const {
+                                                  RectangleBrick &brick) const {
   return isCollisionCircleRect(ball, brick);
 }
 
 Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
-                                             TriangleBrick &brick) const {
+                                                  TriangleBrick &brick) const {
   return isCollisionCircleTriangle(ball, brick);
 }
 
@@ -89,7 +89,8 @@ bool CollisionEngine::isOutofWindow(Rectangle &rectangle, int width,
           rectangle.getPosition().y_ - rectangle.getHeight() / 2 < 0);
 }
 
-Direction CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangle) {
+Direction CollisionEngine::isCollisionCircleRect(Ball &ball,
+                                                 Rectangle &rectangle) {
   Vector2D ball_position = ball.getPosition();
   Vector2D rectangle_position = rectangle.toUpperLeftCoords();
 
@@ -113,30 +114,37 @@ Direction CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangl
   double distance =
       pow(ball_position.x_ - test_x, 2) + pow(ball_position.y_ - test_y, 2);
 
-  if (distance >= ball.getRadius()){
+  if (distance >= ball.getRadius()) {
     return Direction(false);
   }
   // else
-  if (test_x == rectangle_position.x_){
-    return Direction(- 1, 0);
-  }
-  else if(test_x == rectangle_position.x_ + rectangle.getWidth()){
+  if (test_x == rectangle_position.x_) {
+    return Direction(-1, 0);
+  } else if (test_x == rectangle_position.x_ + rectangle.getWidth()) {
     return Direction(1, 0);
-  }
-  else if(test_y == rectangle_position.y_){
+  } else if (test_y == rectangle_position.y_) {
     return Direction(0, -1);
-  }
-  else if (test_y == rectangle_position.y_ + rectangle.getHeight()){
+  } else if (test_y == rectangle_position.y_ + rectangle.getHeight()) {
     return Direction(0, 1);
-  }
-  else{
+  } else {
     printf("comportement bizarre : collisionCircleRect\n");
     return Direction(false);
   }
 }
 
-Direction CollisionEngine::isCollisionCircleTriangle(Ball &ball, Triangle &triangle){
-  // todo
+Direction CollisionEngine::isCollisionCircleTriangle(Ball &ball,
+                                                     Triangle &triangle) {
+  std::vector<Line> edges = triangle.getEdges();
+  Direction normal;
+
+  for (auto &edge : edges) {
+    normal = isCollisionCircleLine(ball, edge);
+    if (normal.isValid()) {
+      return normal;
+    }
+  }
+  // we don't check if the circle is totally inside of the triangle : whatever
+  return Direction(false);
 }
 
 bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,
@@ -158,4 +166,38 @@ bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,
 
   // Si les rectangles se chevauchent sur les deux axes, il y a une collision
   return overlapX && overlapY;
+}
+
+bool CollisionEngine::pointInCircle(const Ball &ball,
+                                    const Vector2D &point)  {
+  Vector2D distance = Vector2D(ball.getPosition().x_ - point.x_,
+                               ball.getPosition().y_ - point.y_);
+  return distance.getSquaredNorm() < pow(ball.getRadius(), 2);
+}
+
+Direction CollisionEngine::isCollisionCircleLine(Ball &ball, Line &line) {
+  Vector2D AB = line.getDirection();
+  Vector2D AC = Vector2D(ball.getPosition().x_ - line.getStart().x_,
+                         ball.getPosition().y_ - line.getStart().y_);
+  Vector2D BC = Vector2D(ball.getPosition().x_ - line.getEnd().x_,
+                         ball.getPosition().y_ - line.getEnd().y_);
+
+  double distance = abs(AB.vectorialProduct(AC)) / AB.getNorm();
+  if (distance > ball.getRadius()) {
+    return Direction(false);
+  }
+  // ball intersects the line line, what about the segment ?
+
+  if (!((AB.dotProduct(AC) > 0 && AB.dotProduct(BC) < 0) ||
+        pointInCircle(ball, line.getStart()) ||
+        pointInCircle(ball, line.getEnd()))) {
+    // neither orthogonal projection of circle's radius is between A and B
+    // nor A is in the circle
+    // nor B is in the circle
+    return Direction(false);
+  }
+
+  // we can compute the normal
+  double product = AB.dotProduct(AC); // we compute only once this product
+  return Direction(-AB.y_ * product, AB.x_ * product);
 }
