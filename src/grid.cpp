@@ -41,6 +41,7 @@ void Grid::init() {
 
        int brickType;
        Color color;
+       int life{0};
        for (int i{0}; i < height; ++i) {
            for (int j{0}; j < width; ++j) {
 
@@ -48,18 +49,27 @@ void Grid::init() {
                switch (brickType){
                case 1:
                    color = Color::red;
+                   life = 1;
                    break;
                case 2:
                    color = Color::blue;
+                   life = 2;
                    break;
                case 3:
                    color = Color::green;
+                   life = 3;
+                   break;
+               case 4:
+                   color = Color::purple;
+                   life = 4;
                    break;
                case 5:
-                   color = Color::purple;
+                   color = Color::yellow;
+                   life = 5;
                    break;
                case 6:
                    color = Color::yellow;
+                   life = 6;
                    break;
                default:
                    // Not render a brick
@@ -71,7 +81,7 @@ void Grid::init() {
                bricks_.push_back(std::make_shared<RectangleBrick>(
                        Vector2D(j * element_width + element_width / 2,
                                 i * element_height + element_height / 2),
-                       assets_->getRectangleTexture(color), 1, element_width,
+                       assets_->getRectangleTexture(color), life, element_width,
                        element_height));
            }
        }

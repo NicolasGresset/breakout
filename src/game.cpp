@@ -144,6 +144,7 @@ int Game::mainLoop() {
     }
 
     window_ptr_->update();
+    window_ptr_->temporisation(3);
   }
 
   return 1;

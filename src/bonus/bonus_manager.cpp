@@ -29,7 +29,7 @@ void BonusManager::createNewBonus(Brick &brick) {
     int type(dist_(random_generator_));
     switch (type) {
     case 1:
-      bonuses_.push_back(std::make_shared<ExtraLife>(textures_->at(0), brick,
+       bonuses_.push_back(std::make_shared<ExtraLife>(textures_->at(0), brick,
                                                      BONUS_WIDTH, BONUS_HEIGHT,
                                                      Vector2D(0, BONUS_SPEED)));
       break;
