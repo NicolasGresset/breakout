@@ -2,6 +2,7 @@
 #include "bonus/bonus.h"
 #include "bonus/extra_life.h"
 #include "bonus/multi_ball.h"
+#include "bonus/speed_ball.h"
 #include "object/brick.h"
 #include "object/object.h"
 #include "utils/constants.h"
@@ -37,6 +38,11 @@ void BonusManager::createNewBonus(Brick &brick) {
       bonuses_.push_back(std::make_shared<MultiBall>(textures_->at(0), brick,
                                                      BONUS_WIDTH, BONUS_HEIGHT,
                                                      Vector2D(0, BONUS_SPEED)));
+      break;
+    case 3:
+        bonuses_.push_back(std::make_shared<SpeedBall>(textures_->at(0), brick,
+                                                       BONUS_WIDTH, BONUS_HEIGHT,
+                                                       Vector2D(0, BONUS_SPEED)));
     default:
       break;
     }

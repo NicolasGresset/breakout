@@ -10,7 +10,7 @@ class Game;
 
 class Bonus : public Rectangle, public MovableObject {
 public:
-  static const int implemented_bonus_types = 2;
+  static const int implemented_bonus_types = 3;
   Bonus();
   Bonus(texture_ptr texture, Brick &brick, int width, int height,
         Vector2D speed);

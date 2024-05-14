@@ -60,6 +60,10 @@ public:
   MovableObject(Vector2D speed);
 
   inline const Vector2D &getSpeed() const { return speed_; }
+  inline void setSpeed(const Vector2D speed) {
+      speed_.x_ = speed.x_;
+      speed_.y_ = speed.y_;
+  }
 };
 
 #endif
