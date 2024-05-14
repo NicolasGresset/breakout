@@ -23,6 +23,7 @@ constexpr double BALL_SPEED_NORM = 0.5;
 constexpr double BALL_RADIUS = 20;
 
 constexpr double SQUARE_ROOT_2 = 1.41321356;
+constexpr double SQUARE_ROOT_3 = 1.73205080;
 
 constexpr double PI = 3.14159265;
 
