@@ -1,5 +1,6 @@
 #include "object/triangle.h"
 #include "object/object.h"
+#include "utils/constants.h"
 #include "utils/utils.h"
 #include <SDL_rect.h>
 
@@ -15,7 +16,7 @@ void Triangle::draw(SDL_Renderer &renderer) const {
   Vector2D upper_left_coords = this->toUpperLeftCoords();
   SDL_Rect destinationRect = {(int)upper_left_coords.x_,
                               (int)upper_left_coords.y_, (int)length_,
-                              (int)length_};
+                              (int)(length_ * SQUARE_ROOT_3 / 2)};
 
   SDL_Point center = {static_cast<int>(position_.x_),
                       static_cast<int>(position_.y_)};
