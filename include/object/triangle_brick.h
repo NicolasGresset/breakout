@@ -7,8 +7,18 @@
 class TriangleBrick : public Triangle, public Brick {
 public:
   TriangleBrick();
-  TriangleBrick(Vector2D position, texture_ptr texture, int life, double width,
-                double height);
+  TriangleBrick(Vector2D position, texture_ptr texture, int life,
+                double orientation, double length);
+
+  inline Vector2D toUpperLeftCoords() const override {
+    return Triangle::toUpperLeftCoords();
+  }
+
+  inline void draw(SDL_Renderer &renderer) const override {
+    if (!destroyed_) {
+      Triangle::draw(renderer);
+    }
+  }
 };
 
 #endif
