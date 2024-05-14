@@ -61,7 +61,7 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
       loadTexture("textures/ball_blue.bmp", renderer));
 
   // load background
-  for (int i(2); i < 12; i++) {
+  for (int i(1); i < 1; i++) {
     std::string background_name =
         "textures/mandelbrot" + std::to_string(i) + ".bmp";
     background_texture_.push_back(
@@ -72,4 +72,7 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
   extra_life_texture_.push_back(loadTexture("textures/life.bmp", renderer));
   bonuses_textures_.push_back(
       std::make_shared<std::vector<SDL_Texture *>>(extra_life_texture_));
+
+  // load triangle textures
+  triangle_textures_.push_back(loadTexture("textures/triangle.bmp", renderer));
 }
