@@ -5,6 +5,8 @@
 #include "utils/constants.h"
 #include "utils/vector2D.h"
 
+class Line;
+
 // each triangle is equilateral and is represented by its orientation
 // the position of the triangle is, such as every object, the position of its
 // center
@@ -27,6 +29,10 @@ public:
   }
 
   void draw(SDL_Renderer &renderer) const override;
+
+  std::vector<Vector2D> getVertices() const;
+
+  std::vector<Line> getEdges() const;
 };
 
 #endif

@@ -13,6 +13,7 @@ class Rectangle;
 class RectangleBrick;
 class TriangleBrick;
 class Brick;
+class Line;
 
 
 using balls_ptr = std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
@@ -36,7 +37,9 @@ private:
   void manageCollisionBrickBall(std::shared_ptr<Brick> brick,
                                 std::shared_ptr<Ball> ball, Game &game);
 
-  Direction isCollisionCircleLine(Ball& ball, Direction &line);
+  static Direction isCollisionCircleLine(Ball& ball, Line &line);
+
+  static bool pointInCircle(const Ball& ball, const Vector2D &point) ;
 };
 
 #endif

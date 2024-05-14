@@ -18,7 +18,7 @@ public:
   inline bool isValid() const { return is_valid_; };
   inline void setValid(bool valid) { is_valid_ = valid; }
 
-  inline Vector2D getVector() const { return Vector2D(x_, y_); }
+  Vector2D getVector() const;
 };
 
 #endif
