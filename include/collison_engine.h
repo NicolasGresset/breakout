@@ -23,19 +23,9 @@ class Game;
 using balls_ptr = std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
 
 class CollisionEngine {
-private:
-  balls_ptr balls_;
-  std::shared_ptr<Grid> grid_;
-  std::shared_ptr<Dock> player_;
-  std::shared_ptr<std::vector<std::shared_ptr<Bonus>>> bonuses_;
 
 public:
   CollisionEngine();
-  CollisionEngine(balls_ptr balls, std::shared_ptr<Grid> grid,
-                  std::shared_ptr<Dock> player,
-                  std::shared_ptr<std::vector<std::shared_ptr<Bonus>>> bonuses);
-  //~CollisionEngine();
-
   bool resolveCollisions(Game &game);
 
 private:

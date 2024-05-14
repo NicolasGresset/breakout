@@ -30,10 +30,6 @@ void GameController::init(std::shared_ptr<SDL2Window> &window_ptr,
   game_->bonus_manager_ = std::make_shared<BonusManager>(
       game_->assets_->getBonusesTextures(), BONUS_INTERVAL_RATE);
 
-  game_->collision_engine_ = std::make_shared<CollisionEngine>(
-      game_->balls_, game_->grid_, game_->player_,
-      std::make_shared < std::vector<std::shared_ptr<Bonus>>>(
-                             game_->bonus_manager_->getBonuses()));
 
   game_->background_ = std::make_shared<ElementBackground>(
       game_->assets_->getBackgroundTexture(), screen_width, screen_height);

@@ -40,7 +40,7 @@ class Game {
 private:
   std::shared_ptr<SDL2Window> window_ptr_;
 
-  std::shared_ptr<CollisionEngine> collision_engine_; // could be unique ptr ?
+  CollisionEngine collision_engine_; // could be unique ptr ?
   std::shared_ptr<Dock> player_;
   std::shared_ptr<Grid> grid_;
   balls_ptr balls_;
@@ -61,6 +61,7 @@ private:
   Clock clock_;
 
   friend class GameController;
+  friend class CollisionEngine;
 
 public:
   Game(std::shared_ptr<SDL2Window> &window_ptr);

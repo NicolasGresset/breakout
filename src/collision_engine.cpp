@@ -13,57 +13,52 @@
 #include <memory>
 #include <vector>
 
-CollisionEngine::CollisionEngine() : balls_(), grid_(), player_(){};
+CollisionEngine::CollisionEngine(){};
 
 bool CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
                                                std::shared_ptr<Ball> ball) {
   return false;
 }
 
-CollisionEngine::CollisionEngine(
-    balls_ptr balls, std::shared_ptr<Grid> grid, std::shared_ptr<Dock> player,
-    std::shared_ptr<std::vector<std::shared_ptr<Bonus>>> bonuses)
-    : balls_(balls), grid_(grid), player_(player), bonuses_(bonuses){};
-
 bool CollisionEngine::resolveCollisions(Game &game) {
   bool return_code = false;
-  for (auto ball : *balls_) {
-    if (!ball->bounceIntoWindow((*grid_).getWindowHeight(),
-                                (*grid_).getWindowWidth())) {
+  for (auto ball : *game.balls_) {
+    if (!ball->bounceIntoWindow((*game.grid_).getWindowHeight(),
+                                (*game.grid_).getWindowWidth())) {
 
       if (game.isLastBall()) {
-        player_->popLife();
-        player_->reset();
+        game.player_->popLife();
+        game.player_->reset();
         ball.reset();
       }
     }
 
-    for (auto brick : grid_->getBricks()) {
+    for (auto brick : game.grid_->getBricks()) {
       if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
         ball->bounceOverRectangle(*brick);
         brick->decrementLife(1);
         if (brick->isDestroyed()) {
-          grid_->setLastDestroyedBrick(brick);
+          game.grid_->setLastDestroyedBrick(brick);
           return_code = true;
           break;
         }
       }
     }
 
-    if (isCollisionCircleRect(*ball, *player_)) {
-      ball->bounceOverPaddle(*player_);
+    if (isCollisionCircleRect(*ball, *game.player_)) {
+      ball->bounceOverPaddle(*game.player_);
     }
 
     for (auto bonus : game.getBonusManager()->getBonuses()) {
-      if (isAABBCollision(*bonus, *player_)) {
+      if (isAABBCollision(*bonus, *game.player_)) {
         if (!bonus->isOut()) {
           bonus->action(game);
           bonus->remove();
           break;
         }
 
-      } else if (isOutofWindow(*bonus, grid_->getWindowWidth(),
-                               grid_->getWindowHeight())) {
+      } else if (isOutofWindow(*bonus, game.grid_->getWindowWidth(),
+                               game.grid_->getWindowHeight())) {
 
         bonus->remove();
       }
