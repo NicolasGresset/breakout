@@ -34,14 +34,14 @@ void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
   }
 }
 
-Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
-                                                  RectangleBrick &brick) const {
-  return isCollisionCircleRect(ball, brick);
+Direction CollisionEngine::checkCollision(Ball &ball, RectangleBrick &brick) {
+  Rectangle rectangle = static_cast<Rectangle>(brick);
+  return checkCollision(ball, rectangle);
 }
 
-Direction CollisionEngine::isCollisionCircleBrick(Ball &ball,
-                                                  TriangleBrick &brick) const {
-  return isCollisionCircleTriangle(ball, brick);
+Direction CollisionEngine::checkCollision(Ball &ball, TriangleBrick &brick) {
+  Triangle triangle = static_cast<Triangle>(brick);
+  return checkCollision(ball, triangle);
 }
 
 void CollisionEngine::resolveCollisions(Game &game) {
@@ -59,14 +59,14 @@ void CollisionEngine::resolveCollisions(Game &game) {
       manageCollisionBrickBall(brick, ball, game);
     }
 
-    Direction normal = isCollisionCircleRect(*ball, *game.player_);
+    Direction normal = checkCollision(*ball, *game.player_);
     if (normal.isValid()) {
       ball->bounceOverPaddle(*game.player_);
     }
   }
 
   for (auto bonus : game.getBonusManager()->getBonuses()) {
-    if (isAABBCollision(*bonus, *game.player_)) {
+    if (checkCollision(*bonus, *game.player_).isValid()) {
       if (!bonus->isOut()) {
         bonus->action(game);
         bonus->remove();
@@ -89,8 +89,7 @@ bool CollisionEngine::isOutofWindow(Rectangle &rectangle, int width,
           rectangle.getPosition().y_ - rectangle.getHeight() / 2 < 0);
 }
 
-Direction CollisionEngine::isCollisionCircleRect(Ball &ball,
-                                                 Rectangle &rectangle) {
+Direction CollisionEngine::checkCollision(Ball &ball, Rectangle &rectangle) {
   Vector2D ball_position = ball.getPosition();
   Vector2D rectangle_position = rectangle.toUpperLeftCoords();
 
@@ -132,13 +131,12 @@ Direction CollisionEngine::isCollisionCircleRect(Ball &ball,
   }
 }
 
-Direction CollisionEngine::isCollisionCircleTriangle(Ball &ball,
-                                                     Triangle &triangle) {
+Direction CollisionEngine::checkCollision(Ball &ball, Triangle &triangle) {
   std::vector<Line> edges = triangle.getEdges();
   Direction normal;
 
   for (auto &edge : edges) {
-    normal = isCollisionCircleLine(ball, edge);
+    normal = checkCollision(ball, edge);
     if (normal.isValid()) {
       return normal;
     }
@@ -147,8 +145,8 @@ Direction CollisionEngine::isCollisionCircleTriangle(Ball &ball,
   return Direction(false);
 }
 
-bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,
-                                      Rectangle &rectangle2) {
+Direction CollisionEngine::checkCollision(Rectangle &rectangle1,
+                                          Rectangle &rectangle2) {
 
   float left1 = rectangle1.getPosition().x_ - rectangle1.getWidth() / 2;
   float right1 = rectangle1.getPosition().x_ + rectangle1.getWidth() / 2;
@@ -165,17 +163,22 @@ bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,
   bool overlapY = (bottom1 <= top2) && (top1 >= bottom2);
 
   // Si les rectangles se chevauchent sur les deux axes, il y a une collision
-  return overlapX && overlapY;
+  if (overlapX && overlapY) {
+    return Direction();
+  }
+  return Direction(false);
 }
 
-bool CollisionEngine::pointInCircle(const Ball &ball,
-                                    const Vector2D &point)  {
+Direction CollisionEngine::checkCollision(Ball &ball, Vector2D &point) {
   Vector2D distance = Vector2D(ball.getPosition().x_ - point.x_,
                                ball.getPosition().y_ - point.y_);
-  return distance.getSquaredNorm() < pow(ball.getRadius(), 2);
+  if (distance.getSquaredNorm() < pow(ball.getRadius(), 2)) {
+    return Direction(true);
+  }
+  return Direction(false);
 }
 
-Direction CollisionEngine::isCollisionCircleLine(Ball &ball, Line &line) {
+Direction CollisionEngine::checkCollision(Ball &ball, Line &line) {
   Vector2D AB = line.getDirection();
   Vector2D AC = Vector2D(ball.getPosition().x_ - line.getStart().x_,
                          ball.getPosition().y_ - line.getStart().y_);
@@ -188,9 +191,11 @@ Direction CollisionEngine::isCollisionCircleLine(Ball &ball, Line &line) {
   }
   // ball intersects the line line, what about the segment ?
 
+  Vector2D start = line.getStart();
+  Vector2D end = line.getEnd();
   if (!((AB.dotProduct(AC) > 0 && AB.dotProduct(BC) < 0) ||
-        pointInCircle(ball, line.getStart()) ||
-        pointInCircle(ball, line.getEnd()))) {
+        checkCollision(ball, start).isValid() ||
+        checkCollision(ball, end).isValid())) {
     // neither orthogonal projection of circle's radius is between A and B
     // nor A is in the circle
     // nor B is in the circle

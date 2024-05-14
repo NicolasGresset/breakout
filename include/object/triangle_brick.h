@@ -23,7 +23,7 @@ public:
   }
 
   Direction isCollisionCircle(Ball &ball) override {
-    return CollisionEngine::isCollisionCircleTriangle(ball, *this);
+    return CollisionEngine::checkCollision(ball, *this);
   };
 };
 

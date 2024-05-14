@@ -28,7 +28,7 @@ public:
   }
 
    inline Direction isCollisionCircle(Ball &ball)  override {
-    return CollisionEngine::isCollisionCircleRect(ball, *this);
+    return CollisionEngine::checkCollision(ball, *this);
    }
 };
 
