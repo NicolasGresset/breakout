@@ -1,15 +1,12 @@
 #include "object/ball.h"
-#include "object/object.h"
-#include "object/rectangle.h"
+#include "object/dock.h"
 #include "utils/constants.h"
 #include "utils/utils.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
 #include <SDL_timer.h>
-#include <algorithm>
 #include <cstdio>
-#include <iostream>
 
 #include "utils/direction.h"
 
@@ -65,30 +62,6 @@ void Ball::reset() {
   is_out_ = false;
 }
 
-void Ball::bounceOverRectangle(const Rectangle &rectangle) {
-  Vector2D rectangle_position = rectangle.toUpperLeftCoords();
-  double overlap_x_left = position_.x_ + radius_ - rectangle_position.x_;
-  double overlap_x_right =
-      rectangle_position.x_ + rectangle.getWidth() - (position_.x_ - radius_);
-  double overlap_y_top = position_.y_ + radius_ - rectangle_position.y_;
-  double overlap_y_bottom =
-      rectangle_position.y_ + rectangle.getHeight() - (position_.y_ - radius_);
-
-  if ((overlap_x_left < overlap_y_bottom && overlap_x_left < overlap_y_top &&
-       overlap_x_left < overlap_x_right) ||
-      (overlap_x_right < overlap_y_bottom && overlap_x_right < overlap_y_top &&
-       overlap_x_right < overlap_x_left)) {
-    speed_.x_ = -speed_.x_;
-  } else if ((overlap_y_bottom < overlap_x_left &&
-              overlap_y_bottom < overlap_x_right &&
-              overlap_y_bottom < overlap_y_top) ||
-             (overlap_y_top < overlap_x_left &&
-              overlap_y_top < overlap_x_right &&
-              overlap_y_top < overlap_y_bottom)) {
-    speed_.y_ = -speed_.y_;
-  }
-}
-
 void Ball::bounceOverPaddle(const Dock &paddle) {
   /* the ball is assumed to bounce over the paddle with a reflection angle
    * proportional to the distance between the point of impact and the paddle
@@ -111,10 +84,9 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
   speed_.y_ = BALL_SPEED_NORM * sin(path_angle);
 }
 
-
 // we trust Chat-GPT a lot here
-void Ball::bounceOverLine(const Direction &normal){
+void Ball::bounceOverLine(const Direction &normal) {
   double dot_product = normal.getVector().dotProduct(speed_);
-  speed_.x_ -= 2*dot_product * normal.getVector().x_;
-  speed_.y_ -= 2*dot_product * normal.getVector().y_;
+  speed_.x_ -= 2 * dot_product * normal.getVector().x_;
+  speed_.y_ -= 2 * dot_product * normal.getVector().y_;
 }

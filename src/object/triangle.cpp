@@ -1,9 +1,6 @@
 #include "object/triangle.h"
 #include "object/line.h"
-#include "object/object.h"
-#include "utils/constants.h"
 #include "utils/utils.h"
-#include "utils/vector2D.h"
 #include <SDL_rect.h>
 #include <vector>
 

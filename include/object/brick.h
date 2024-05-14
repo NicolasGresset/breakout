@@ -1,10 +1,7 @@
 #ifndef BRICK_H
 #define BRICK_H
 
-#include "gui/color.h"
 #include "object.h"
-#include "utils/vector2D.h"
-#include <SDL2/SDL_render.h>
 
 class Ball;
 class Direction;

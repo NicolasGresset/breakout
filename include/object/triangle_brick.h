@@ -2,7 +2,6 @@
 #define TRIANGLE_BRICK_H
 
 #include "collison_engine.h"
-#include "line.h"
 #include "object/brick.h"
 #include "object/triangle.h"
 

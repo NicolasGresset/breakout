@@ -2,11 +2,8 @@
 #define Object_H
 
 #include "utils/vector2D.h"
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
-#include <SDL_stdinc.h>
 #include <memory>
-#include <sys/types.h>
 #include <vector>
 
 using texture_ptr = std::shared_ptr<std::vector<SDL_Texture *>>;
@@ -61,8 +58,8 @@ public:
 
   inline const Vector2D &getSpeed() const { return speed_; }
   inline void setSpeed(const Vector2D speed) {
-      speed_.x_ = speed.x_;
-      speed_.y_ = speed.y_;
+    speed_.x_ = speed.x_;
+    speed_.y_ = speed.y_;
   }
 };
 

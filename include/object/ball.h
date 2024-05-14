@@ -1,14 +1,14 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "dock.h"
 #include "object.h"
-#include "rectangle.h"
-#include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
+
+class Dock;
 class Direction;
+class Rectangle;
 
 /**
 Just like dock, a ball is a movable object with such attributes
@@ -43,8 +43,6 @@ public:
   and updates its speed accordingly
   */
   void bounceIntoWindow(double height, double width);
-
-  void bounceOverRectangle(const Rectangle &rectangle);
 
   void bounceOverPaddle(const Dock &paddle);
 

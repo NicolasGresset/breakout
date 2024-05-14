@@ -3,11 +3,8 @@
 
 #include "brick.h"
 #include "collison_engine.h"
-#include "object/object.h"
 #include "rectangle.h"
 #include "utils/vector2D.h"
-#include <SDL2/SDL_render.h>
-#include "line.h"
 
 
 class RectangleBrick : public Rectangle, public Brick {

@@ -1,5 +1,4 @@
 #include "object/line.h"
-#include "utils/vector2D.h"
 
 Line::Line() {}
 

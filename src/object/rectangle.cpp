@@ -1,9 +1,5 @@
 #include "object/rectangle.h"
-#include "object/object.h"
 #include "utils/utils.h"
-#include <SDL_render.h>
-#include <cstddef>
-#include <iostream>
 
 Rectangle::Rectangle(Vector2D position, texture_ptr texture, double width,
                      double height)

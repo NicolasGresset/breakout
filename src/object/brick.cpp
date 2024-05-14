@@ -1,7 +1,4 @@
 #include "object/brick.h"
-#include "object/object.h"
-#include "utils/constants.h"
-#include <SDL2/SDL_render.h>
 
 Brick::Brick() : Object(), life_{0} {};
 

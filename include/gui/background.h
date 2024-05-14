@@ -1,7 +1,6 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
