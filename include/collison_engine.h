@@ -26,7 +26,7 @@ class CollisionEngine {
 
 public:
   CollisionEngine();
-  bool resolveCollisions(Game &game);
+  void resolveCollisions(Game &game);
 
 private:
   bool isCollisionCircleRect(Ball &ball, Rectangle &rectangle) const;

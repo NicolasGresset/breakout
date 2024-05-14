@@ -21,6 +21,8 @@ private:
   double delta_ =
       0.3; // used to calculate direction when bouncing over the paddle
 
+  bool is_out_ = false;
+
 public:
   Ball();
   Ball(Vector2D position, texture_ptr texture, Vector2D speed, double radius);
@@ -38,7 +40,7 @@ public:
   Checks wether the ball is colliding outside of the boundaries of the window
   and updates its speed accordingly
   */
-  int bounceIntoWindow(double height, double width);
+  void bounceIntoWindow(double height, double width);
 
   void bounceOverRectangle(const Rectangle &rectangle);
 
@@ -47,6 +49,8 @@ public:
   inline double getRadius() const { return radius_; }
 
   void reset();
+
+  inline bool isOut() const { return is_out_; }
 };
 
 #endif

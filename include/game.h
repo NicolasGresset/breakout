@@ -94,6 +94,11 @@ public:
   void addBall(double direction);
 
   inline bool isLastBall() const { return balls_->size() == 1; }
+
+  inline void onBrickDestroyed() {
+    score_ += 10;
+    bonus_manager_->createNewBonus(grid_->getLastDestroyedBrick());
+  }
 };
 
 #endif

@@ -37,9 +37,9 @@ void Ball::draw(SDL_Renderer &renderer) const {
   CHECK_SDL_RETURN_CODE(code < 0);
 }
 
-int Ball::bounceIntoWindow(double height, double width) {
+void Ball::bounceIntoWindow(double height, double width) {
   if (this->position_.y_ + this->radius_ > height) {
-    return 0;
+    is_out_ = true;
   }
 
   if (this->position_.x_ + this->radius_ > width) {
@@ -53,8 +53,6 @@ int Ball::bounceIntoWindow(double height, double width) {
   if (this->position_.y_ - this->radius_ < 0) {
     speed_.y_ = -speed_.y_;
   }
-
-  return 1;
 }
 
 void Ball::reset() {

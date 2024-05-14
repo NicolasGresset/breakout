@@ -20,26 +20,24 @@ bool CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
   return false;
 }
 
-bool CollisionEngine::resolveCollisions(Game &game) {
-  bool return_code = false;
+void CollisionEngine::resolveCollisions(Game &game) {
   for (auto ball : *game.balls_) {
-    if (!ball->bounceIntoWindow((*game.grid_).getWindowHeight(),
-                                (*game.grid_).getWindowWidth())) {
+    ball->bounceIntoWindow((*game.grid_).getWindowHeight(),
+                           (*game.grid_).getWindowWidth());
 
-      if (game.isLastBall()) {
-        game.player_->popLife();
-        game.player_->reset();
-        ball.reset();
-      }
+    if (ball->isOut() && game.isLastBall()) {
+      game.player_->popLife();
+      game.player_->reset();
+      ball.reset();
     }
 
     for (auto brick : game.grid_->getBricks()) {
       if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
         ball->bounceOverRectangle(*brick);
         brick->decrementLife(1);
+        game.onBrickDestroyed();
         if (brick->isDestroyed()) {
           game.grid_->setLastDestroyedBrick(brick);
-          return_code = true;
           break;
         }
       }
@@ -48,23 +46,22 @@ bool CollisionEngine::resolveCollisions(Game &game) {
     if (isCollisionCircleRect(*ball, *game.player_)) {
       ball->bounceOverPaddle(*game.player_);
     }
-
-    for (auto bonus : game.getBonusManager()->getBonuses()) {
-      if (isAABBCollision(*bonus, *game.player_)) {
-        if (!bonus->isOut()) {
-          bonus->action(game);
-          bonus->remove();
-          break;
-        }
-
-      } else if (isOutofWindow(*bonus, game.grid_->getWindowWidth(),
-                               game.grid_->getWindowHeight())) {
-
+  }
+  
+  for (auto bonus : game.getBonusManager()->getBonuses()) {
+    if (isAABBCollision(*bonus, *game.player_)) {
+      if (!bonus->isOut()) {
+        bonus->action(game);
         bonus->remove();
+        break;
       }
+
+    } else if (isOutofWindow(*bonus, game.grid_->getWindowWidth(),
+                             game.grid_->getWindowHeight())) {
+
+      bonus->remove();
     }
   }
-  return return_code;
 }
 
 bool CollisionEngine::isOutofWindow(Rectangle &rectangle, int width,

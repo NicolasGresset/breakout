@@ -144,10 +144,7 @@ int Game::mainLoop() {
       clock_.tick();
     } else {
       moveObjects(clock_.time_elapsed);
-      if (collision_engine_.resolveCollisions(*this)) {
-        score_ += 10;
-        bonus_manager_->createNewBonus(grid_->getLastDestroyedBrick());
-      }
+      collision_engine_.resolveCollisions(*this);
 
       drawObjects();
     }
