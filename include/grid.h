@@ -10,16 +10,10 @@
 #include <string>
 #include <vector>
 
-/*
-A grid can either be composed of rectangles or hexagons, thus a template class
-is required
-*/
 
-// template <typename T>
-//  on va essayer de faire une grille de rectangles pour l'instant
 class Grid {
 private:
-  std::vector<std::shared_ptr<RectangleBrick>> bricks_;
+  std::vector<std::shared_ptr<Brick>> bricks_;
   const int height_;
   const int width_;
   double window_height_;
@@ -53,7 +47,7 @@ public:
 
   void draw(SDL_Renderer &renderer) const;
 
-  inline std::vector<std::shared_ptr<RectangleBrick>> &getBricks() {
+  inline std::vector<std::shared_ptr<Brick>> &getBricks() {
     return bricks_;
   }
 

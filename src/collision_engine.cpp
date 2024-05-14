@@ -4,8 +4,10 @@
 #include "object/ball.h"
 #include "object/brick.h"
 #include "object/dock.h"
+#include "object/line.h"
 #include "object/rectangle.h"
 #include "object/rectangle_brick.h"
+#include "object/triangle_brick.h"
 #include "utils/vector2D.h"
 #include <cmath>
 #include <cstdio>
@@ -15,9 +17,30 @@
 
 CollisionEngine::CollisionEngine(){};
 
-bool CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
-                                               std::shared_ptr<Ball> ball) {
-  return false;
+void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
+                                               std::shared_ptr<Ball> ball,
+                                               Game &game) {
+  if (brick->isDestroyed()) {
+    return;
+  }
+
+  Line normal = brick->isCollisionCircle(*ball);
+  if (normal.isValid()) {
+    ball->bounceOverLine(normal);
+    brick->decrementLife(1);
+    game.grid_->setLastDestroyedBrick(brick);
+    game.onBrickDestroyed();
+  }
+}
+
+Line CollisionEngine::isCollisionCircleBrick(Ball &ball,
+                                             RectangleBrick &brick) const {
+  return isCollisionCircleRect(ball, brick);
+}
+
+Line CollisionEngine::isCollisionCircleBrick(Ball &ball,
+                                             TriangleBrick &brick) const {
+  return isCollisionCircleTriangle(ball, brick);
 }
 
 void CollisionEngine::resolveCollisions(Game &game) {
@@ -32,22 +55,15 @@ void CollisionEngine::resolveCollisions(Game &game) {
     }
 
     for (auto brick : game.grid_->getBricks()) {
-      if (!brick->isDestroyed() && isCollisionCircleRect(*ball, *brick)) {
-        ball->bounceOverRectangle(*brick);
-        brick->decrementLife(1);
-        game.onBrickDestroyed();
-        if (brick->isDestroyed()) {
-          game.grid_->setLastDestroyedBrick(brick);
-          break;
-        }
-      }
+      manageCollisionBrickBall(brick, ball, game);
     }
 
-    if (isCollisionCircleRect(*ball, *game.player_)) {
+    Line normal = isCollisionCircleRect(*ball, *game.player_);
+    if (normal.isValid()) {
       ball->bounceOverPaddle(*game.player_);
     }
   }
-  
+
   for (auto bonus : game.getBonusManager()->getBonuses()) {
     if (isAABBCollision(*bonus, *game.player_)) {
       if (!bonus->isOut()) {
@@ -72,8 +88,7 @@ bool CollisionEngine::isOutofWindow(Rectangle &rectangle, int width,
           rectangle.getPosition().y_ - rectangle.getHeight() / 2 < 0);
 }
 
-bool CollisionEngine::isCollisionCircleRect(Ball &ball,
-                                            Rectangle &rectangle) const {
+Line CollisionEngine::isCollisionCircleRect(Ball &ball, Rectangle &rectangle) {
   Vector2D ball_position = ball.getPosition();
   Vector2D rectangle_position = rectangle.toUpperLeftCoords();
 
@@ -97,7 +112,30 @@ bool CollisionEngine::isCollisionCircleRect(Ball &ball,
   double distance =
       pow(ball_position.x_ - test_x, 2) + pow(ball_position.y_ - test_y, 2);
 
-  return (distance < ball.getRadius());
+  if (distance >= ball.getRadius()){
+    return Line(false);
+  }
+  // else
+  if (test_x == rectangle_position.x_){
+    return Line(- 1, 0);
+  }
+  else if(test_x == rectangle_position.x_ + rectangle.getWidth()){
+    return Line(1, 0);
+  }
+  else if(test_y == rectangle_position.y_){
+    return Line(0, -1);
+  }
+  else if (test_y == rectangle_position.y_ + rectangle.getHeight()){
+    return Line(0, 1);
+  }
+  else{
+    printf("comportement bizarre : collisionCircleRect\n");
+    return Line(false);
+  }
+}
+
+Line CollisionEngine::isCollisionCircleTriangle(Ball &ball, Triangle &triangle){
+  // todo
 }
 
 bool CollisionEngine::isAABBCollision(Rectangle &rectangle1,

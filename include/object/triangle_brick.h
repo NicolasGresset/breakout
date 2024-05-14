@@ -1,6 +1,8 @@
 #ifndef TRIANGLE_BRICK_H
 #define TRIANGLE_BRICK_H
 
+#include "collison_engine.h"
+#include "line.h"
 #include "object/brick.h"
 #include "object/triangle.h"
 
@@ -19,6 +21,10 @@ public:
       Triangle::draw(renderer);
     }
   }
+
+  Line isCollisionCircle(Ball &ball) override {
+    return CollisionEngine::isCollisionCircleTriangle(ball, *this);
+  };
 };
 
 #endif

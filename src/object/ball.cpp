@@ -11,6 +11,8 @@
 #include <cstdio>
 #include <iostream>
 
+#include "object/line.h"
+
 Ball::Ball()
     : Object(), MovableObject(), radius_(0), rounding_square_side_length(0){};
 
@@ -106,4 +108,12 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
 
   speed_.x_ = BALL_SPEED_NORM * cos(path_angle);
   speed_.y_ = BALL_SPEED_NORM * sin(path_angle);
+}
+
+
+// we trust Chat-GPT a lot here
+void Ball::bounceOverLine(const Line &normal){
+  double dot_product = normal.getDirection().dotProduct(speed_);
+  speed_.x_ -= 2*dot_product * normal.getDirection().x_;
+  speed_.y_ -= 2*dot_product * normal.getDirection().y_;
 }

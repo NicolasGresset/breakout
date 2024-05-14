@@ -8,6 +8,8 @@
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
+class Line;
+
 /**
 Just like dock, a ball is a movable object with such attributes
 we should consider multiple heritance
@@ -45,6 +47,8 @@ public:
   void bounceOverRectangle(const Rectangle &rectangle);
 
   void bounceOverPaddle(const Dock &paddle);
+
+  void bounceOverLine(const Line &line);
 
   inline double getRadius() const { return radius_; }
 
