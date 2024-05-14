@@ -62,6 +62,7 @@ void Ball::reset() {
   speed_.y_ = BALL_SPEED_NORM;
   position_.x_ = INITIAL_BALL_POSITION_X;
   position_.y_ = INITIAL_BALL_POSITION_Y;
+  is_out_ = false;
 }
 
 void Ball::bounceOverRectangle(const Rectangle &rectangle) {

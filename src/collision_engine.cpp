@@ -51,7 +51,7 @@ void CollisionEngine::resolveCollisions(Game &game) {
     if (ball->isOut() && game.isLastBall()) {
       game.player_->popLife();
       game.player_->reset();
-      ball.reset();
+      ball->reset();
     }
 
     for (auto brick : game.grid_->getBricks()) {
