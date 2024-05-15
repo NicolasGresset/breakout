@@ -105,24 +105,22 @@ void Grid::init() {
     //     }
     // }
 
-    double side_length = window_width_ / (width_);
-    double row_height = side_length * sqrt(3) / 2;
+    // double side_length = window_width_ / (width_);
+    // double row_height = side_length * sqrt(3) / 2;
 
-    double x{0}, y{0};
-    for (int row_index = 0; row_index < height_; row_index++) {
-      for (int col_index = 0; col_index < width_; col_index++) {
-        x = window_width_/4 + (side_length/ 2) * col_index;
-        y = row_height * row_index + window_height_ / 8;
-        bricks_.push_back((std::make_shared<TriangleBrick>(
-            Vector2D(x, y), assets_->getTriangleTextures(), 1,
-            col_index % 2 == 0 ? 0 : PI, side_length)));
-      }
-    }
+    // double x{0}, y{0};
+    // for (int row_index = 0; row_index < height_; row_index++) {
+    //   for (int col_index = 0; col_index < width_; col_index++) {
+    //     x = window_width_/4 + (side_length/ 2) * col_index;
+    //     y = row_height * row_index + window_height_ / 8;
+    //     bricks_.push_back((std::make_shared<TriangleBrick>(
+    //         Vector2D(x, y), assets_->getTriangleTextures(), 1,
+    //         col_index % 2 == 0 ? 0 : PI, side_length)));
+    //   }
+    // }
 
-    // bricks_.push_back((std::make_shared<TriangleBrick>(Vector2D(300, 400),
-    // assets_->getTriangleTextures(), 1, 0, 100)));
-    // bricks_.push_back((std::make_shared<TriangleBrick>(Vector2D(300 + 50,
-    // 400), assets_->getTriangleTextures(), 1, PI, 100)));
+    bricks_.push_back((std::make_shared<TriangleBrick>(
+        Vector2D(window_width_ / 2 + 50, 150), assets_->getTriangleTextures(), 100, PI/6, 300)));
   }
 }
 
