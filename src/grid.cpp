@@ -131,7 +131,7 @@ void Grid::initRectangleGrid() {
     for (int j{0}; j < width_; j++) {
       bricks_.push_back(std::make_shared<RectangleBrick>(
           Vector2D(j * element_width + element_width / 2,
-                   i * element_height + s element_height / 2),
+                   i * element_height + element_height / 2),
           assets_->getRectangleTexture(Color::red), 1, element_width,
           element_height));
     }
