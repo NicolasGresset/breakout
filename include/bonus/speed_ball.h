@@ -9,7 +9,6 @@
 
 class SpeedBall : public Bonus {
   void action(Game &game) override {
-    printf("got extra speed\n");
     balls_ptr balls = game.getBall();
     for (auto ball : *balls) {
       Vector2D new_speed(ball->getSpeed());

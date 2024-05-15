@@ -129,7 +129,7 @@ Direction CollisionEngine::checkCollision(Ball &ball, Rectangle &rectangle) {
   } else if (test_y == rectangle_position.y_ + rectangle.getHeight()) {
     return Direction(0, 1);
   } else {
-    printf("comportement bizarre : collisionCircleRect\n");
+    //printf("comportement bizarre : collisionCircleRect\n");
     return Direction(false);
   }
 }

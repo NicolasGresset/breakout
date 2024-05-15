@@ -73,7 +73,7 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
   // bouncing over the side
   if (position_.y_ + radius_ >
       paddle.getPosition().y_ + paddle.getHeight() / 2) {
-    printf("we bounce over the side\n");
+    // printf("we bounce over the side\n");
     speed_.x_ = -speed_.x_;
     return;
   }
