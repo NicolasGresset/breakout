@@ -82,6 +82,7 @@ private:
   void drawPauseObjects();
   void moveObjects(Uint64 delta);
   void drawLooseObjects();
+  void garbageCollector();
 
 public:
   inline std::shared_ptr<Dock> getPlayer() const { return player_; }
