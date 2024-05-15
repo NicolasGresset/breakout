@@ -66,21 +66,21 @@ void ButtonInterface::drawObjects()
 {
     // Create noise
     const int nb_points = 1000;
-    SDL_Point points[nb_points];
+    int x, y;
     srand(time(0));
     // Loop to draw 100 random dots
     for (int i = 0; i < nb_points; ++i) {
         // Generate random x and y coordinates within window bounds
-        points[i].x = rand() % WINDOW_WIDTH;
-        points[i].y = rand() % WINDOW_HEIGHT;
+        x = rand() % WINDOW_WIDTH;
+        y = rand() % WINDOW_HEIGHT;
+        CHECK_SDL_RETURN_CODE(
+            SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF) < 0);
+        CHECK_SDL_RETURN_CODE(SDL_RenderDrawPoint(&window_ptr_->getRenderer(), x, y) < 0);
+        CHECK_SDL_RETURN_CODE(
+            SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0x00, 0x00, 0x00, 0xFF) < 0);
+
 
     }
-    CHECK_SDL_RETURN_CODE(
-        SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF) < 0);
-    CHECK_SDL_RETURN_CODE(SDL_RenderDrawPoints(&window_ptr_->getRenderer(), points, nb_points) < 0);
-    CHECK_SDL_RETURN_CODE(
-        SDL_SetRenderDrawColor(&window_ptr_->getRenderer(), 0x00, 0x00, 0x00, 0xFF) < 0);
-
     for (auto button : buttons_)
     {
         button.draw(window_ptr_->getRenderer());
