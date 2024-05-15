@@ -1,9 +1,6 @@
 #include "object/triangle.h"
 #include "object/line.h"
-#include "object/object.h"
-#include "utils/constants.h"
 #include "utils/utils.h"
-#include "utils/vector2D.h"
 #include <SDL_rect.h>
 #include <vector>
 
@@ -31,13 +28,13 @@ void Triangle::draw(SDL_Renderer &renderer) const {
 std::vector<Vector2D> Triangle::getVertices() const {
   Vector2D A =
       Vector2D(position_.x_, position_.y_ - SQUARE_ROOT_3 * length_ / 4)
-          .rotate(orientation_);
+          .rotate(orientation_, position_);
   Vector2D B = Vector2D(position_.x_ - length_ / 2,
                         position_.y_ + SQUARE_ROOT_3 * length_ / 4)
-                   .rotate(orientation_);
+                   .rotate(orientation_, position_);
   Vector2D C = Vector2D(position_.x_ + length_ / 2,
                         position_.y_ + SQUARE_ROOT_3 * length_ / 4)
-                   .rotate(orientation_);
+                   .rotate(orientation_, position_);
 
   std::vector<Vector2D> vector;
   vector.push_back(A);
