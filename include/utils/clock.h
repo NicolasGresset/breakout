@@ -3,6 +3,10 @@
 
 #include <SDL_timer.h>
 
+/**
+ * @brief Convenient class to measure time passing
+ * 
+ */
 class Clock {
 private:
   Uint64 last_ = 0;

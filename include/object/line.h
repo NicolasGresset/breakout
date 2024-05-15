@@ -3,6 +3,10 @@
 
 #include "utils/vector2D.h"
 
+/**
+ * @brief A line is a geometrical object which corresponds to the vertex of an Object
+ * 
+ */
 class Line {
 private:
   Vector2D start_;

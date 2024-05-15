@@ -8,6 +8,12 @@
 
 class Game;
 
+
+/**
+ * @brief Virtual class which represents a bonus
+ * will be specified into actual bonuses
+ * 
+ */
 class Bonus : public Rectangle, public MovableObject {
 public:
   static const int implemented_bonus_types = 3;

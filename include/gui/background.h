@@ -7,6 +7,11 @@
 #include <memory>
 #include <vector>
 
+
+/**
+ * @brief Deprecated class ; should be refactored into a graphic engine
+ * 
+ */
 class ElementBackground {
 private:
   std::shared_ptr<std::vector<SDL_Texture *>> background_texture_;

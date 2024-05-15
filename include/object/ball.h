@@ -11,10 +11,9 @@ class Direction;
 class Rectangle;
 
 /**
-Just like dock, a ball is a movable object with such attributes
-we should consider multiple heritance
-#todo
-*/
+ * @brief Represents the ball, a movable object with some bouncing characteristics (e.g over the paddle)
+ * 
+ */
 class Ball : public MovableObject {
 private:
   double radius_;

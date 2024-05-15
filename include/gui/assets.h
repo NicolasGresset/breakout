@@ -8,6 +8,11 @@
 #include <memory>
 #include <vector>
 
+/**
+ * @brief Convenient class which manages the loading of the game's assets and
+ * provide pointers to them to mutualize ressources
+ *
+ */
 class Assets {
 private:
   // can't use smart pointers because SDL_Texture is an incomplete type
@@ -42,7 +47,7 @@ public:
   }
 
   inline texture_ptr getTriangleTextures() {
-    return std::make_shared<std::vector<SDL_Texture*>>(triangle_textures_);
+    return std::make_shared<std::vector<SDL_Texture *>>(triangle_textures_);
   }
 
 private:

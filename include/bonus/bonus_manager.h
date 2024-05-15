@@ -4,13 +4,18 @@
 #include "bonus/bonus.h"
 #include "object/object.h"
 #include "utils/constants.h"
-#include <vector>
 #include "utils/randomiser.h"
+#include <vector>
 
 class Brick;
 
-/** A bonus can be created each time a time is destroyed and a certain amount of
- * time has passed*/
+/**
+ * @brief A convenient class which handle Bonuses creation. We consider that a
+ * bonus can be created at a brick destruction at its emplacement only if a
+ * certain amount of time has passed since last bonus was created
+ * the kind of bonus is uniformly randomly chosen between the kinds implemented
+ *
+ */
 class BonusManager {
 private:
   std::vector<std::shared_ptr<Bonus>> bonuses_;
@@ -33,7 +38,7 @@ public:
   BonusManager(std::shared_ptr<std::vector<texture_ptr>> textures,
                Uint64 interval);
 
-  inline std::vector<std::shared_ptr<Bonus>>& getBonuses() { return bonuses_; }
+  inline std::vector<std::shared_ptr<Bonus>> &getBonuses() { return bonuses_; }
 };
 
 #endif

@@ -5,7 +5,10 @@
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
-/* Héritage virtuel pour résoudre le problème du diamant */
+/**
+ * @brief Virtual shape which inherits virtually of Object to solve diamond's issue
+ * 
+ */
 class Rectangle : virtual public Object {
 
 protected:

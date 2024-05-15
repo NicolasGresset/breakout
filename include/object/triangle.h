@@ -10,6 +10,13 @@ class Line;
 // each triangle is equilateral and is represented by its orientation
 // the position of the triangle is, such as every object, the position of its
 // center
+
+/**
+ * @brief A triangle IS equilateral and is unambiguously defined by its
+ * position, length and orientation Inherits virtually from Object to solve
+ * diamond's issue
+ *
+ */
 class Triangle : virtual public Object {
 protected:
   double orientation_;
