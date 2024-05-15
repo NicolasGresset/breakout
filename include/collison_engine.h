@@ -23,6 +23,7 @@ public:
   CollisionEngine();
   void resolveCollisions(Game &game);
 
+  // returns normal to impact if there is collision or invalid direction
   static Direction checkCollision(Ball &ball, Rectangle &rectangle);
   static Direction checkCollision(Ball &ball, Triangle &triangle);
   static Direction checkCollision(Ball &ball, RectangleBrick &brick);

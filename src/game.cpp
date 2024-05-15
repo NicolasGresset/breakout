@@ -4,6 +4,7 @@
 #include "grid.h"
 #include "gui/background.h"
 #include "gui/color.h"
+#include "object/ball.h"
 #include "utils/constants.h"
 #include "utils/vector2D.h"
 #include <SDL_events.h>
@@ -76,14 +77,25 @@ void Game::drawObjects() {
 
 void Game::moveObjects(Uint64 delta) {
   player_->move(delta);
-  for (auto ball : *balls_) {
-    ball->move(delta);
+
+  for (auto ball = balls_->begin(); ball != balls_->end();) {
+    if ((*ball)->isOut()) {
+      ball = balls_->erase(ball);
+    } else {
+      (*ball)->move(delta);
+      ball++;
+    }
   }
 
-  for (auto bonus : bonus_manager_->getBonuses()) {
-    bonus->move(delta);
+  std::vector<std::shared_ptr<Bonus>> bonuses = bonus_manager_->getBonuses();
+  for (auto bonus = bonuses.begin(); bonus != bonuses.end();) {
+    if ((*bonus)->isOut()) {
+      bonus = bonuses.erase(bonus);
+    } else {
+      (*bonus)->move(delta);
+      bonus++;
+    }
   }
-  // background_->update(delta);
 }
 
 void Game::drawLooseObjects() {
