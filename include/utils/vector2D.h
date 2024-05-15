@@ -31,6 +31,14 @@ public:
     return Vector2D(cos(theta) * x_ - sin(theta) * y_,
                     sin(theta * x_) + cos(theta) * y_);
   }
+
+  Vector2D rotate(double theta, Vector2D center) const {
+    Vector2D new_coords(x_- center.x_, y_ - center.y_);
+    new_coords = new_coords.rotate(theta);
+    new_coords.x_ += center.x_;
+    new_coords.y_ += center.y_;
+    return new_coords;
+  }
 };
 
 #endif
