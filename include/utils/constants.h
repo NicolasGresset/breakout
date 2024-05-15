@@ -38,7 +38,7 @@ constexpr int BONUS_WIDTH = 30;
 constexpr int BONUS_HEIGHT = 30;
 constexpr double BONUS_SPEED = 0.8;
 
-constexpr Uint64 BONUS_INTERVAL_RATE = 1000;
+constexpr Uint64 BONUS_INTERVAL_RATE = 10000;
 
 // 
 constexpr double EPSILON = 1e-4;
