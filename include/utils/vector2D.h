@@ -38,6 +38,10 @@ public:
     new_coords.y_ += center.y_;
     return new_coords;
   }
+
+  inline double getAngle() const {
+    return tan(y_/x_);
+  }
 };
 
 #endif

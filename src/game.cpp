@@ -75,14 +75,11 @@ void Game::drawObjects() {
   }
 }
 
-void Game::moveObjects(Uint64 delta) {
-  player_->move(delta);
-
+void Game::garbageCollector() {
   for (auto ball = balls_->begin(); ball != balls_->end();) {
     if ((*ball)->isOut()) {
       ball = balls_->erase(ball);
     } else {
-      (*ball)->move(delta);
       ball++;
     }
   }
@@ -92,9 +89,20 @@ void Game::moveObjects(Uint64 delta) {
     if ((*bonus)->isOut()) {
       bonus = bonuses.erase(bonus);
     } else {
-      (*bonus)->move(delta);
       bonus++;
     }
+  }
+}
+void Game::moveObjects(Uint64 delta) {
+  player_->move(delta);
+
+  for (auto ball : *balls_) {
+    ball->move(delta);
+  }
+
+  std::vector<std::shared_ptr<Bonus>> bonuses = bonus_manager_->getBonuses();
+  for (auto bonus : bonuses) {
+    bonus->move(delta);
   }
 }
 
@@ -156,6 +164,7 @@ int Game::mainLoop() {
       clock_.tick();
     } else {
       moveObjects(clock_.time_elapsed);
+      garbageCollector();
       collision_engine_.resolveCollisions(*this);
 
       drawObjects();
