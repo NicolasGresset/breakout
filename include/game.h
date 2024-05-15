@@ -82,6 +82,7 @@ private:
   void drawPauseObjects();
   void moveObjects(Uint64 delta);
   void drawLooseObjects();
+  void drawWinObjects();
   void garbageCollector();
   bool isGameEnded() const;
 

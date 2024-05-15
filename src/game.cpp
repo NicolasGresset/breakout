@@ -85,7 +85,7 @@ bool Game::isGameEnded() const {
     }
     return number == 0;
   }
-  
+
 void Game::garbageCollector() {
   for (auto ball = balls_->begin(); ball != balls_->end();) {
     if ((*ball)->isOut()) {
@@ -151,6 +151,34 @@ void Game::drawLooseObjects() {
   loose_text.draw(window_ptr_->getRenderer());
   score_text.draw(window_ptr_->getRenderer());
 }
+
+
+void Game::drawWinObjects() {
+
+    Button win_text_countour{
+        Vector2D{WINDOW_WIDTH / 2 - 5, WINDOW_HEIGHT / 6 - 5},
+        WINDOW_WIDTH / 2 + 15,
+        WINDOW_HEIGHT * 3 / 12 + 15,
+        "You won",
+        false,
+        {0xFF, 0xFF, 0xFF, 0x00}};
+
+    Button win_text{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 6},
+        WINDOW_WIDTH / 2,
+        WINDOW_HEIGHT * 3 / 12,
+        "You won",
+        false,
+        {0x20, 0x20, 0xF0, 0x00}};
+
+    Button score_text{Vector2D{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2},
+        WINDOW_WIDTH / 3, WINDOW_HEIGHT * 3 / 12,
+        "Score: " + std::to_string(score_), false};
+
+    win_text_countour.draw(window_ptr_->getRenderer());
+    win_text.draw(window_ptr_->getRenderer());
+    score_text.draw(window_ptr_->getRenderer());
+}
+
 int Game::mainLoop() {
   while (!is_window_closed_) {
     clock_.tick(); // update the time elapsed since last frame
@@ -187,7 +215,11 @@ int Game::mainLoop() {
       garbageCollector();
       collision_engine_.resolveCollisions(*this);
       if (isGameEnded()){
-        printf("you won\n");
+          drawWinObjects();
+
+          window_ptr_->update();
+          window_ptr_->temporisation(3000);
+          return 0;
       }
       drawObjects();
     }
