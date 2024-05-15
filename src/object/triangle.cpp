@@ -18,11 +18,9 @@ void Triangle::draw(SDL_Renderer &renderer) const {
                               (int)upper_left_coords.y_, (int)length_,
                               (int)(length_ * SQUARE_ROOT_3 / 2)};
 
-  SDL_Point center = {static_cast<int>(position_.x_),
-                      static_cast<int>(position_.y_)};
   CHECK_SDL_RETURN_CODE(SDL_RenderCopyEx(&renderer, texture_->at(0), NULL,
-                                         &destinationRect, orientation_,
-                                         &center, SDL_FLIP_NONE) < 0);
+                                         &destinationRect,  orientation_ * 180 / PI,
+                                         NULL, SDL_FLIP_NONE) < 0);
 }
 
 std::vector<Vector2D> Triangle::getVertices() const {
