@@ -29,8 +29,11 @@ void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
   if (normal.isValid()) {
     ball->bounceOverLine(normal);
     brick->decrementLife(1);
-    game.grid_->setLastDestroyedBrick(brick);
-    game.onBrickDestroyed();
+
+    if (brick->isDestroyed()) {
+      game.grid_->setLastDestroyedBrick(brick);
+      game.onBrickDestroyed();
+    }
   }
 }
 
