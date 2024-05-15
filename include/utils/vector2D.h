@@ -33,8 +33,7 @@ public:
   }
 
   Vector2D rotate(double theta, Vector2D center) const {
-    Vector2D new_coords(x_- center.x_, y_ - center.y_);
-    new_coords = new_coords.rotate(theta);
+    Vector2D new_coords = Vector2D(x_- center.x_, y_ - center.y_).rotate(theta);
     new_coords.x_ += center.x_;
     new_coords.y_ += center.y_;
     return new_coords;
