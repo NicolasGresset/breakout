@@ -16,6 +16,8 @@ private:
   std::vector<SDL_Texture *> background_texture_;
 
   std::vector<SDL_Texture *> extra_life_texture_;
+  std::vector<SDL_Texture *> multi_ball_texture_;
+  std::vector<SDL_Texture *> speed_up_texture_;
   std::vector<texture_ptr> bonuses_textures_;
 
   std::vector<SDL_Texture *> triangle_textures_;

@@ -70,8 +70,16 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
 
   // load bonuses textures
   extra_life_texture_.push_back(loadTexture("textures/life.bmp", renderer));
+  multi_ball_texture_.push_back(
+      loadTexture("textures/multi_ball.bmp", renderer));
+  speed_up_texture_.push_back(loadTexture("textures/speed.bmp", renderer));
+
   bonuses_textures_.push_back(
       std::make_shared<std::vector<SDL_Texture *>>(extra_life_texture_));
+  bonuses_textures_.push_back(
+      std::make_shared<std::vector<SDL_Texture *>>(multi_ball_texture_));
+  bonuses_textures_.push_back(
+      std::make_shared<std::vector<SDL_Texture *>>(speed_up_texture_));
 
   // load triangle textures
   triangle_textures_.push_back(loadTexture("textures/triangle.bmp", renderer));
