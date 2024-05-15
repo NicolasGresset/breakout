@@ -1,7 +1,9 @@
 #include "object/triangle.h"
 #include "object/line.h"
 #include "utils/utils.h"
+#include "utils/vector2D.h"
 #include <SDL_rect.h>
+#include <SDL_render.h>
 #include <vector>
 
 Triangle::Triangle() : Object() {}
@@ -18,9 +20,23 @@ void Triangle::draw(SDL_Renderer &renderer) const {
                               (int)upper_left_coords.y_, (int)length_,
                               (int)(length_ * SQUARE_ROOT_3 / 2)};
 
-  CHECK_SDL_RETURN_CODE(SDL_RenderCopyEx(&renderer, texture_->at(0), NULL,
-                                         &destinationRect,  orientation_ * 180 / PI,
-                                         NULL, SDL_FLIP_NONE) < 0);
+  CHECK_SDL_RETURN_CODE(
+      SDL_RenderCopyEx(&renderer, texture_->at(0), NULL, &destinationRect,
+                       orientation_ * 180 / PI, NULL, SDL_FLIP_NONE) < 0);
+
+#ifdef GAME_TESTING
+  std::vector<Line> edges = getEdges();
+  CHECK_SDL_RETURN_CODE(SDL_SetRenderDrawColor(&renderer, 255, 0, 0, 255) < 0);
+  CHECK_SDL_RETURN_CODE(
+      SDL_RenderDrawPoint(&renderer, position_.x_, position_.y_));
+  for (auto edge : edges) {
+    CHECK_SDL_RETURN_CODE(
+        SDL_RenderDrawLine(&renderer, edge.getStart().x_, edge.getStart().y_,
+                           edge.getEnd().x_, edge.getEnd().y_) < 0);
+  }
+  CHECK_SDL_RETURN_CODE(
+      SDL_SetRenderDrawColor(&renderer, 0x00, 0x00, 0x00, 0xFF) < 0);
+#endif
 }
 
 std::vector<Vector2D> Triangle::getVertices() const {
