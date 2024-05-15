@@ -40,4 +40,7 @@ constexpr int BONUS_SPEED = 1;
 
 constexpr Uint64 BONUS_INTERVAL_RATE = 1000;
 
+// 
+constexpr double EPSILON = 1e-4;
+
 #endif

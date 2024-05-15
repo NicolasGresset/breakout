@@ -3,11 +3,11 @@
 
 #include "utils/vector2D.h"
 
-class Direction {
+// A direction is a unit vector which represents the result of a Collision test:
+// either the normal to the surface of impact if there is one or it is set as
+// invalid if there is no collision
+class Direction : public Vector2D {
 private:
-  double x_;
-  double y_;
-
   bool is_valid_ = true;
 
 public:
