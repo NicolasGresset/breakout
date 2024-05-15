@@ -88,18 +88,35 @@ void Grid::init() {
    }
    else
    {
-       double element_height = window_height_ / (4 * height_);
-       double element_width = window_width_ / width_;
+       // double element_height = window_height_ / (4 * height_);
+       // double element_width = window_width_ / width_;
 
-       // In another function create grid ?
-       for (int i{0}; i < height_; i++) {
-           for (int j{0}; j < width_; j++) {
-               bricks_.push_back(std::make_shared<RectangleBrick>(
-                                     Vector2D(j * element_width + element_width / 2,
-                                              i * element_height + element_height / 2),
-                                     assets_->getRectangleTexture(Color::red), 1, element_width,
-                                     element_height));
-           }
+       // // In another function create grid ?
+       // for (int i{0}; i < height_; i++) {
+       //     for (int j{0}; j < width_; j++) {
+       //         bricks_.push_back(std::make_shared<RectangleBrick>(
+       //                               Vector2D(j * element_width + element_width / 2,
+       //                                        i * element_height + element_height / 2),
+       //                               assets_->getRectangleTexture(Color::red), 1, element_width,
+       //                               element_height));
+       //     }
+       // }
+
+       double side_length =  3 * window_width_ / (3 * width_);
+       double row_height = side_length * sqrt(3) / 5;
+
+       double x{0}, y{0};
+       for (int i = 0; i < height_; i++) {
+           bool evenRow = (i % 2 == 0);
+            for (int j = 0; j < width_; j++) {
+                x = j * side_length + (evenRow ? side_length / 2.0 : 0);
+                y = i * row_height;
+                bricks_.push_back(std::make_shared<TriangleBrick>(Vector2D(x, y),
+                                                                  assets_->getTriangleTextures(),
+                                                                  1,
+                                                                  evenRow ? 0 : 180,
+                                                                  side_length));
+            }
        }
    }
 }

@@ -3,6 +3,7 @@
 #include "gui/assets.h"
 #include "object/brick.h"
 #include "object/rectangle_brick.h"
+#include "object/triangle_brick.h"
 #include "utils/constants.h"
 #include <SDL2/SDL_render.h>
 #include <cstddef>
