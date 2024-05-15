@@ -11,7 +11,7 @@ constexpr int DOCK_WIDTH = 150;
 
 constexpr int PADDING = 20;
 
-constexpr double DOCK_SPEED_X = 1.5;
+constexpr double DOCK_SPEED_X = 1.0;
 
 constexpr double INITIAL_BALL_POSITION_X =
     static_cast<double>(WINDOW_WIDTH) / 2;
