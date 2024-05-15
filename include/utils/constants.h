@@ -34,9 +34,9 @@ constexpr Uint64 FRAME_DURATION = 10;
 constexpr int INITIAL_PLAYER_LIFE = 3;
 
 // bonus
-constexpr int BONUS_WIDTH = 10;
-constexpr int BONUS_HEIGHT = 10;
-constexpr int BONUS_SPEED = 1;
+constexpr int BONUS_WIDTH = 30;
+constexpr int BONUS_HEIGHT = 30;
+constexpr double BONUS_SPEED = 0.8;
 
 constexpr Uint64 BONUS_INTERVAL_RATE = 1000;
 
