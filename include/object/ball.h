@@ -5,14 +5,14 @@
 #include "utils/vector2D.h"
 #include <SDL_render.h>
 
-
 class Dock;
 class Direction;
 class Rectangle;
 
 /**
- * @brief Represents the ball, a movable object with some bouncing characteristics (e.g over the paddle)
- * 
+ * @brief Represents the ball, a movable object with some bouncing
+ * characteristics (e.g over the paddle)
+ *
  */
 class Ball : public MovableObject {
 private:

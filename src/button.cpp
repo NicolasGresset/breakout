@@ -4,14 +4,10 @@
 #include <cstddef>
 #include <iostream>
 
-Button::Button(Vector2D position,
-               double width,
-               double height,
-               std::string text,
-               bool clickable,
-               SDL_Color color)
-    : Object(position, NULL),  width_(width), height_(height),
-      text_(text), clickable_(clickable), color_(color){};
+Button::Button(Vector2D position, double width, double height, std::string text,
+               bool clickable, SDL_Color color)
+    : Object(position, NULL), width_(width), height_(height), text_(text),
+      clickable_(clickable), color_(color){};
 
 // Button::Button() : Object(Vector2D{0, 0}, nullptr){};
 
@@ -27,7 +23,8 @@ void Button::draw(SDL_Renderer &renderer) const {
   SDL_Texture *texture = SDL_CreateTextureFromSurface(&renderer, surface);
   CHECK_SDL_RETURN_CODE(!texture);
 
-  SDL_Rect textRect = {static_cast<int>(position_.x_ - width_/2) , static_cast<int>(position_.y_ - height_/2),
+  SDL_Rect textRect = {static_cast<int>(position_.x_ - width_ / 2),
+                       static_cast<int>(position_.y_ - height_ / 2),
                        static_cast<int>(width_), static_cast<int>(height_)};
 
   TTF_CloseFont(font);
@@ -38,8 +35,8 @@ void Button::draw(SDL_Renderer &renderer) const {
 }
 
 bool Button::isClicked(int mouseX, int mouseY) {
-    int x = static_cast<int>(position_.x_ - width_/2);
-    int y = static_cast<int>(position_.y_ - height_/2);
-    return (mouseX >= x && mouseX < x + width_ &&
-            mouseY >= y && mouseY < y + height_);
+  int x = static_cast<int>(position_.x_ - width_ / 2);
+  int y = static_cast<int>(position_.y_ - height_ / 2);
+  return (mouseX >= x && mouseX < x + width_ && mouseY >= y &&
+          mouseY < y + height_);
 }

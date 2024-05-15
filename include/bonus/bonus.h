@@ -8,11 +8,10 @@
 
 class Game;
 
-
 /**
  * @brief Virtual class which represents a bonus
  * will be specified into actual bonuses
- * 
+ *
  */
 class Bonus : public Rectangle, public MovableObject {
 public:
