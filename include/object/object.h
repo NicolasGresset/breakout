@@ -8,14 +8,16 @@
 
 using texture_ptr = std::shared_ptr<std::vector<SDL_Texture *>>;
 
-/*
-An Object is a class which represents anything present in the screen that can
-interact with other Objects, such as a brick and a ball for instance.
+
+/**
+ * @brief An Object is a class which represents anything present in the screen
+that can interact with other Objects, such as a brick and a ball for instance.
 
 It must have a Position, a Color
 
 This class is intended to be virtual and be specialized into Brick, Dock or Ball
-*/
+ * 
+ */
 class Object {
 protected:
   // The position of the center of the object --> any object MUST have a center
