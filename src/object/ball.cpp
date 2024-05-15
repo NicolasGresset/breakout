@@ -79,11 +79,12 @@ void Ball::bounceOverPaddle(const Dock &paddle) {
   }
 
   double path_angle = ((-PI + 2 * delta_) / paddle.getWidth()) *
-                          (- position_.x_ + (paddle.getPosition().x_)) -
-                      PI /2 ;
-                      
-  speed_.x_ = BALL_SPEED_NORM * cos(path_angle);
-  speed_.y_ = BALL_SPEED_NORM * sin(path_angle);
+                          (-position_.x_ + (paddle.getPosition().x_)) -
+                      PI / 2;
+
+  double norm = speed_.getNorm();
+  speed_.x_ = norm * cos(path_angle);
+  speed_.y_ = norm * sin(path_angle);
 }
 
 void Ball::bounceOverLine(const Direction &normal) {
