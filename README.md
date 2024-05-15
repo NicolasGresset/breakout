@@ -42,10 +42,8 @@ launch the binary, the command `./build/main` is needed.
 
     .
     ├── build
-    ├── docs
-    │   ├── html
-    │   │   └── search
-    │   └── latex
+    |__ └── main
+    |
     ├── include
     |__ |__
     │   ├── object
