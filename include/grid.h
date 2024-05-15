@@ -30,6 +30,9 @@ public:
 private:
   RectangleBrick initializeElement(const int i, const int j);
   std::shared_ptr<Brick> last_destroyed_brick_;
+  void openGridFromFile();
+  void initTriangleGrid();
+  void initRectangleGrid();
 
 public:
   Grid();

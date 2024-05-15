@@ -29,7 +29,7 @@ public:
 
   Vector2D rotate(double theta) const {
     return Vector2D(cos(theta) * x_ - sin(theta) * y_,
-                    sin(theta )* x_ + cos(theta) * y_);
+                    sin(theta) * x_ + cos(theta) * y_);
   }
 
   Vector2D rotate(double theta, Vector2D center) const {
