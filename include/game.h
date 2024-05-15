@@ -83,6 +83,7 @@ private:
   void moveObjects(Uint64 delta);
   void drawLooseObjects();
   void garbageCollector();
+  bool isGameEnded() const;
 
 public:
   inline std::shared_ptr<Dock> getPlayer() const { return player_; }

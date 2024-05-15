@@ -75,6 +75,17 @@ void Game::drawObjects() {
   }
 }
 
+
+bool Game::isGameEnded() const {
+    int number= 0;
+    for (auto brick : grid_->getBricks()) {
+      if (!brick->isDestroyed()) {
+        number++;
+      }
+    }
+    return number == 0;
+  }
+  
 void Game::garbageCollector() {
   for (auto ball = balls_->begin(); ball != balls_->end();) {
     if ((*ball)->isOut()) {
@@ -175,7 +186,9 @@ int Game::mainLoop() {
       moveObjects(clock_.time_elapsed);
       garbageCollector();
       collision_engine_.resolveCollisions(*this);
-
+      if (isGameEnded()){
+        printf("you won\n");
+      }
       drawObjects();
     }
 
