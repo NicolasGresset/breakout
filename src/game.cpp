@@ -92,6 +92,15 @@ void Game::garbageCollector() {
       bonus++;
     }
   }
+
+  std::vector<std::shared_ptr<Brick>> bricks = grid_->getBricks();
+  for (auto brick = bricks.begin(); brick != bricks.end();) {
+    if ((*brick)->isDestroyed()) {
+      brick = bricks.erase(brick);
+    } else {
+      brick++;
+    }
+  }
 }
 void Game::moveObjects(Uint64 delta) {
   player_->move(delta);
