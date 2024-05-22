@@ -3,10 +3,10 @@
 ## Description
 
 The project is the implementation of a brick-breaker. It includes a
-graphical menu interface that lets you play, choose your
+graphical menu interface that lets you play and choose your
 level. The game interface is standard to the original brick-breaker, with
 a platform and a ball that can bounce between them to
-destroy the (rectangular) bricks. These bricks can have
+destroy bricks. These bricks can have
 have several lives and a different configuration depending on the
 levels.
 
