@@ -15,10 +15,10 @@ class SDL2Window {
 protected:
   const int screen_width_;
   const int screen_height_;
-  std::shared_ptr<SDL_Window> window_;
+  SDL_Window *window_;
 
   // We use a renderer instead of a surface because it is GPU-accelerated
-  std::shared_ptr<SDL_Renderer> renderer_;
+  SDL_Renderer *renderer_;
 
 public:
   SDL2Window();
@@ -29,10 +29,10 @@ private:
   void initSDLObjects();
 
 public:
-  inline void update() { SDL_RenderPresent(renderer_.get()); }
+  inline void update() { SDL_RenderPresent(renderer_); }
   inline void temporisation(Uint32 ms) const { SDL_Delay(ms); }
   inline SDL_Renderer &getRenderer(void) { return *renderer_; }
-  inline void clearWindow(void) { SDL_RenderClear(renderer_.get()); }
+  inline void clearWindow(void) { SDL_RenderClear(renderer_); }
 };
 
 #endif
