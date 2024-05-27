@@ -2,6 +2,7 @@
 #include "bonus/bonus.h"
 #include "collison_engine.h"
 #include "grid.h"
+#include "gui/SDL2Window.h"
 #include "gui/background.h"
 #include "gui/color.h"
 #include "object/ball.h"
@@ -13,9 +14,9 @@
 #include <iostream>
 #include <memory>
 
-Game::Game(std::shared_ptr<SDL2Window> &window_ptr)
-    : window_ptr_(window_ptr), collision_engine_(), player_(), grid_(),
-      balls_(), assets_(), score_(0){};
+Game::Game(int screen_width, int screen_height) : SDL2Window(screen_width, screen_height), score_(0) {}
+
+
 
 // Game::Game(int width, int height) : window_(width, height) {}
 
@@ -58,20 +59,20 @@ void Game::pollEvent() {
 
 void Game::drawObjects() {
   // background_->draw(window_ptr_->getRenderer());
-  grid_->draw(window_ptr_->getRenderer());
-  player_->draw(window_ptr_->getRenderer());
+  grid_->draw(*renderer_);
+  player_->draw(*renderer_);
   for (auto ball : *balls_) {
-    ball->draw(window_ptr_->getRenderer());
+    ball->draw(*renderer_);
   }
 
   lifeButton_->setText("lives: " + std::to_string(player_->getLifes()));
-  lifeButton_->draw(window_ptr_->getRenderer());
+  lifeButton_->draw(*renderer_);
 
   scoreButton_->setText("score: " + std::to_string(score_));
-  scoreButton_->draw(window_ptr_->getRenderer());
+  scoreButton_->draw(*renderer_);
 
   for (auto bonus : bonus_manager_->getBonuses()) {
-    bonus->draw(window_ptr_->getRenderer());
+    bonus->draw(*renderer_);
   }
 }
 
@@ -146,9 +147,9 @@ void Game::drawLooseObjects() {
                     WINDOW_WIDTH / 3, WINDOW_HEIGHT * 3 / 12,
                     "Score: " + std::to_string(score_), false};
 
-  loose_text_countour.draw(window_ptr_->getRenderer());
-  loose_text.draw(window_ptr_->getRenderer());
-  score_text.draw(window_ptr_->getRenderer());
+  loose_text_countour.draw(*renderer_);
+  loose_text.draw(*renderer_);
+  score_text.draw(*renderer_);
 }
 
 void Game::drawWinObjects() {
@@ -172,9 +173,9 @@ void Game::drawWinObjects() {
                     WINDOW_WIDTH / 3, WINDOW_HEIGHT * 3 / 12,
                     "Score: " + std::to_string(score_), false};
 
-  win_text_countour.draw(window_ptr_->getRenderer());
-  win_text.draw(window_ptr_->getRenderer());
-  score_text.draw(window_ptr_->getRenderer());
+  win_text_countour.draw(*renderer_);
+  win_text.draw(*renderer_);
+  score_text.draw(*renderer_);
 }
 
 int Game::mainLoop() {
@@ -186,18 +187,18 @@ int Game::mainLoop() {
       // std::cout << "You lost!" << std::endl;
       drawLooseObjects();
 
-      window_ptr_->update();
-      window_ptr_->temporisation(3000);
+      update();
+      temporisation(3000);
       return 0;
     }
 
-    window_ptr_->clearWindow();
+    clearWindow();
 
     pollEvent();
     manageKeys();
 
     if (is_game_paused_) {
-      Pause pause{window_ptr_, score_};
+      Pause pause{window_, score_};
       int code = pause.mainLoop();
       // Closing of the window
       if (code == 1)
@@ -215,15 +216,15 @@ int Game::mainLoop() {
       if (isGameEnded()) {
         drawWinObjects();
 
-        window_ptr_->update();
-        window_ptr_->temporisation(3000);
+        update();
+        temporisation(3000);
         return 0;
       }
       drawObjects();
     }
 
-    window_ptr_->update();
-    window_ptr_->temporisation(3);
+    update();
+    temporisation(3);
   }
 
   return 1;

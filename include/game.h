@@ -36,9 +36,8 @@ or hexagons
 */
 
 // template<typename T>
-class Game {
+class Game : public SDL2Window {
 private:
-  std::shared_ptr<SDL2Window> window_ptr_;
 
   CollisionEngine collision_engine_; // could be unique ptr ?
   std::shared_ptr<Dock> player_;
@@ -64,9 +63,8 @@ private:
   friend class CollisionEngine;
 
 public:
-  Game(std::shared_ptr<SDL2Window> &window_ptr);
 
-  // Game(int screen_width, int screen_height);
+  Game(int screen_width, int screen_height);
   /**
    * The main loop of the game
    *

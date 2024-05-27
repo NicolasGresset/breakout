@@ -9,22 +9,20 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
-#include <cstdlib>
-#include <iostream>
-#include <utility>
+#include <memory>
 
 SDL2Window::SDL2Window()
     : screen_width_{WINDOW_WIDTH}, screen_height_{WINDOW_HEIGHT},
       window_{nullptr, SDL_DestroyWindow},
       renderer_(nullptr, SDL_DestroyRenderer) {
-  init();
+  initSDLObjects();
 }
 
 SDL2Window::SDL2Window(int screen_width, int screen_height)
     : screen_width_{screen_width}, screen_height_{screen_height},
       window_{nullptr, SDL_DestroyWindow},
       renderer_(nullptr, SDL_DestroyRenderer) {
-  init();
+  initSDLObjects();
 }
 
 void SDL2Window::initSDLObjects() {
@@ -36,19 +34,14 @@ void SDL2Window::initSDLObjects() {
   code = TTF_Init();
   CHECK_SDL_RETURN_CODE((code < 0));
 
-  window_.reset(SDL_CreateWindow("Breakout", SDL_WINDOWPOS_UNDEFINED,
-                                 SDL_WINDOWPOS_UNDEFINED, screen_width_,
-                                 screen_height_, SDL_WINDOW_SHOWN));
-  CHECK_SDL_RETURN_CODE(window_.get() == nullptr);
+  window_ = std::shared_ptr<SDL_Window>(SDL_CreateWindow(
+      "Breakout", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+      screen_width_, screen_height_, SDL_WINDOW_SHOWN));
+  CHECK_SDL_RETURN_CODE(window_ == nullptr);
 
-  renderer_.reset(
+  renderer_ = std::shared_ptr<SDL_Renderer>(
       SDL_CreateRenderer(window_.get(), -1, SDL_RENDERER_ACCELERATED));
-  CHECK_SDL_RETURN_CODE(renderer_.get() == nullptr);
-}
-
-void SDL2Window::init() {
-  this->initSDLObjects();
-  this->clearWindow();
+  CHECK_SDL_RETURN_CODE(renderer_ == nullptr);
 }
 
 SDL2Window::~SDL2Window() {
@@ -61,5 +54,3 @@ SDL2Window::~SDL2Window() {
   TTF_Quit(); // Quit ttf
   SDL_Quit();
 }
-
-void SDL2Window::update() { SDL_RenderPresent(renderer_.get()); }
