@@ -2,10 +2,11 @@
 #define EXTRA_LIFE_H
 
 #include "bonus/bonus.h"
-#include "game.h"
+#include "collison_engine.h"
+#include "states/level_state.h"
 
 class ExtraLife : public Bonus {
-  inline void action(Game &game) override { game.getPlayer()->addLives(1); }
+  inline void action(LevelState &game) override { game.addLives(1); }
 
 public:
   ExtraLife();

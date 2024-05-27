@@ -2,14 +2,16 @@
 #define SPEED_BALL_H
 
 #include "bonus/bonus.h"
-#include "game.h"
+#include "collison_engine.h"
+#include "object/ball.h"
+#include "states/level_state.h"
 #include "utils/constants.h"
 #include "utils/utils.h"
 #include "utils/vector2D.h"
 
 class SpeedBall : public Bonus {
-  void action(Game &game) override {
-    balls_ptr balls = game.getBall();
+  void action(LevelState &game) override {
+    balls_ptr balls = game.getBalls();
     for (auto ball : *balls) {
       Vector2D new_speed(ball->getSpeed());
       new_speed.x_ *= coefficient_;

@@ -1,12 +1,13 @@
 #ifndef BONUS_H
 #define BONUS_H
 
+#include "collison_engine.h"
 #include "object/brick.h"
 #include "object/object.h"
 #include "object/rectangle.h"
 #include "utils/vector2D.h"
 
-class Game;
+class LevelState;
 
 /**
  * @brief Virtual class which represents a bonus
@@ -21,7 +22,7 @@ public:
         Vector2D speed);
 
   // the effect of the bonus/malus
-  virtual void action(Game &game) = 0;
+  virtual void action(LevelState &game) = 0;
 
   inline void remove() { is_out_ = true; }
 
