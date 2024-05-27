@@ -54,4 +54,6 @@ public:
   inline bool isOut() const { return is_out_; }
 };
 
+using balls_ptr = std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
+
 #endif

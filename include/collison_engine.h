@@ -15,7 +15,7 @@ class TriangleBrick;
 class Brick;
 class Line;
 
-using balls_ptr = std::shared_ptr<std::vector<std::shared_ptr<Ball>>>;
+
 
 class CollisionEngine {
 
