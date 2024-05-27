@@ -4,6 +4,7 @@
 #include "color.h"
 #include "object/object.h"
 #include <SDL2/SDL_render.h>
+#include <SDL_ttf.h>
 #include <map>
 #include <memory>
 #include <vector>
@@ -27,6 +28,8 @@ private:
 
   std::vector<SDL_Texture *> triangle_textures_;
 
+  TTF_Font *font_;
+
 public:
   Assets() {}
   inline Assets(SDL_Renderer &renderer) { loadTextures(renderer); }
@@ -49,6 +52,8 @@ public:
   inline texture_ptr getTriangleTextures() {
     return std::make_shared<std::vector<SDL_Texture *>>(triangle_textures_);
   }
+
+  inline TTF_Font *getFont() { return font_; }
 
 private:
   void loadTextures(SDL_Renderer &renderer);

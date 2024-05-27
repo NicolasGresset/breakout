@@ -83,4 +83,8 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
 
   // load triangle textures
   triangle_textures_.push_back(loadTexture("textures/triangle.bmp", renderer));
+
+  // load font
+  font_ = TTF_OpenFont("./font/hershey.ttf", 50);
+  CHECK_SDL_RETURN_CODE(font_ == nullptr);
 }
