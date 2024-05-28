@@ -1,6 +1,7 @@
 #include "bonus/bonus.h"
 #include "collison_engine.h"
 #include "game.h"
+#include "grid.h"
 #include "object/ball.h"
 #include "object/brick.h"
 #include "object/dock.h"
@@ -8,6 +9,7 @@
 #include "object/rectangle.h"
 #include "object/rectangle_brick.h"
 #include "object/triangle_brick.h"
+#include "states/level_state.h"
 #include "utils/direction.h"
 #include "utils/vector2D.h"
 #include <cmath>
@@ -20,7 +22,7 @@ CollisionEngine::CollisionEngine(){};
 
 void CollisionEngine::manageCollisionBrickBall(std::shared_ptr<Brick> brick,
                                                std::shared_ptr<Ball> ball,
-                                               Game &game) {
+                                               LevelState &game) {
   if (brick->isDestroyed()) {
     return;
   }
@@ -47,7 +49,7 @@ Direction CollisionEngine::checkCollision(Ball &ball, TriangleBrick &brick) {
   return checkCollision(ball, triangle);
 }
 
-void CollisionEngine::resolveCollisions(Game &game) {
+void CollisionEngine::resolveCollisions(LevelState &game) {
   for (auto ball : *game.balls_) {
     ball->bounceIntoWindow((*game.grid_).getWindowHeight(),
                            (*game.grid_).getWindowWidth());
@@ -68,7 +70,7 @@ void CollisionEngine::resolveCollisions(Game &game) {
     }
   }
 
-  for (auto bonus : game.getBonusManager()->getBonuses()) {
+  for (auto bonus : game.getBonusManager().getBonuses()) {
     if (checkCollision(*bonus, *game.player_).isValid()) {
       if (!bonus->isOut()) {
         bonus->action(game);
