@@ -9,9 +9,7 @@ Button::Button(Vector2D position, double width, double height, std::string text,
                bool clickable, SDL_Color color, TTF_Font *font,
                std::function<void()> on_click)
     : Object(position, nullptr), Rectangle(width, height), text_(text),
-      clickable_(clickable), color_(color), font_(font), on_click_(on_click) {
-  position_.print();
-}
+      clickable_(clickable), color_(color), font_(font), on_click_(on_click) {}
 
 void Button::draw(SDL_Renderer &renderer) const {
   // todo add logic for hovering
