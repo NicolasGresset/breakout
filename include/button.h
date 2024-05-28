@@ -1,48 +1,42 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include "gui/assets.h"
+#include "object/rectangle.h"
 #include "utils/vector2D.h"
-#include "object/object.h"
+#include <SDL2/SDL.h>
 #include <SDL_render.h>
 #include <SDL_ttf.h>
+#include <functional>
 #include <string>
-#include "gui/assets.h"
 
-class Button : public Object {
+// todo modifier ce merdier, a peu pres bon sauf pour la logique du hovering
+class Button : public Rectangle {
 
 private:
-    const double width_;
-    const double height_;
-    std::string text_;
-    bool clickable_;
-    SDL_Color color_;
+  std::string text_;
+  bool clickable_;
+  bool is_hovered_;
+  // fg_color
+  SDL_Color color_;
+  TTF_Font *font_;
+  std::function<void()> on_click_;
 
 public:
+  Button(
+      Vector2D position, double width, double height, std::string text,
+      bool clickable, SDL_Color color, TTF_Font *font,
+      std::function<void()> on_click = []() {});
 
-    //Button();
-    Button(Vector2D position = Vector2D{0, 0},
-           double width = 150,
-           double height = 50,
-           std::string text = "BREAKOUT",
-           bool clickable = true,
-           SDL_Color color = { 0xFF, 0xFF, 0xFF, 0xFF });
+  bool isClickable() { return clickable_; };
+  bool isClicked(int mouseX, int mouseY);
 
-    bool isClickable() { return clickable_; };
-    bool isClicked(int mouseX, int mouseY);
+  void handleEvents(SDL_Event &event);
+  void draw(SDL_Renderer &renderer) const override;
+  void update();
 
-/*
-      Returns the 2DVector corresopnding to the coordinates of the upper left corner
-      of the rectangle
-    */
-    inline Vector2D toUpperLeftCoords() const override{
-        return Vector2D(position_.x_ - width_ / 2,
-                        position_.y_ - height_ / 2);
-    }
-
-    void draw(SDL_Renderer &renderer) const override;
-
-    inline void setColor(SDL_Color color) { color_ = color; };
-    inline void setText(std::string text) {text_ = text;};
+  inline void setColor(SDL_Color color) { color_ = color; };
+  inline void setText(std::string text) { text_ = text; };
 };
 
 #endif
