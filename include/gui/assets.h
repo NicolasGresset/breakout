@@ -31,8 +31,8 @@ private:
   TTF_Font *font_;
 
 public:
-  Assets() {}
-  inline Assets(SDL_Renderer &renderer) { loadTextures(renderer); }
+  Assets(){};
+  Assets(SDL_Renderer &renderer);
   inline texture_ptr getRectangleTexture(Color color) {
     return std::make_shared<std::vector<SDL_Texture *>>(
         rectangles_textures_[color]);

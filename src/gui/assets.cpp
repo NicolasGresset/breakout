@@ -6,6 +6,10 @@
 #include <memory>
 #include <vector>
 
+Assets::Assets(SDL_Renderer &renderer) {
+  loadTextures(renderer);
+  DEBUG_MSG("Assets succesfully loaded");
+    }
 SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
 
