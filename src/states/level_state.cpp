@@ -10,13 +10,10 @@
 #include "utils/utils.h"
 
 LevelState::LevelState(GameStateManager *state_manager_, std::string level_path)
-    : GameState() {
-  printf("hey ! \n");
-  DEBUG_MSG("Entering levelstate instance constructor");
+    : GameState(), assets_(state_manager_->assets_) {
   grid_ = std::make_shared<Grid>(10, 3, state_manager_->screen_width_,
                                  state_manager_->screen_height_,
                                  state_manager_->assets_, level_path);
-  DEBUG_MSG("Succesfully created the grid");
   player_ = std::make_shared<Dock>(
       Vector2D(static_cast<double>(state_manager_->screen_width_) / 2,
                static_cast<double>(state_manager_->screen_height_ - PADDING) -
@@ -33,12 +30,7 @@ LevelState::LevelState(GameStateManager *state_manager_, std::string level_path)
   bonus_manager_ = std::make_shared<BonusManager>(
       state_manager_->assets_->getBonusesTextures(), BONUS_INTERVAL_RATE);
 
-  DEBUG_MSG("Succesfully created bonus manager");
-
   TTF_Font *font = state_manager_->assets_->getFont();
-  DEBUG_MSG("accessing font");
-  printf("font = %p\n", font);
-  DEBUG_MSG("succesfully accessed font");
   SDL_Color white = {0xFF, 0xFF, 0xFF, 0xFF};
   life_button_ = std::make_shared<Button>(
       Vector2D{state_manager_->screen_width_ - 80.,
@@ -46,12 +38,10 @@ LevelState::LevelState(GameStateManager *state_manager_, std::string level_path)
       80, 30, "lives: " + std::to_string(INITIAL_PLAYER_LIFE), false, white,
       font);
 
-  DEBUG_MSG("Created life_button");
   std::string score_text = "score: 0";
   score_button_ = std::make_shared<Button>(
       Vector2D{80., state_manager_->screen_height_ - 40.}, 80, 30, score_text,
       false, white, font);
-  DEBUG_MSG("Succesfully created the level state");
 }
 
 void LevelState::handleEvents(SDL_Event &event,
@@ -75,6 +65,7 @@ void LevelState::handleEvents(SDL_Event &event,
 void LevelState::update(GameStateManager *state_manager_) {
   clock_.tick();
   moveObjects(clock_.time_elapsed);
+  bonus_manager_->loop(clock_.time_elapsed);
   CollisionEngine::resolveCollisions(*this);
   garbageCollector();
 
@@ -161,11 +152,10 @@ void LevelState::garbageCollector() {
   }
 }
 
-// todo complete
 void LevelState::addBall(double direction) {
   Vector2D speed(BALL_SPEED_NORM * cos(direction),
                  BALL_SPEED_NORM * sin(direction));
-  // balls_->push_back(std::make_shared<Ball>(balls_->at(0)->getPosition(),
-  //                                          assets_->getBallTexture(Color::blue),
-  //                                          speed, BALL_RADIUS));
+  balls_->push_back(std::make_shared<Ball>(balls_->at(0)->getPosition(),
+                                           assets_->getBallTexture(Color::blue),
+                                           speed, BALL_RADIUS));
 }

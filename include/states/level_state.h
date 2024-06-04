@@ -32,6 +32,8 @@ private:
   std::shared_ptr<Button> life_button_;
   std::shared_ptr<Button> score_button_;
 
+  std::shared_ptr<Assets> assets_;
+
 public:
   void handleEvents(SDL_Event &events,
                     GameStateManager *state_manager) override;
