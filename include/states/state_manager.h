@@ -26,7 +26,6 @@ public:
 
   inline void pushState(GameState *state) {
     states.push(std::move(state));
-    printf("size = %ld after pushing\n", states.size());
   }
 
   inline void popState() {
@@ -36,7 +35,6 @@ public:
       if (!states.empty()) {
         states.top()->resume();
       }
-      printf("size = %ld after freeing\n", states.size());
     }
   }
 
