@@ -20,15 +20,15 @@ PauseState::PauseState(GameStateManager *state_manager_, unsigned int score)
   buttons_.push_back(new Button(
       Vector2D{WINDOW_WIDTH * 2 / 12, WINDOW_HEIGHT * 6 / 12},
       WINDOW_WIDTH * 2 / 12, WINDOW_HEIGHT * 1.5 / 12, "Resume", true, white,
-      font, state_manager_, [](GameStateManager *state_manager) {
-        state_manager->popState();
-      }));
+      font, state_manager_,
+      [](GameStateManager *state_manager) { state_manager->popState(); }));
 
   buttons_.push_back(new Button(
       Vector2D{WINDOW_WIDTH * 2 / 12, WINDOW_HEIGHT * 8 / 12},
-      WINDOW_WIDTH * 2 / 12, WINDOW_HEIGHT * 1.5 / 12, "Menu", true, white,
+      WINDOW_WIDTH * 2 / 12, WINDOW_HEIGHT * 1.5 / 12, "Main Menu", true, white,
       font, state_manager_, [](GameStateManager *state_manager) {
-        state_manager->changeState(new MainMenuState(state_manager));
+        state_manager->popState();
+        state_manager->popState();
       }));
 
   buttons_.push_back(new Button(

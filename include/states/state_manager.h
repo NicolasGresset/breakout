@@ -33,7 +33,9 @@ public:
     if (!states.empty()) {
       states.top()->free();
       states.pop();
-      states.top()->resume();
+      if (!states.empty()) {
+        states.top()->resume();
+      }
       printf("size = %ld after freeing\n", states.size());
     }
   }
