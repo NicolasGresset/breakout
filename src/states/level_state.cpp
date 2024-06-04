@@ -65,8 +65,10 @@ void LevelState::handleEvents(SDL_Event &event,
     if (!event.key.repeat)
       player_->handleEvent(event);
 
-    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+      clock_.pause();
       state_manager_->pushState(new PauseState(state_manager_, score_));
+    }
   }
 }
 
@@ -158,7 +160,6 @@ void LevelState::garbageCollector() {
     }
   }
 }
-
 
 // todo complete
 void LevelState::addBall(double direction) {

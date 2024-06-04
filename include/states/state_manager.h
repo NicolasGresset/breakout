@@ -17,23 +17,24 @@ public:
   inline GameStateManager(int screen_width, int screen_height,
                           std::shared_ptr<Assets> assets)
       : screen_width_(screen_width), screen_height_(screen_height),
-        assets_(assets) {
-    printf("at inisialization : states = %p\n", &states);
-  }
+        assets_(assets) {}
 
   inline void changeState(GameState *state) {
     popState();
     pushState(state);
   }
 
-  inline void pushState(GameState *state) { states.push(std::move(state)); }
+  inline void pushState(GameState *state) {
+    states.push(std::move(state));
+    printf("size = %ld after pushing\n", states.size());
+  }
 
   inline void popState() {
-    printf("states : %p\n", &states);
-    printf("size = %ld\n", states.size());
     if (!states.empty()) {
       states.top()->free();
       states.pop();
+      states.top()->resume();
+      printf("size = %ld after freeing\n", states.size());
     }
   }
 

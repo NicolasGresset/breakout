@@ -21,4 +21,6 @@ public:
   void update(GameStateManager *state_manager) override;
   void render(SDL_Renderer &renderer) override;
   void free() override;
+
+  inline void resume() override {}
 };

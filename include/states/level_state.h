@@ -56,4 +56,6 @@ public:
   // adds a ball at the position of the first ball of the member balls with
   // direction direction
   void addBall(double direction);
+
+  inline void resume() override { clock_.resume(); }
 };

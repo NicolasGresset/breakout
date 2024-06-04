@@ -18,4 +18,6 @@ public:
   virtual void update(GameStateManager *state_manager) = 0;
   virtual void render(SDL_Renderer &renderer) = 0;
   virtual void free() = 0;
+
+  virtual void resume() = 0;
 };
