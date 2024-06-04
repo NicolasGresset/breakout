@@ -4,7 +4,6 @@
 #include <SDL_stdinc.h>
 #include <SDL_timer.h>
 
-// todo make pause work !
 /**
  * @brief Convenient class to measure time passing
  *
