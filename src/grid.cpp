@@ -3,6 +3,7 @@
 #include "object/rectangle_brick.h"
 #include "object/triangle_brick.h"
 #include "utils/constants.h"
+#include "utils/utils.h"
 #include "utils/vector2D.h"
 #include <SDL2/SDL_render.h>
 #include <cstddef>
@@ -30,11 +31,11 @@ void Grid::openGridFromFile() {
   // Init with a file
   std::ifstream file(grid_path_);
 
-  if (!file.is_open()) {
-    // Handle file open error
-    std::cout << "Erreur dans la lecture du niveau" << std::endl;
-    exit(1);
-  }
+
+  ASSERT_FN(file.is_open(), [this]() {
+    std::cout << "Erreur dans la lecture du niveau : " << grid_path_
+              << std::endl;
+  });
 
   int brick_shape;
   file >> brick_shape;

@@ -9,7 +9,6 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
-#include <memory>
 
 SDL2Window::SDL2Window()
     : screen_width_{WINDOW_WIDTH}, screen_height_{WINDOW_HEIGHT},
@@ -39,6 +38,8 @@ void SDL2Window::initSDLObjects() {
 
   renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
   CHECK_SDL_RETURN_CODE(renderer_ == nullptr);
+
+  DEBUG_MSG("Succesfully initialized SDL objects");
 }
 
 SDL2Window::~SDL2Window() {

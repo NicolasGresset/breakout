@@ -1,8 +1,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "gui/assets.h"
+#include "game.h"
 #include "object/rectangle.h"
+#include "states/state_manager.h"
 #include "utils/vector2D.h"
 #include <SDL2/SDL.h>
 #include <SDL_render.h>
@@ -20,13 +21,16 @@ private:
   // fg_color
   SDL_Color color_;
   TTF_Font *font_;
-  std::function<void()> on_click_;
+  GameStateManager *state_manager_;
+  std::function<void(GameStateManager *state_manager)> on_click_;
 
 public:
   Button(
       Vector2D position, double width, double height, std::string text,
       bool clickable, SDL_Color color, TTF_Font *font,
-      std::function<void()> on_click = []() {});
+      GameStateManager *state_manager = nullptr,
+      std::function<void(GameStateManager *)> on_click =
+          [](GameStateManager *) {});
 
   bool isClickable() { return clickable_; };
   bool isClicked(int mouseX, int mouseY);

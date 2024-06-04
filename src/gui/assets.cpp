@@ -2,6 +2,7 @@
 #include "utils/utils.h"
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -9,7 +10,7 @@
 Assets::Assets(SDL_Renderer &renderer) {
   loadTextures(renderer);
   DEBUG_MSG("Assets succesfully loaded");
-    }
+}
 SDL_Texture *Assets::loadTexture(const char *path, SDL_Renderer &renderer) {
   SDL_Surface *surface = SDL_LoadBMP(path);
 
@@ -89,6 +90,8 @@ void Assets::loadTextures(SDL_Renderer &renderer) {
   triangle_textures_.push_back(loadTexture("textures/triangle.bmp", renderer));
 
   // load font
-  font_ = TTF_OpenFont("./font/hershey.ttf", 50);
-  CHECK_SDL_RETURN_CODE(font_ == nullptr);
+  fonts_.push_back(TTF_OpenFont("./font/hershey.ttf", 50));
+  //   std::shared_ptr<TTF_Font> font_ = TTF_OpenFont("./font/hershey.ttf", 50),
+  //                                   [](TTF_Font *f) { TTF_CloseFont(f); });
+  CHECK_SDL_RETURN_CODE(fonts_[0] == nullptr);
 }

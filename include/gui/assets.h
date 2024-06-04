@@ -28,7 +28,7 @@ private:
 
   std::vector<SDL_Texture *> triangle_textures_;
 
-  TTF_Font *font_;
+  std::vector<TTF_Font *> fonts_;
 
 public:
   Assets(){};
@@ -53,7 +53,7 @@ public:
     return std::make_shared<std::vector<SDL_Texture *>>(triangle_textures_);
   }
 
-  inline TTF_Font *getFont() { return font_; }
+  inline TTF_Font *getFont(int index = 0) { return fonts_[index]; }
 
 private:
   void loadTextures(SDL_Renderer &renderer);

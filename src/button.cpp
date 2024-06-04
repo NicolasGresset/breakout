@@ -1,5 +1,7 @@
 #include "button.h"
+#include "game.h"
 #include "object/rectangle.h"
+#include "states/state_manager.h"
 #include "utils/utils.h"
 #include <SDL2/SDL_render.h>
 #include <cstddef>
@@ -7,9 +9,11 @@
 
 Button::Button(Vector2D position, double width, double height, std::string text,
                bool clickable, SDL_Color color, TTF_Font *font,
-               std::function<void()> on_click)
+               GameStateManager *state_manager,
+               std::function<void(GameStateManager *)> on_click)
     : Object(position, nullptr), Rectangle(width, height), text_(text),
-      clickable_(clickable), color_(color), font_(font), on_click_(on_click) {}
+      clickable_(clickable), color_(color), font_(font),
+      state_manager_(state_manager), on_click_(on_click) {}
 
 void Button::draw(SDL_Renderer &renderer) const {
   // todo add logic for hovering
@@ -56,7 +60,7 @@ void Button::handleEvents(SDL_Event &event) {
     break;
   case SDL_MOUSEBUTTONDOWN:
     if (event.button.button == SDL_BUTTON_LEFT) {
-      on_click_();
+      on_click_(state_manager_);
     }
     break;
   }

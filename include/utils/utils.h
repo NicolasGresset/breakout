@@ -42,4 +42,13 @@ static inline void assertFn(bool expr, Fn fn, std::string file, int line) {
   }
 }
 
+#ifdef DEBUG
+#define DEBUG_MSG(msg)                                                         \
+  std::cerr << "\033[1;34m"                                                    \
+            << "DEBUG : "                                                      \
+            << "\033[0m" << msg << std::endl
+#else
+#define DEBUG_MSG(msg)
+#endif
+
 #endif

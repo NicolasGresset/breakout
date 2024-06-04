@@ -1,11 +1,12 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
+#include <SDL_stdinc.h>
 #include <SDL_timer.h>
 
 /**
  * @brief Convenient class to measure time passing
- * 
+ *
  */
 class Clock {
 private:
@@ -21,9 +22,9 @@ public:
         ((now_ - last_) * 1000) / (double)SDL_GetPerformanceFrequency();
   }
 
-  inline double getFPS(){
-    return 1000.0 / time_elapsed;
-  }
+  inline double getFPS() { return 1000.0 / time_elapsed; }
+
+  inline Uint64 getTotalTime() const { return now_; }
 };
 
 #endif
